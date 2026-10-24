@@ -71,3 +71,72 @@ function erfanpro_counter( $to, $delay = 0.0 ) {
 		esc_attr( number_format( (float) $delay, 2, '.', '' ) )
 	);
 }
+
+/**
+ * Phase 2: the reference animation CSS is gated behind an `anim` class
+ * on <html> (html.anim [data-anim], html.anim header entrance). The
+ * guard script in header.php adds the class; this filter bakes it in.
+ *
+ * @param string $attributes Language attributes string.
+ * @return string
+ */
+function erfanpro_language_attributes_anim( $attributes ) {
+	return $attributes . ' class="anim"';
+}
+add_filter( 'language_attributes', 'erfanpro_language_attributes_anim' );
+
+/**
+ * Phase 2: the site phone as stored in the theme options
+ * (default: the user-confirmed 031-91091011).
+ *
+ * @return string
+ */
+function erfanpro_phone_raw() {
+	return (string) erfanpro_option( 'phone', '031-91091011' );
+}
+
+/**
+ * Phone for display, exactly like the reference: Persian digits with a
+ * spaced dash (۰۳۱ - ۹۱۰۹۱۰۱۱).
+ *
+ * @return string
+ */
+function erfanpro_phone_display() {
+	$fa = array(
+		'0' => '۰',
+		'1' => '۱',
+		'2' => '۲',
+		'3' => '۳',
+		'4' => '۴',
+		'5' => '۵',
+		'6' => '۶',
+		'7' => '۷',
+		'8' => '۸',
+		'9' => '۹',
+	);
+	return str_replace( '-', ' - ', strtr( erfanpro_phone_raw(), $fa ) );
+}
+
+/**
+ * Phone for a tel: href (ASCII digits only, leading + kept).
+ *
+ * @return string
+ */
+function erfanpro_phone_tel() {
+	$ascii = strtr(
+		erfanpro_phone_raw(),
+		array(
+			'۰' => '0',
+			'۱' => '1',
+			'۲' => '2',
+			'۳' => '3',
+			'۴' => '4',
+			'۵' => '5',
+			'۶' => '6',
+			'۷' => '7',
+			'۸' => '8',
+			'۹' => '9',
+		)
+	);
+	return preg_replace( '/[^0-9+]/', '', $ascii );
+}
