@@ -157,6 +157,30 @@ function erfanpro_enqueue_assets() {
 			)
 		);
 	}
+	/* Phase 9: contact page — AJAX form submission (leads infra). */
+	if ( is_page() ) {
+		$erfanpro_page_obj = get_queried_object();
+		$erfanpro_is_contact = $erfanpro_page_obj instanceof WP_Post
+			&& ( 'page-contact.php' === get_page_template_slug( $erfanpro_page_obj->ID )
+				|| 'contact' === $erfanpro_page_obj->post_name );
+		if ( $erfanpro_is_contact ) {
+			wp_enqueue_script(
+				'erfanpro-contact',
+				ERFANPRO_URI . '/assets/js/contact.js',
+				array(),
+				ERFANPRO_VERSION,
+				true
+			);
+			wp_localize_script(
+				'erfanpro-contact',
+				'erfanproContact',
+				array(
+					'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+					'error'   => __( 'ارسال درخواست ناموفق بود؛ لطفاً دوباره تلاش کنید.', 'erfanpro' ),
+				)
+			);
+		}
+	}
 	/* Phase 8: single post — article typography. */
 	if ( is_singular( 'post' ) ) {
 		wp_enqueue_style(
