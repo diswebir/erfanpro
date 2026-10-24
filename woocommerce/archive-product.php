@@ -19,9 +19,15 @@ get_header();
 ?>
 <main id="main" class="site-main">
 	<?php
-	get_template_part( 'template-parts/shop/hero' );
-	get_template_part( 'template-parts/shop/toolbar' );
-	get_template_part( 'template-parts/home/cta' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'shop',
+		array(
+			'hero'    => 'template-parts/shop/hero',
+			'toolbar' => 'template-parts/shop/toolbar',
+			'cta'     => 'template-parts/home/cta',
+		)
+	);
 	?>
 </main>
 <?php

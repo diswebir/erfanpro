@@ -23,12 +23,22 @@ get_header();
 	<?php
 	while ( have_posts() ) {
 		the_post();
-		get_template_part( 'template-parts/blog/article-hero' );
-		get_template_part( 'template-parts/blog/article' );
-		get_template_part( 'template-parts/blog/related' );
-		if ( comments_open() || get_comments_number() ) {
-			comments_template();
-		}
+		/* Section manager: order/visibility from the theme options panel. */
+		erfanpro_render_page_sections(
+			'post',
+			array(
+				'article_hero' => 'template-parts/blog/article-hero',
+				'article'      => 'template-parts/blog/article',
+				'related'      => 'template-parts/blog/related',
+				'comments'     => array(
+					'callback' => function () {
+						if ( comments_open() || get_comments_number() ) {
+							comments_template();
+						}
+					},
+				),
+			)
+		);
 	}
 	?>
 </main>

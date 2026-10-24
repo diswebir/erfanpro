@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'product_related' );
+
 /* The assembler sets $erfanpro_product (WC_Product). */
 $product    = isset( $args['erfanpro_product'] ) && $args['erfanpro_product'] instanceof WC_Product ? $args['erfanpro_product'] : null;
 $product_id = $product ? $product->get_id() : get_queried_object_id();
@@ -31,10 +33,10 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
 		<div<?php erfanpro_reveal( 0.00, 'inview', null, 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
 			<div class="mb-8 flex items-center justify-between">
 				<div>
-					<h3 class="text-2xl font-extrabold text-slate-900"><?php esc_html_e( 'دیگر تولیدات شرکت عرفان صنعت', 'erfanpro' ); ?></h3>
+					<h3 class="text-2xl font-extrabold text-slate-900"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'title', __( 'دیگر تولیدات شرکت عرفان صنعت', 'erfanpro' ) ) ); ?></h3>
 					<p class="mt-1 text-[13.5px] text-slate-500"><?php esc_html_e( 'تجهیزات نورپردازی پیشرفته شهری و صنعتی', 'erfanpro' ); ?></p>
 				</div>
-				<a class="group flex items-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-800" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'مشاهده همه محصولات', 'erfanpro' ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-left h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"><path d="M7 17V7h10"></path><path d="M17 17 7 7"></path></svg></a>
+				<a class="group flex items-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-800" href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'cta', __( 'مشاهده همه محصولات', 'erfanpro' ) ) ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-left h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"><path d="M7 17V7h10"></path><path d="M17 17 7 7"></path></svg></a>
 			</div>
 		</div>
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

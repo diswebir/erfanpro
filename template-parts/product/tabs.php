@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'product_tabs' );
+
 /* The assembler sets $erfanpro_product (WC_Product). */
 $product    = isset( $args['erfanpro_product'] ) && $args['erfanpro_product'] instanceof WC_Product ? $args['erfanpro_product'] : null;
 $product_id = $product ? $product->get_id() : get_queried_object_id();
@@ -27,11 +29,11 @@ $tab_icons = array(
 	'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-question-mark lucide-help-circle lucide-circle-help h-4.5 w-4.5 text-emerald-700" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>',
 );
 $tab_labels = array(
-	__( 'توضیحات محصول', 'erfanpro' ),
-	__( 'مشخصات فنی', 'erfanpro' ),
-	__( 'آموزش نصب و استفاده', 'erfanpro' ),
-	__( 'کاتالوگ و دانلود', 'erfanpro' ),
-	__( 'پرسش‌های متداول', 'erfanpro' ),
+	erfanpro_panel_text( $erfanpro_st, 'tab_desc', __( 'توضیحات محصول', 'erfanpro' ) ),
+	erfanpro_panel_text( $erfanpro_st, 'tab_specs', __( 'مشخصات فنی', 'erfanpro' ) ),
+	erfanpro_panel_text( $erfanpro_st, 'tab_install', __( 'آموزش نصب و استفاده', 'erfanpro' ) ),
+	erfanpro_panel_text( $erfanpro_st, 'tab_catalog', __( 'کاتالوگ و دانلود', 'erfanpro' ) ),
+	erfanpro_panel_text( $erfanpro_st, 'tab_faq', __( 'پرسش‌های متداول', 'erfanpro' ) ),
 );
 
 /* ---- data ---- */
@@ -112,7 +114,7 @@ $related_projects = erfanpro_related_projects( $product_id, 3 );
 						<div class="space-y-5 lg:col-span-5">
 							<?php if ( ! empty( $features ) ) : ?>
 							<div class="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-6 shadow-xs">
-								<h4 class="mb-4 flex items-center gap-2 text-base font-extrabold text-slate-900"><?php echo $check_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e( 'ویژگی‌های برجسته محصول', 'erfanpro' ); ?></h4>
+								<h4 class="mb-4 flex items-center gap-2 text-base font-extrabold text-slate-900"><?php echo $check_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'features_title', __( 'ویژگی‌های برجسته محصول', 'erfanpro' ) ) ); ?></h4>
 								<ul class="space-y-3">
 									<?php foreach ( $features as $f ) : ?>
 									<li class="flex items-start gap-2.5 text-[13.5px] font-semibold leading-7 text-slate-800"><?php echo $check_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $f ); ?></span></li>
@@ -121,7 +123,7 @@ $related_projects = erfanpro_related_projects( $product_id, 3 );
 							</div>
 							<?php endif; ?>
 							<div class="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs">
-								<h5 class="mb-3 text-[13px] font-bold text-slate-700"><?php esc_html_e( 'محیط‌های ایده‌آل برای نصب:', 'erfanpro' ); ?></h5>
+								<h5 class="mb-3 text-[13px] font-bold text-slate-700"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'env_title', __( 'محیط‌های ایده‌آل برای نصب:', 'erfanpro' ) ) ); ?></h5>
 								<div class="flex flex-wrap gap-2">
 									<?php foreach ( $env_fallback as $env ) : ?>
 									<span class="rounded-lg bg-emerald-50 px-3 py-1.5 text-[12px] font-bold text-emerald-800"><?php echo esc_html( $env ); ?></span>
@@ -152,7 +154,7 @@ $related_projects = erfanpro_related_projects( $product_id, 3 );
 						<div class="order-2 flex flex-col gap-5 lg:order-2 lg:col-span-5">
 							<?php if ( ! empty( $usages ) ) : ?>
 							<div class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs">
-								<h4 class="mb-4 text-center text-[15px] font-extrabold text-slate-900"><?php esc_html_e( 'کاربردهای پیشنهادی', 'erfanpro' ); ?></h4>
+								<h4 class="mb-4 text-center text-[15px] font-extrabold text-slate-900"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'usage_title', __( 'کاربردهای پیشنهادی', 'erfanpro' ) ) ); ?></h4>
 								<div class="flex flex-wrap items-center justify-center gap-2">
 									<?php foreach ( $usages as $u ) : ?>
 									<span class="rounded-full border border-emerald-200 bg-emerald-50/60 px-4 py-2 text-[12.5px] font-bold text-emerald-800 shadow-xs"><?php echo esc_html( $u ); ?></span>
@@ -221,7 +223,7 @@ $related_projects = erfanpro_related_projects( $product_id, 3 );
 						<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 							<div>
 								<h4 class="text-[15px] font-extrabold text-slate-900"><?php esc_html_e( 'دریافت کاتالوگ جامع شرکت', 'erfanpro' ); ?></h4>
-								<p class="mt-1 text-[13px] text-slate-500"><?php esc_html_e( 'شامل تمام محصولات، ابعاد و مشخصات فنی.', 'erfanpro' ); ?></p>
+								<p class="mt-1 text-[13px] text-slate-500"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'catalog_note', __( 'شامل تمام محصولات، ابعاد و مشخصات فنی.', 'erfanpro' ) ) ); ?></p>
 							</div>
 							<?php
 							$full_url  = $catalog ? $catalog['url'] : '';
@@ -279,8 +281,8 @@ $related_projects = erfanpro_related_projects( $product_id, 3 );
 	<div class="mt-16">
 		<div class="mb-8 flex items-center justify-between">
 			<div<?php erfanpro_reveal( 0.00, 'inview', null, 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
-				<h3 class="text-2xl font-extrabold text-slate-900"><?php esc_html_e( 'پروژه‌های اجراشده با این محصول', 'erfanpro' ); ?></h3>
-				<p class="mt-1 text-[13.5px] text-slate-500"><?php esc_html_e( 'نمونه پروژه‌های واقعی در سراسر کشور که از این تجهیزات استفاده کرده‌اند', 'erfanpro' ); ?></p>
+				<h3 class="text-2xl font-extrabold text-slate-900"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'projects_title', __( 'پروژه‌های اجراشده با این محصول', 'erfanpro' ) ) ); ?></h3>
+				<p class="mt-1 text-[13.5px] text-slate-500"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'projects_subtitle', __( 'نمونه پروژه‌های واقعی در سراسر کشور که از این تجهیزات استفاده کرده‌اند', 'erfanpro' ) ) ); ?></p>
 			</div>
 			<a class="group hidden items-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-800 sm:flex" href="<?php echo esc_url( erfanpro_archive_url( 'projects' ) ); ?>"><?php esc_html_e( 'همه پروژه‌ها', 'erfanpro' ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></a>
 		</div>

@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'blog_grid' );
+
 $params = erfanpro_blog_sanitize_params( array() );
 $result = erfanpro_blog_render( $params );
 $total  = erfanpro_blog_total_count();
@@ -28,7 +30,7 @@ if ( $result['total'] > 0 ) {
 		<div<?php erfanpro_reveal( 0.0, 'inview', 'opacity: 0; filter: blur(6px); transform: translateY(42px);', 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
 			<div class="mb-8 flex flex-wrap items-end justify-between gap-3">
 				<div>
-					<h2 class="text-2xl font-extrabold text-slate-900"><?php esc_html_e( 'آخرین مقالات', 'erfanpro' ); ?></h2>
+					<h2 class="text-2xl font-extrabold text-slate-900"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'title', __( 'آخرین مقالات', 'erfanpro' ) ) ); ?></h2>
 					<p class="mt-2 text-[13.5px] font-medium text-slate-500"><span id="erfanpro-blog-count"><?php echo esc_html( erfanpro_blog_count_text( $shown, $result['total'] ) ); ?></span></p>
 				</div>
 			</div>

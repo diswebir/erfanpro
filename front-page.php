@@ -12,13 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-get_template_part( 'template-parts/home/hero' );
-get_template_part( 'template-parts/home/marquee' );
-get_template_part( 'template-parts/home/projects' );
-get_template_part( 'template-parts/home/about' );
-get_template_part( 'template-parts/home/products' );
-get_template_part( 'template-parts/home/services' );
-get_template_part( 'template-parts/home/why-us' );
-get_template_part( 'template-parts/home/cta' );
+/* Section manager: order/visibility from the theme options panel. */
+erfanpro_render_page_sections(
+	'home',
+	array(
+		'hero'     => 'template-parts/home/hero',
+		'marquee'  => 'template-parts/home/marquee',
+		'projects' => 'template-parts/home/projects',
+		'about'    => 'template-parts/home/about',
+		'products' => 'template-parts/home/products',
+		'services' => 'template-parts/home/services',
+		'why_us'   => 'template-parts/home/why-us',
+		'cta'      => 'template-parts/home/cta',
+	)
+);
 
 get_footer();

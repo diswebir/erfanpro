@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'services_list' );
+
 $erfanpro_services = erfanpro_services_all();
 
 if ( empty( $erfanpro_services ) ) {
@@ -63,8 +65,8 @@ foreach ( $erfanpro_services as $erfanpro_idx => $erfanpro_sid ) :
 					</ul>
 					<?php endif; ?>
 					<div class="mt-2 flex flex-wrap gap-3">
-						<a class="group inline-flex items-center gap-2.5 rounded-full bg-emerald-700 px-7 py-3.5 text-[14px] font-extrabold text-white shadow-lg shadow-emerald-700/25 transition-all hover:bg-emerald-800" href="<?php echo esc_url( $erfanpro_url ); ?>"><?php esc_html_e( 'جزئیات این خدمت', 'erfanpro' ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-left h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"><path d="M7 17V7h10"></path><path d="M17 17 7 7"></path></svg></a>
-						<a class="inline-flex items-center gap-2.5 rounded-full border border-emerald-200 bg-white px-7 py-3.5 text-[14px] font-extrabold text-emerald-800 transition-all hover:border-emerald-400 hover:bg-emerald-50" href="<?php echo esc_url( erfanpro_contact_url() ); ?>"><?php esc_html_e( 'درخواست مشاوره', 'erfanpro' ); ?></a>
+						<a class="group inline-flex items-center gap-2.5 rounded-full bg-emerald-700 px-7 py-3.5 text-[14px] font-extrabold text-white shadow-lg shadow-emerald-700/25 transition-all hover:bg-emerald-800" href="<?php echo esc_url( $erfanpro_url ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'detail_text', __( 'جزئیات این خدمت', 'erfanpro' ) ) ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-left h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"><path d="M7 17V7h10"></path><path d="M17 17 7 7"></path></svg></a>
+						<a class="inline-flex items-center gap-2.5 rounded-full border border-emerald-200 bg-white px-7 py-3.5 text-[14px] font-extrabold text-emerald-800 transition-all hover:border-emerald-400 hover:bg-emerald-50" href="<?php echo esc_url( erfanpro_contact_url() ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'consult_text', __( 'درخواست مشاوره', 'erfanpro' ) ) ); ?></a>
 					</div>
 				</div>
 			</div>

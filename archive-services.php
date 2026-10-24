@@ -17,10 +17,16 @@ get_header();
 ?>
 <main id="main" class="site-main">
 	<?php
-	get_template_part( 'template-parts/services/hero' );
-	get_template_part( 'template-parts/services/list' );
-	get_template_part( 'template-parts/services/process' );
-	get_template_part( 'template-parts/home/cta' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'services',
+		array(
+			'hero'    => 'template-parts/services/hero',
+			'list'    => 'template-parts/services/list',
+			'process' => 'template-parts/services/process',
+			'cta'     => 'template-parts/home/cta',
+		)
+	);
 	?>
 </main>
 <?php

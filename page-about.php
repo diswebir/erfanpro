@@ -18,10 +18,16 @@ get_header();
 ?>
 <main class="min-h-screen bg-[#f8faf9]">
 	<?php
-	get_template_part( 'template-parts/about/hero' );
-	get_template_part( 'template-parts/about/story' );
-	get_template_part( 'template-parts/page/content' );
-	get_template_part( 'template-parts/home/cta' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'about',
+		array(
+			'hero'    => 'template-parts/about/hero',
+			'story'   => 'template-parts/about/story',
+			'content' => 'template-parts/page/content',
+			'cta'     => 'template-parts/home/cta',
+		)
+	);
 	?>
 </main>
 <?php

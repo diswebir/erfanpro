@@ -25,12 +25,18 @@ get_header();
 ?>
 <main class="min-h-screen bg-[#f8faf9]">
 	<?php
-	get_template_part( 'template-parts/service/hero' );
-	get_template_part( 'template-parts/service/details' );
-	get_template_part( 'template-parts/service/faq' );
-	get_template_part( 'template-parts/service/related' );
-	get_template_part( 'template-parts/service/others' );
-	get_template_part( 'template-parts/home/cta' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'service',
+		array(
+			'hero'    => 'template-parts/service/hero',
+			'details' => 'template-parts/service/details',
+			'faq'     => 'template-parts/service/faq',
+			'related' => 'template-parts/service/related',
+			'others'  => 'template-parts/service/others',
+			'cta'     => 'template-parts/home/cta',
+		)
+	);
 	?>
 </main>
 <?php

@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'project_hero' );
+
 $erfanpro_project_id    = get_queried_object_id();
 $erfanpro_project_title = get_the_title( $erfanpro_project_id );
 $erfanpro_project_type  = erfanpro_project_term_name( $erfanpro_project_id, 'project_type' );
@@ -40,7 +42,7 @@ $erfanpro_project_sub   = has_excerpt( $erfanpro_project_id )
 				<span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-4 py-2 text-[13px] font-extrabold text-slate-700 shadow-xs"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-4 w-4 text-emerald-600" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg><?php echo esc_html( $erfanpro_project_city ); ?></span>
 				<?php endif; ?>
 				<span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-4 py-2 text-[13px] font-extrabold text-slate-700 shadow-xs"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar h-4 w-4 text-emerald-600" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><?php echo esc_html( sprintf( __( 'سال %s', 'erfanpro' ), $erfanpro_project_year ) ); ?></span>
-				<a href="#erfanpro-project-gallery" class="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-5 py-2.5 text-[13px] font-black text-white shadow-md shadow-emerald-700/25 transition-colors hover:bg-emerald-800"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down h-4 w-4" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><?php esc_html_e( 'مشاهده گالری و جزئیات پروژه', 'erfanpro' ); ?></a>
+				<a href="#erfanpro-project-gallery" class="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-5 py-2.5 text-[13px] font-black text-white shadow-md shadow-emerald-700/25 transition-colors hover:bg-emerald-800"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down h-4 w-4" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'cta', __( 'مشاهده گالری و جزئیات پروژه', 'erfanpro' ) ) ); ?></a>
 			</div>
 		</div>
 	</div>

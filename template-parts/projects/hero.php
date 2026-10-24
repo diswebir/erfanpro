@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'projects_hero' );
+
 $erfanpro_proj_types = get_terms(
 	array(
 		'taxonomy'   => 'project_type',
@@ -55,10 +57,10 @@ if ( is_tax( 'project_type' ) ) {
 			<div>
 				<div class="mb-6 inline-flex items-center gap-2.5 rounded-full border border-emerald-200 bg-white py-1.5 pl-5 pr-1.5 shadow-sm"<?php erfanpro_reveal( 0.00, 'mount', 'opacity: 0; transform: translateY(14px);', 'opacity: 1; transform: none;' ); ?>>
 					<span class="grid h-8 w-8 place-items-center rounded-full bg-emerald-600 text-white shadow-md shadow-emerald-600/25"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles h-4 w-4" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path></svg></span>
-					<span class="text-[13px] font-extrabold text-emerald-800"><?php esc_html_e( 'نمونه‌کارهای اجراشده', 'erfanpro' ); ?></span>
+					<span class="text-[13px] font-extrabold text-emerald-800"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'kicker', __( 'نمونه‌کارهای اجراشده', 'erfanpro' ) ) ); ?></span>
 				</div>
-				<h1 class="text-[2.5rem] font-black leading-[1.25] tracking-[-0.015em] text-slate-950 sm:text-[3.3rem] lg:text-[3.9rem] lg:leading-[1.18]"<?php erfanpro_reveal( 0.09, 'mount', 'opacity: 0; transform: translateY(28px);', 'opacity: 1; transform: none;' ); ?>><?php esc_html_e( 'پروژه‌های', 'erfanpro' ); ?><br><span class="bg-gradient-to-l from-emerald-800 via-emerald-600 to-teal-700 bg-clip-text text-transparent"><?php esc_html_e( 'نورپردازی شهری', 'erfanpro' ); ?></span></h1>
-				<p class="mt-6 max-w-[34rem] text-[15.5px] font-medium leading-9 text-slate-600 lg:text-[16.5px]"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(22px);', 'opacity: 1; transform: none;' ); ?>><?php esc_html_e( 'روایتی از هنر، مهندسی و نور در سراسر ایران؛ از تونل‌های نوری و میادین اصلی تا نورپردازی پل‌ها و المان‌های اختصاصی شهرها', 'erfanpro' ); ?></p>
+				<h1 class="text-[2.5rem] font-black leading-[1.25] tracking-[-0.015em] text-slate-950 sm:text-[3.3rem] lg:text-[3.9rem] lg:leading-[1.18]"<?php erfanpro_reveal( 0.09, 'mount', 'opacity: 0; transform: translateY(28px);', 'opacity: 1; transform: none;' ); ?>><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'title_a', __( 'پروژه‌های', 'erfanpro' ) ) ); ?><br><span class="bg-gradient-to-l from-emerald-800 via-emerald-600 to-teal-700 bg-clip-text text-transparent"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'title_b', __( 'نورپردازی شهری', 'erfanpro' ) ) ); ?></span></h1>
+				<p class="mt-6 max-w-[34rem] text-[15.5px] font-medium leading-9 text-slate-600 lg:text-[16.5px]"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(22px);', 'opacity: 1; transform: none;' ); ?>><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'desc', __( 'روایتی از هنر، مهندسی و نور در سراسر ایران؛ از تونل‌های نوری و میادین اصلی تا نورپردازی پل‌ها و المان‌های اختصاصی شهرها', 'erfanpro' ) ) ); ?></p>
 				<div class="mt-8 flex flex-wrap items-center gap-6"<?php erfanpro_reveal( 0.27, 'mount', 'opacity: 0; transform: translateY(16px);', 'opacity: 1; transform: none;' ); ?>>
 					<div class="flex items-center gap-3">
 						<span class="text-[2rem] font-black leading-none text-emerald-700"><?php echo esc_html( erfanpro_fa_digits( '850+' ) ); ?></span>
@@ -72,10 +74,10 @@ if ( is_tax( 'project_type' ) ) {
 				</div>
 				<div class="mt-8 rounded-3xl border border-emerald-100 bg-white p-4 shadow-[0_20px_50px_-24px_rgba(0,80,40,0.18)]"<?php erfanpro_reveal( 0.36, 'mount', 'opacity: 0; transform: translateY(16px);', 'opacity: 1; transform: none;' ); ?>>
 					<div class="mb-3 flex items-center justify-between px-1 text-[12px] font-extrabold tracking-wide text-slate-500">
-						<span><?php esc_html_e( 'نوع سازه:', 'erfanpro' ); ?></span>
+						<span><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'type_label', __( 'نوع سازه:', 'erfanpro' ) ) ); ?></span>
 					</div>
 					<div class="flex flex-wrap gap-2" data-projects-hero-types>
-						<button type="button" data-projects-type="" class="<?php echo esc_attr( '' === $erfanpro_hero_type ? $erfanpro_hero_pill_active : $erfanpro_hero_pill_inactive ); ?>"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span><?php esc_html_e( 'همه سازه‌ها', 'erfanpro' ); ?></button>
+						<button type="button" data-projects-type="" class="<?php echo esc_attr( '' === $erfanpro_hero_type ? $erfanpro_hero_pill_active : $erfanpro_hero_pill_inactive ); ?>"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'all_types', __( 'همه سازه‌ها', 'erfanpro' ) ) ); ?></button>
 						<?php foreach ( $erfanpro_proj_types as $term ) : ?>
 						<button type="button" data-projects-type="<?php echo esc_attr( $term->slug ); ?>" class="<?php echo esc_attr( '' !== $term->slug && $term->slug === $erfanpro_hero_type ? $erfanpro_hero_pill_active : $erfanpro_hero_pill_inactive ); ?>"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span><?php echo esc_html( $term->name ); ?></button>
 						<?php endforeach; ?>
@@ -95,7 +97,7 @@ if ( is_tax( 'project_type' ) ) {
 				<div class="absolute bottom-0 right-[8%] h-[46%] w-[52%] overflow-hidden rounded-3xl border-4 border-white shadow-[0_30px_60px_-20px_rgba(0,80,40,0.35)]"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(40px) rotate(-3deg);', 'opacity: 1; transform: rotate(-3deg);' ); ?>>
 					<img alt="" class="h-full w-full object-cover" src="<?php echo esc_url( ERFANPRO_URI . '/assets/img/light-element.jpg' ); ?>">
 					<div class="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/40"></div>
-					<span class="absolute bottom-3 right-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-emerald-800 backdrop-blur"><?php esc_html_e( 'آثار اجراشده', 'erfanpro' ); ?></span>
+					<span class="absolute bottom-3 right-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-emerald-800 backdrop-blur"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'caption', __( 'آثار اجراشده', 'erfanpro' ) ) ); ?></span>
 				</div>
 			</div>
 		</div>

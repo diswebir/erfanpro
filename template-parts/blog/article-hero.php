@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'post_hero' );
+
 $post_id = get_the_ID();
 $title   = get_the_title();
 
@@ -24,7 +26,7 @@ if ( ! is_wp_error( $cats ) && ! empty( $cats ) ) {
 
 $author = get_the_author_meta( 'display_name', (int) get_post_field( 'post_author', $post_id ) );
 if ( '' === trim( (string) $author ) ) {
-	$author = __( 'کارشناسان فنی عرفان صنعت', 'erfanpro' );
+	$author = erfanpro_panel_text( $erfanpro_st, 'author', __( 'کارشناسان فنی عرفان صنعت', 'erfanpro' ) );
 }
 
 $tags = get_the_tags( $post_id );

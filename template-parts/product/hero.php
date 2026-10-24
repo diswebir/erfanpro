@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'product_hero' );
+
 /* The assembler sets $erfanpro_product (WC_Product). */
 $product    = isset( $args['erfanpro_product'] ) && $args['erfanpro_product'] instanceof WC_Product ? $args['erfanpro_product'] : null;
 $product_id = $product ? $product->get_id() : get_queried_object_id();
@@ -59,7 +61,7 @@ $chips = erfanpro_product_spec_chips( $product_id );
 				<?php if ( '' !== $cat_name ) : ?>
 				<a class="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-1.5 text-[12px] font-black text-white shadow-[0_0_24px_rgba(0,125,45,0.35)] transition-transform hover:scale-105" href="<?php echo esc_url( $cat_link ? $cat_link : '#' ); ?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag h-3.5 w-3.5" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg><?php echo esc_html( $cat_name ); ?></a>
 				<?php endif; ?>
-				<span class="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[11.5px] font-bold tracking-wide text-slate-500 shadow-xs"><?php esc_html_e( 'کد محصول:', 'erfanpro' ); ?> <?php echo esc_html( $code ); ?></span>
+				<span class="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[11.5px] font-bold tracking-wide text-slate-500 shadow-xs"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'code_label', __( 'کد محصول:', 'erfanpro' ) ) ); ?> <?php echo esc_html( $code ); ?></span>
 			</div>
 			<div class="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-14">
 				<div>
@@ -79,8 +81,8 @@ $chips = erfanpro_product_spec_chips( $product_id );
 			</div>
 			<div class="mt-9"<?php erfanpro_reveal( 0.09, 'mount', 'opacity: 0; transform: translateY(16px);', 'opacity: 1; transform: none;' ); ?>>
 				<div class="flex flex-wrap gap-3">
-					<a href="tel:<?php echo esc_attr( erfanpro_phone_tel() ); ?>" class="flex items-center gap-2.5 rounded-2xl bg-amber-300 px-6 py-3.5 text-[14px] font-black text-emerald-950 shadow-[0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-all hover:bg-amber-200"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call h-4.5 w-4.5" aria-hidden="true"><path d="M13 2a9 9 0 0 1 9 9"></path><path d="M13 6a5 5 0 0 1 5 5"></path><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1 2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg><?php esc_html_e( 'تماس برای استعلام قیمت', 'erfanpro' ); ?></a>
-					<a href="<?php echo esc_url( erfanpro_whatsapp_url() ); ?>" target="_blank" rel="noreferrer" class="flex items-center gap-2.5 rounded-2xl border border-white/20 bg-white/[0.07] px-6 py-3.5 text-[14px] font-bold text-white backdrop-blur transition-colors hover:bg-white/[0.14]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle h-4.5 w-4.5" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><?php esc_html_e( 'مشاوره در واتساپ', 'erfanpro' ); ?></a>
+					<a href="tel:<?php echo esc_attr( erfanpro_phone_tel() ); ?>" class="flex items-center gap-2.5 rounded-2xl bg-amber-300 px-6 py-3.5 text-[14px] font-black text-emerald-950 shadow-[0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-all hover:bg-amber-200"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call h-4.5 w-4.5" aria-hidden="true"><path d="M13 2a9 9 0 0 1 9 9"></path><path d="M13 6a5 5 0 0 1 5 5"></path><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1 2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'inquiry_text', __( 'تماس برای استعلام قیمت', 'erfanpro' ) ) ); ?></a>
+					<a href="<?php echo esc_url( erfanpro_whatsapp_url() ); ?>" target="_blank" rel="noreferrer" class="flex items-center gap-2.5 rounded-2xl border border-white/20 bg-white/[0.07] px-6 py-3.5 text-[14px] font-bold text-white backdrop-blur transition-colors hover:bg-white/[0.14]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle h-4.5 w-4.5" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'whatsapp_text', __( 'مشاوره در واتساپ', 'erfanpro' ) ) ); ?></a>
 				</div>
 			</div>
 		</div>

@@ -15,6 +15,7 @@ define( 'ERFANPRO_URI', get_template_directory_uri() );
 
 require_once ERFANPRO_DIR . '/inc/helpers.php';
 require_once ERFANPRO_DIR . '/inc/options.php';
+require_once ERFANPRO_DIR . '/inc/sections.php';
 require_once ERFANPRO_DIR . '/inc/menu-walkers.php';
 require_once ERFANPRO_DIR . '/inc/enqueue.php';
 require_once ERFANPRO_DIR . '/inc/meta-format.php';

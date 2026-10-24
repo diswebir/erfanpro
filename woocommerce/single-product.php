@@ -25,18 +25,40 @@ if ( ! $erfanpro_product ) {
 }
 ?>
 <main class="min-h-screen bg-[#f8faf9]">
-	<?php get_template_part( 'template-parts/product/hero', null, array( 'erfanpro_product' => $erfanpro_product ) ); ?>
-
-	<section class="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-12">
-		<div class="grid gap-10 lg:grid-cols-12 lg:items-start">
-			<?php get_template_part( 'template-parts/product/gallery', null, array( 'erfanpro_product' => $erfanpro_product ) ); ?>
-			<?php get_template_part( 'template-parts/product/order-card', null, array( 'erfanpro_product' => $erfanpro_product ) ); ?>
-		</div>
-	</section>
-
-	<?php get_template_part( 'template-parts/product/tabs', null, array( 'erfanpro_product' => $erfanpro_product ) ); ?>
-
-	<?php get_template_part( 'template-parts/product/related', null, array( 'erfanpro_product' => $erfanpro_product ) ); ?>
+	<?php
+	/* Section manager: order/visibility from the theme options panel. */
+	/* NOTE: single-product is the one assembler whose sections were
+	 * separated by literal HTML whitespace (blank lines + tabs) rather
+	 * than a single PHP block. The showcase/related callbacks echo that
+	 * whitespace explicitly so default output stays byte-identical. */
+	erfanpro_render_page_sections(
+		'product',
+		array(
+			'hero'     => array( 'part' => 'template-parts/product/hero', 'args' => array( 'erfanpro_product' => $erfanpro_product ) ),
+			'showcase' => array(
+				'callback' => function ( $args ) {
+					/* Gaps reproduce the base assembler exactly: the \n after
+					 * a ?> is eaten by PHP, and hero/tabs parts end with
+					 * their own \n — so hero→showcase is \n\t (not \n\n\t),
+					 * gallery→order is \t\t\t, order→grid-close is \t\t. */
+					echo "\n\t" . '<section class="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-12">' . "\n\t\t" . '<div class="grid gap-10 lg:grid-cols-12 lg:items-start">' . "\n\t\t\t";
+					get_template_part( 'template-parts/product/gallery', null, $args );
+					echo "\t\t\t";
+					get_template_part( 'template-parts/product/order-card', null, $args );
+					echo "\t\t" . '</div>' . "\n\t" . '</section>' . "\n\n\t";
+				},
+			),
+			'tabs'     => array( 'part' => 'template-parts/product/tabs', 'args' => array( 'erfanpro_product' => $erfanpro_product ) ),
+			'related'  => array(
+				'callback' => function ( $args ) {
+					/* Tabs part ends with its own \n, so tabs→related is \n\t. */
+					echo "\n\t";
+					get_template_part( 'template-parts/product/related', null, $args );
+				},
+			),
+		)
+	);
+	?>
 </main>
 <?php
 get_footer();

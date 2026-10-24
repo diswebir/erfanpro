@@ -24,11 +24,17 @@ get_header();
 ?>
 <main class="min-h-screen bg-[#f8faf9]">
 	<?php
-	get_template_part( 'template-parts/project/hero' );
-	get_template_part( 'template-parts/project/gallery' );
-	get_template_part( 'template-parts/project/details' );
-	get_template_part( 'template-parts/project/products' );
-	get_template_part( 'template-parts/project/related' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'project',
+		array(
+			'hero'     => 'template-parts/project/hero',
+			'gallery'  => 'template-parts/project/gallery',
+			'details'  => 'template-parts/project/details',
+			'products' => 'template-parts/project/products',
+			'related'  => 'template-parts/project/related',
+		)
+	);
 	?>
 </main>
 <?php

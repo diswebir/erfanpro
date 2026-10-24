@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_st = erfanpro_section_texts( 'projects_toolbar' );
+
 /* Seed the initial render from the archive context: current city or
  * project_type on taxonomy archives, the page number on paged views. */
 $erfanpro_proj_seed = array(
@@ -68,14 +70,14 @@ if ( $erfanpro_proj_result['total'] > 0 ) {
 ?>
 <section id="archive" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-16 lg:px-8 lg:py-20" data-erfanpro-projects data-initial-city="<?php echo esc_attr( $erfanpro_proj_params['city'] ); ?>" data-initial-type="<?php echo esc_attr( $erfanpro_proj_params['type'] ); ?>">
 	<div class="mb-6 flex flex-wrap items-center gap-2" data-projects-city-row<?php erfanpro_reveal( 0.00, 'inview', null, 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
-		<button type="button" data-projects-city="" class="<?php echo esc_attr( '' === $erfanpro_proj_params['city'] ? $erfanpro_city_chip_active : $erfanpro_city_chip_inactive ); ?>"><?php esc_html_e( 'همه شهرها', 'erfanpro' ); ?></button>
+		<button type="button" data-projects-city="" class="<?php echo esc_attr( '' === $erfanpro_proj_params['city'] ? $erfanpro_city_chip_active : $erfanpro_city_chip_inactive ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'all_cities', __( 'همه شهرها', 'erfanpro' ) ) ); ?></button>
 		<?php foreach ( $erfanpro_cities as $term ) : ?>
 		<button type="button" data-projects-city="<?php echo esc_attr( $term->slug ); ?>" class="<?php echo esc_attr( $term->slug === $erfanpro_proj_params['city'] ? $erfanpro_city_chip_active : $erfanpro_city_chip_inactive ); ?>"><?php echo esc_html( $term->name ); ?></button>
 		<?php endforeach; ?>
 	</div>
 
 	<div class="mb-8 flex flex-wrap items-center gap-2.5" data-projects-type-row<?php erfanpro_reveal( 0.04, 'inview', null, 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
-		<button type="button" data-projects-type="" class="<?php echo esc_attr( '' === $erfanpro_proj_params['type'] ? $erfanpro_type_pill_active : $erfanpro_type_pill_inactive ); ?>"><?php esc_html_e( 'همه', 'erfanpro' ); ?></button>
+		<button type="button" data-projects-type="" class="<?php echo esc_attr( '' === $erfanpro_proj_params['type'] ? $erfanpro_type_pill_active : $erfanpro_type_pill_inactive ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'all', __( 'همه', 'erfanpro' ) ) ); ?></button>
 		<?php foreach ( $erfanpro_types as $term ) : ?>
 		<button type="button" data-projects-type="<?php echo esc_attr( $term->slug ); ?>" class="<?php echo esc_attr( $term->slug === $erfanpro_proj_params['type'] ? $erfanpro_type_pill_active : $erfanpro_type_pill_inactive ); ?>"><?php echo esc_html( $term->name ); ?></button>
 		<?php endforeach; ?>

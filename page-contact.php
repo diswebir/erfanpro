@@ -18,9 +18,15 @@ get_header();
 ?>
 <main class="min-h-screen bg-[#f8faf9]">
 	<?php
-	get_template_part( 'template-parts/contact/hero' );
-	get_template_part( 'template-parts/contact/body' );
-	get_template_part( 'template-parts/page/content' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'contact',
+		array(
+			'hero'    => 'template-parts/contact/hero',
+			'body'    => 'template-parts/contact/body',
+			'content' => 'template-parts/page/content',
+		)
+	);
 	?>
 </main>
 <?php

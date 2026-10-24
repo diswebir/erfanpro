@@ -20,8 +20,14 @@ get_header();
 ?>
 <main id="main" class="site-main">
 	<?php
-	get_template_part( 'template-parts/blog/hero' );
-	get_template_part( 'template-parts/blog/grid' );
+	/* Section manager: order/visibility from the theme options panel. */
+	erfanpro_render_page_sections(
+		'blog',
+		array(
+			'hero' => 'template-parts/blog/hero',
+			'grid' => 'template-parts/blog/grid',
+		)
+	);
 	?>
 </main>
 <?php
