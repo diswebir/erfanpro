@@ -133,6 +133,39 @@ function erfanpro_enqueue_assets() {
 			)
 		);
 	}
+	/* Phase 8: blog archive — category chips + live search + pagination (posts only). */
+	if ( is_home() ) {
+		wp_enqueue_style(
+			'erfanpro-blog',
+			ERFANPRO_URI . '/assets/css/blog.css',
+			array( 'erfanpro-app' ),
+			ERFANPRO_VERSION
+		);
+		wp_enqueue_script(
+			'erfanpro-blog',
+			ERFANPRO_URI . '/assets/js/blog.js',
+			array(),
+			ERFANPRO_VERSION,
+			true
+		);
+		wp_localize_script(
+			'erfanpro-blog',
+			'erfanproBlog',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'erfanpro-blog-search' ),
+			)
+		);
+	}
+	/* Phase 8: single post — article typography. */
+	if ( is_singular( 'post' ) ) {
+		wp_enqueue_style(
+			'erfanpro-blog',
+			ERFANPRO_URI . '/assets/css/blog.css',
+			array( 'erfanpro-app' ),
+			ERFANPRO_VERSION
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'erfanpro_enqueue_assets' );
 

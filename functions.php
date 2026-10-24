@@ -29,6 +29,7 @@ require_once ERFANPRO_DIR . '/inc/shop.php';
 require_once ERFANPRO_DIR . '/inc/product.php';
 require_once ERFANPRO_DIR . '/inc/projects.php';
 require_once ERFANPRO_DIR . '/inc/services.php';
+require_once ERFANPRO_DIR . '/inc/blog.php';
 
 /**
  * Theme setup: supports + menu locations matching the blueprint menus
