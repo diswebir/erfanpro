@@ -68,6 +68,17 @@ function erfanpro_enqueue_assets() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	/* Phase 3: services accordion on the front page only. */
+	if ( is_front_page() ) {
+		wp_enqueue_script(
+			'erfanpro-home',
+			ERFANPRO_URI . '/assets/js/home.js',
+			array(),
+			ERFANPRO_VERSION,
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'erfanpro_enqueue_assets' );
 

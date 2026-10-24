@@ -61,15 +61,69 @@ function erfanpro_reveal( $delay = 0.0, $kind = 'reveal', $init = null, $final =
  * Echo the counter attributes used by the About/home counters
  * (0 -> value in 2.2s, Persian digits; runtime lives in anim.js).
  *
- * @param int   $to    Target number.
- * @param float $delay Delay in seconds.
+ * @param int    $to     Target number.
+ * @param float  $delay  Delay in seconds.
+ * @param string $suffix Suffix appended to the final display (e.g. '+').
  */
-function erfanpro_counter( $to, $delay = 0.0 ) {
+function erfanpro_counter( $to, $delay = 0.0, $suffix = '' ) {
 	printf(
-		' data-counter-to="%1$s" data-counter-final="%1$s" data-counter-delay="%2$s"',
+		' data-counter-to="%1$s" data-counter-final="%2$s" data-counter-delay="%3$s"',
 		esc_attr( (string) (int) $to ),
+		esc_attr( erfanpro_fa_digits( (int) $to ) . $suffix ),
 		esc_attr( number_format( (float) $delay, 2, '.', '' ) )
 	);
+}
+
+/**
+ * Convert Latin digits to Persian digits.
+ *
+ * @param int|string $value Value to convert.
+ * @return string
+ */
+function erfanpro_fa_digits( $value ) {
+	return strtr(
+		(string) $value,
+		array(
+			'0' => '۰',
+			'1' => '۱',
+			'2' => '۲',
+			'3' => '۳',
+			'4' => '۴',
+			'5' => '۵',
+			'6' => '۶',
+			'7' => '۷',
+			'8' => '۸',
+			'9' => '۹',
+		)
+	);
+}
+
+/**
+ * URL of a page by slug, with a plain permalink fallback.
+ *
+ * @param string $slug Page slug.
+ * @return string
+ */
+function erfanpro_page_url( $slug ) {
+	$page = get_page_by_path( $slug );
+	if ( $page instanceof WP_Post ) {
+		return get_permalink( $page );
+	}
+	return home_url( '/' . trim( (string) $slug, '/' ) . '/' );
+}
+
+/**
+ * Archive URL of a post type, with a plain permalink fallback.
+ *
+ * @param string $post_type Post type name.
+ * @return string
+ */
+function erfanpro_archive_url( $post_type ) {
+	$link = get_post_type_archive_link( $post_type );
+	if ( $link ) {
+		return $link;
+	}
+	return home_url( '/' . trim( (string) $post_type, '/' ) . '/' );
 }
 
 /**
