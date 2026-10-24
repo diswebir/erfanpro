@@ -292,17 +292,30 @@ function erfanpro_admin_assets( $hook ) {
 		ERFANPRO_VERSION
 	);
 	if ( $is_settings_screen ) {
+		// Versions are file mtimes, not the theme constant: the admin
+		// CSS/JS changed across builds while ERFANPRO_VERSION stayed
+		// '0.1.0', so browsers kept serving stale cached files under
+		// the same ?ver= URL (the tab-panel hide rules never arrived).
+		// A new mtime means a new URL, so caches can never go stale.
+		// Local Vazirmatn only on this settings page (fonts.css is
+		// @font-face declarations only, zero external requests).
+		wp_enqueue_style(
+			'erfanpro-admin-fonts',
+			ERFANPRO_URI . '/assets/css/fonts.css',
+			array(),
+			filemtime( ERFANPRO_DIR . '/assets/css/fonts.css' )
+		);
 		wp_enqueue_style(
 			'erfanpro-admin-options',
 			ERFANPRO_URI . '/assets/css/admin-options.css',
-			array(),
-			ERFANPRO_VERSION
+			array( 'erfanpro-admin-fonts' ),
+			filemtime( ERFANPRO_DIR . '/assets/css/admin-options.css' )
 		);
 		wp_enqueue_script(
 			'erfanpro-admin-tabs',
 			ERFANPRO_URI . '/assets/js/admin-tabs.js',
 			array(),
-			ERFANPRO_VERSION,
+			filemtime( ERFANPRO_DIR . '/assets/js/admin-tabs.js' ),
 			true
 		);
 		wp_localize_script(

@@ -6,17 +6,30 @@
  * the floating save button's physical `left`: wp-admin's menu occupies
  * the inline-start side in RTL, so the button docks to the free corner.
  * Zero external requests.
+ * Palette: the site's own green/gray (dark green rail, light gray
+ * shell, emerald accents) — the earlier lavender reference-image
+ * palette is gone.
  */
 
 .erfanpro-opt-wrap {
 	max-width: 1100px;
+	font-family: 'Vazirmatn', Tahoma, sans-serif;
 }
 
-/* ---- tabbed dashboard shell (reference: light lavender, white cards) ---- */
+/* Local Vazirmatn (enqueued only on this settings page) for form
+ * controls too, so the whole panel reads in Persian type. */
+.erfanpro-opt-wrap input,
+.erfanpro-opt-wrap select,
+.erfanpro-opt-wrap textarea,
+.erfanpro-opt-wrap button {
+	font-family: 'Vazirmatn', Tahoma, sans-serif;
+}
+
+/* ---- tabbed dashboard shell (site green/gray, white cards) ---- */
 .erfanpro-tabs.erfanpro-opt-wrap {
 	max-width: 1240px;
 	padding: 4px 20px 20px;
-	background: #e9ebff;
+	background: #f1f5f9;
 	border-radius: 20px;
 }
 
@@ -26,7 +39,7 @@
 	gap: 20px;
 }
 
-/* ---- vertical icon rail (dark indigo, like the reference sidebar) ---- */
+/* ---- vertical icon rail (dark green, like the site header) ---- */
 .erfanpro-tab-rail {
 	position: sticky;
 	top: 32px;
@@ -36,9 +49,9 @@
 	flex-direction: column;
 	gap: 6px;
 	padding: 16px 12px;
-	background: linear-gradient(180deg, #4a4ad6, #3a3cae);
+	background: linear-gradient(180deg, #002c22, #005028);
 	border-radius: 18px;
-	box-shadow: 0 12px 30px rgba(58, 60, 174, 0.25);
+	box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
 }
 
 .erfanpro-tab-link {
@@ -62,7 +75,7 @@
 
 .erfanpro-tab-link.is-active {
 	background: rgba(255, 255, 255, 0.18);
-	border-inline-start: 3px solid #ff8a5c;
+	border-inline-start: 3px solid #059669;
 	color: #fff;
 }
 
@@ -91,12 +104,14 @@
 }
 
 /* No-JS tab switching via :target; the first-panel default above is
- * suppressed once any panel is targeted. */
-.erfanpro-tabs:has(.erfanpro-tab-panel:target) .erfanpro-tab-panel {
+ * suppressed once any panel is targeted. Scoped to non-JS mode so a
+ * stale or hand-edited hash can never reveal a second panel next to
+ * the JS-active one: in JS mode only .is-active governs visibility. */
+.erfanpro-tabs:not(.erfanpro-js):has(.erfanpro-tab-panel:target) .erfanpro-tab-panel {
 	display: none;
 }
 
-.erfanpro-tabs:has(.erfanpro-tab-panel:target) .erfanpro-tab-panel:target {
+.erfanpro-tabs:not(.erfanpro-js):has(.erfanpro-tab-panel:target) .erfanpro-tab-panel:target {
 	display: block;
 }
 
@@ -110,29 +125,30 @@
 	display: block;
 }
 
-/* No-JS rail highlight for the 9 known tabs (JS covers 'other'). */
-.erfanpro-tabs:has(#erfanpro-group-general:target) .erfanpro-tab-link[data-tab="general"],
-.erfanpro-tabs:has(#erfanpro-group-header-footer:target) .erfanpro-tab-link[data-tab="header-footer"],
-.erfanpro-tabs:has(#erfanpro-group-home:target) .erfanpro-tab-link[data-tab="home"],
-.erfanpro-tabs:has(#erfanpro-group-shop:target) .erfanpro-tab-link[data-tab="shop"],
-.erfanpro-tabs:has(#erfanpro-group-work:target) .erfanpro-tab-link[data-tab="work"],
-.erfanpro-tabs:has(#erfanpro-group-blog:target) .erfanpro-tab-link[data-tab="blog"],
-.erfanpro-tabs:has(#erfanpro-group-pages:target) .erfanpro-tab-link[data-tab="pages"],
-.erfanpro-tabs:has(#erfanpro-group-manager:target) .erfanpro-tab-link[data-tab="manager"],
-.erfanpro-tabs:has(#erfanpro-group-fonts:target) .erfanpro-tab-link[data-tab="fonts"] {
+/* No-JS rail highlight for the 9 known tabs (JS covers 'other');
+ * scoped to non-JS mode for the same reason as the :target panels. */
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-general:target) .erfanpro-tab-link[data-tab="general"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-header-footer:target) .erfanpro-tab-link[data-tab="header-footer"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-home:target) .erfanpro-tab-link[data-tab="home"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-shop:target) .erfanpro-tab-link[data-tab="shop"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-work:target) .erfanpro-tab-link[data-tab="work"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-blog:target) .erfanpro-tab-link[data-tab="blog"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-pages:target) .erfanpro-tab-link[data-tab="pages"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-manager:target) .erfanpro-tab-link[data-tab="manager"],
+.erfanpro-tabs:not(.erfanpro-js):has(#erfanpro-group-fonts:target) .erfanpro-tab-link[data-tab="fonts"] {
 	background: rgba(255, 255, 255, 0.18);
-	border-inline-start: 3px solid #ff8a5c;
+	border-inline-start: 3px solid #059669;
 	color: #fff;
 }
 
-/* Panels are white rounded cards on the lavender shell. */
+/* Panels are white rounded cards on the light gray shell. */
 .erfanpro-tab-panel.erfanpro-opt-group {
 	margin: 0;
 	padding: 24px 24px 8px;
 	background: #fff;
-	border: 1px solid #e2e4fb;
+	border: 1px solid #e2e8f0;
 	border-radius: 18px;
-	box-shadow: 0 8px 30px rgba(58, 60, 174, 0.08);
+	box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
 }
 
 /* ---- floating save button + notice ---- */
@@ -144,8 +160,8 @@
 	padding: 14px 28px;
 	border: 0;
 	border-radius: 999px;
-	background: #4a4ad6;
-	box-shadow: 0 14px 34px rgba(58, 60, 174, 0.35);
+	background: #005028;
+	box-shadow: 0 14px 34px rgba(15, 23, 42, 0.35);
 	color: #fff;
 	font-size: 14px;
 	font-weight: 800;
@@ -153,7 +169,7 @@
 }
 
 .erfanpro-floating-save:hover {
-	background: #3a3cae;
+	background: #002c22;
 }
 
 .erfanpro-floating-save:disabled {
@@ -162,7 +178,7 @@
 }
 
 .erfanpro-floating-save.is-saved {
-	background: #16a34a;
+	background: #059669;
 }
 
 .erfanpro-floating-save.is-error {
@@ -178,7 +194,7 @@
 	padding: 12px 16px;
 	background: #fff;
 	border: 1px solid #dcdcde;
-	border-inline-start: 4px solid #16a34a;
+	border-inline-start: 4px solid #059669;
 	border-radius: 8px;
 	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 	font-size: 13px;
