@@ -15,7 +15,7 @@
  *   second-image..six-image (note the blueprint spelling `foure-image`).
  * - erfanpro_project_used_products(): blueprint `mortabet_mahsole_2`
  *   (JSON array of product IDs), then `product-in-projects`.
- * - erfanpro_related_projects(): same city first, then same
+ * - erfanpro_related_projects_for_project(): same city first, then same
  *   project_type, then latest (decision 17, automatic).
  * - View counting is automatic: inc/view-counter.php already tracks
  *   the `projects` type on `number-viewc` (decision 16).
@@ -392,7 +392,7 @@ function erfanpro_project_used_products( $post_id, $limit = 3 ) {
  * @param int $limit   Max projects.
  * @return int[] Post IDs.
  */
-function erfanpro_related_projects( $post_id, $limit = 3 ) {
+function erfanpro_related_projects_for_project( $post_id, $limit = 3 ) {
 	if ( ! post_type_exists( 'projects' ) ) {
 		return array();
 	}

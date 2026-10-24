@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $erfanpro_project_id      = get_queried_object_id();
-$erfanpro_related_projects = erfanpro_related_projects( $erfanpro_project_id, 3 );
+$erfanpro_related_projects = erfanpro_related_projects_for_project( $erfanpro_project_id, 3 );
 
 if ( empty( $erfanpro_related_projects ) ) {
 	return;
