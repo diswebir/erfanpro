@@ -69,6 +69,25 @@ function erfanpro_enqueue_assets() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
+	/* Phase 11: header live search (decision 20). The search bar is in
+	 * the header on every page, so this small script loads site-wide;
+	 * the GET form remains the fallback when JS or the request fails. */
+	wp_enqueue_script(
+		'erfanpro-header-search',
+		ERFANPRO_URI . '/assets/js/header-search.js',
+		array(),
+		ERFANPRO_VERSION,
+		true
+	);
+	wp_localize_script(
+		'erfanpro-header-search',
+		'erfanproSearch',
+		array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'erfanpro-live-search' ),
+		)
+	);
+
 	/* Phase 3: services accordion on the front page only. */
 	if ( is_front_page() ) {
 		wp_enqueue_script(
