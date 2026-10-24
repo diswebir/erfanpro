@@ -43,6 +43,9 @@ if ( function_exists( 'is_product_category' ) && is_product_category() ) {
 		$erfanpro_hero_cat = $erfanpro_qo->slug;
 	}
 }
+
+/* ---- BO-012: shop texts (reference fallbacks) ---- */
+$erfanpro_shop_texts = erfanpro_shop_texts();
 ?>
 <section class="relative overflow-hidden bg-[#f6f8f7] pb-12 pt-28 lg:pb-16 lg:pt-36">
 	<div aria-hidden="true" class="pointer-events-none absolute inset-0"><div class="absolute inset-0" style="background-image: radial-gradient(1000px 500px at 78% -6%, rgba(0, 177, 64, 0.1), transparent 60%);"></div><div class="light-dot-grid absolute inset-0 opacity-50"></div><div class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-emerald-200/50 blur-[110px]"></div><div class="absolute -left-28 bottom-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[110px]"></div><div class="absolute left-[10%] top-0 h-full w-px bg-gradient-to-b from-transparent via-emerald-300/25 to-transparent"></div></div>
@@ -57,8 +60,12 @@ if ( function_exists( 'is_product_category' ) && is_product_category() ) {
 					<span class="grid h-8 w-8 place-items-center rounded-full bg-emerald-600 text-white shadow-md shadow-emerald-600/25"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck h-4 w-4" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path><path d="M15 18H9"></path><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path><circle cx="17" cy="18" r="2"></circle><circle cx="7" cy="18" r="2"></circle></svg></span>
 					<span class="text-[13px] font-extrabold text-emerald-800"><?php esc_html_e( 'تولیدات کارخانه عرفان صنعت', 'erfanpro' ); ?></span>
 				</div>
+				<?php if ( '' !== $erfanpro_shop_texts['hero_title'] ) : ?>
+				<h1 class="text-[2.5rem] font-black leading-[1.25] tracking-[-0.015em] text-slate-950 sm:text-[3.3rem] lg:text-[3.9rem] lg:leading-[1.18]"<?php erfanpro_reveal( 0.09, 'mount', 'opacity: 0; transform: translateY(28px);', 'opacity: 1; transform: none;' ); ?>><?php echo esc_html( $erfanpro_shop_texts['hero_title'] ); ?></h1>
+				<?php else : ?>
 				<h1 class="text-[2.5rem] font-black leading-[1.25] tracking-[-0.015em] text-slate-950 sm:text-[3.3rem] lg:text-[3.9rem] lg:leading-[1.18]"<?php erfanpro_reveal( 0.09, 'mount', 'opacity: 0; transform: translateY(28px);', 'opacity: 1; transform: none;' ); ?>><?php esc_html_e( 'محصولات', 'erfanpro' ); ?><br><span class="bg-gradient-to-l from-emerald-800 via-emerald-600 to-teal-700 bg-clip-text text-transparent"><?php esc_html_e( 'نورپردازی شهری', 'erfanpro' ); ?></span></h1>
-				<p class="mt-6 max-w-[34rem] text-[15.5px] font-medium leading-9 text-slate-600 lg:text-[16.5px]"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(22px);', 'opacity: 1; transform: none;' ); ?>><?php esc_html_e( 'مجموعه‌ای کامل از تجهیزات نورپردازی پیشرفته؛ از پوینت لایت پیکسل و ریسه‌های LED تا درختان نوری هوشمند و خورشیدنماهای ۳۲ و ۴۸ پره', 'erfanpro' ); ?></p>
+				<?php endif; ?>
+				<p class="mt-6 max-w-[34rem] text-[15.5px] font-medium leading-9 text-slate-600 lg:text-[16.5px]"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(22px);', 'opacity: 1; transform: none;' ); ?>><?php echo '' !== $erfanpro_shop_texts['hero_subtitle'] ? esc_html( $erfanpro_shop_texts['hero_subtitle'] ) : esc_html__( 'مجموعه‌ای کامل از تجهیزات نورپردازی پیشرفته؛ از پوینت لایت پیکسل و ریسه‌های LED تا درختان نوری هوشمند و خورشیدنماهای ۳۲ و ۴۸ پره', 'erfanpro' ); ?></p>
 				<div class="mt-8 rounded-3xl border border-emerald-100 bg-white p-4 shadow-[0_20px_50px_-24px_rgba(0,80,40,0.18)]"<?php erfanpro_reveal( 0.27, 'mount', 'opacity: 0; transform: translateY(16px);', 'opacity: 1; transform: none;' ); ?>>
 					<div class="mb-3 flex items-center justify-between px-1 text-[12px] font-extrabold tracking-wide text-slate-500">
 						<span><?php esc_html_e( 'دسته‌بندی محصولات:', 'erfanpro' ); ?></span>

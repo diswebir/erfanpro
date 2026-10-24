@@ -330,6 +330,12 @@ function erfanpro_product_gallery_box( $post ) {
 		__( 'گالری دوم (gallery-filed)', 'erfanpro' ),
 		erfanpro_get_id_list( $id, 'gallery-filed' )
 	);
+	erfanpro_field_text(
+		'product_video',
+		__( 'ویدیوی محصول (URL)', 'erfanpro' ),
+		get_post_meta( $id, 'product_video', true ),
+		__( 'لینک مستقیم فایل ویدیو (mp4) — در گالری صفحه محصول به‌عنوان اسلاید آخر نمایش داده می‌شود (پاسخ ۱۸).', 'erfanpro' )
+	);
 	echo '<div class="erfanpro-metabox-grid">';
 	for ( $n = 2; $n <= 6; $n++ ) {
 		erfanpro_field_media_single(
@@ -455,6 +461,7 @@ function erfanpro_save_product_meta( $post_id, $post ) {
 	update_post_meta( $post_id, 'about-productt', wp_kses_post( (string) ( $data['about-productt'] ?? '' ) ) );
 
 	update_post_meta( $post_id, 'product-catalog-file', absint( $data['product-catalog-file'] ?? 0 ) );
+	update_post_meta( $post_id, 'product_video', esc_url_raw( (string) ( $data['product_video'] ?? '' ) ) );
 	erfanpro_update_csv_ids( $post_id, 'galerry_produ', explode( ',', (string) ( $data['galerry_produ'] ?? '' ) ) );
 	erfanpro_update_csv_ids( $post_id, 'gallery-filed', explode( ',', (string) ( $data['gallery-filed'] ?? '' ) ) );
 	for ( $n = 2; $n <= 6; $n++ ) {

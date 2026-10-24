@@ -98,6 +98,23 @@ function erfanpro_enqueue_assets() {
 			)
 		);
 	}
+	/* Phase 5: single product — gallery video slide + rating form (D15/D18). */
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_script(
+			'erfanpro-product',
+			ERFANPRO_URI . '/assets/js/product.js',
+			array( 'erfanpro-main' ),
+			ERFANPRO_VERSION,
+			true
+		);
+		wp_localize_script(
+			'erfanpro-product',
+			'erfanproProduct',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'erfanpro_enqueue_assets' );
 

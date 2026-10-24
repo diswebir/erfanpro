@@ -56,6 +56,11 @@ if ( is_wp_error( $erfanpro_tb_cats ) ) {
 $erfanpro_tb_attrs = erfanpro_shop_attributes();
 $erfanpro_tb_sort  = erfanpro_shop_sort_options();
 
+/* ---- BO-012: toolbar texts (reference fallbacks) ---- */
+$erfanpro_tb_texts       = erfanpro_shop_texts();
+$erfanpro_search_ph      = '' !== $erfanpro_tb_texts['search_placeholder'] ? $erfanpro_tb_texts['search_placeholder'] : __( 'جستجو در محصولات…', 'erfanpro' );
+$erfanpro_purchasable_tx = '' !== $erfanpro_tb_texts['purchasable_label'] ? $erfanpro_tb_texts['purchasable_label'] : __( 'فقط قابل خرید', 'erfanpro' );
+
 $erfanpro_shown = 0;
 if ( $erfanpro_shop_result['total'] > 0 ) {
 	$erfanpro_shown = min( $erfanpro_shop_result['total'], ERFANPRO_SHOP_PER_PAGE * $erfanpro_shop_params['paged'] ) - ERFANPRO_SHOP_PER_PAGE * ( $erfanpro_shop_params['paged'] - 1 );
@@ -76,7 +81,7 @@ if ( $erfanpro_shop_result['total'] > 0 ) {
 
 	<div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center"<?php erfanpro_reveal( 0.04, 'inview', null, 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
 		<div class="relative flex-1">
-			<input type="search" id="erfanpro-shop-search" autocomplete="off" value="<?php echo esc_attr( $erfanpro_shop_params['s'] ); ?>" placeholder="<?php esc_attr_e( 'جستجو در محصولات…', 'erfanpro' ); ?>" class="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-11 pr-5 text-[13.5px] font-medium text-slate-800 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20">
+			<input type="search" id="erfanpro-shop-search" autocomplete="off" value="<?php echo esc_attr( $erfanpro_shop_params['s'] ); ?>" placeholder="<?php echo esc_attr( $erfanpro_search_ph ); ?>" class="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-11 pr-5 text-[13.5px] font-medium text-slate-800 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search pointer-events-none absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-slate-400" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
 		</div>
 		<div class="flex items-center gap-3">
@@ -123,7 +128,7 @@ if ( $erfanpro_shop_result['total'] > 0 ) {
 		<?php endforeach; ?>
 		<button type="button" data-shop-purchasable class="<?php echo esc_attr( $erfanpro_purch_inactive ); ?>">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart h-4 w-4" aria-hidden="true"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"></path><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"></path><circle cx="18" cy="20" r="2"></circle><circle cx="8" cy="20" r="2"></circle></svg>
-			<?php esc_html_e( 'فقط قابل خرید', 'erfanpro' ); ?>
+			<?php echo esc_html( $erfanpro_purchasable_tx ); ?>
 		</button>
 	</div>
 

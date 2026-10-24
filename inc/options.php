@@ -138,6 +138,51 @@ function erfanpro_options_init() {
 		'erfanpro-settings',
 		'erfanpro_fonts'
 	);
+
+	/* ---- BO-009 home hero + featured product ---- */
+	add_settings_section(
+		'erfanpro_home_hero',
+		__( 'هیروی صفحه خانه', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_home_hero_fields',
+		__( 'هیرو', 'erfanpro' ),
+		'erfanpro_options_home_hero_field',
+		'erfanpro-settings',
+		'erfanpro_home_hero'
+	);
+
+	/* ---- BO-011 why-us section texts ---- */
+	add_settings_section(
+		'erfanpro_why_us',
+		__( 'سکشن «چرا عرفان صنعت؟»', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_why_us_fields',
+		__( 'متن‌ها', 'erfanpro' ),
+		'erfanpro_options_why_us_field',
+		'erfanpro-settings',
+		'erfanpro_why_us'
+	);
+
+	/* ---- BO-012 shop hero + toolbar texts ---- */
+	add_settings_section(
+		'erfanpro_shop_texts',
+		__( 'متن‌های فروشگاه', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_shop_texts_fields',
+		__( 'متن‌ها', 'erfanpro' ),
+		'erfanpro_options_shop_texts_field',
+		'erfanpro-settings',
+		'erfanpro_shop_texts'
+	);
 }
 add_action( 'admin_init', 'erfanpro_options_init' );
 
@@ -351,6 +396,159 @@ function erfanpro_options_fonts_field() {
 }
 
 /**
+ * BO-009: home hero fields (decision 21).
+ */
+function erfanpro_options_home_hero_field() {
+	$hero = erfanpro_home_hero();
+	$base = 'erfanpro_options[home_hero]';
+
+	$products = array();
+	if ( function_exists( 'wc_get_products' ) ) {
+		foreach ( wc_get_products( array( 'status' => 'publish', 'limit' => -1, 'orderby' => 'title', 'order' => 'ASC' ) ) as $p ) {
+			$products[ $p->get_id() ] = $p->get_name();
+		}
+	}
+
+	$bg_id      = absint( $hero['hero_bg'] );
+	$bg_preview = $bg_id ? wp_get_attachment_image( $bg_id, 'thumbnail' ) : '';
+	?>
+	<div class="erfanpro-metabox-grid">
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'تیتر هیرو', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[hero_title]" value="<?php echo esc_attr( $hero['hero_title'] ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'زیرتیتر هیرو', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[hero_subtitle]" value="<?php echo esc_attr( $hero['hero_subtitle'] ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'متن دکمه', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[hero_cta_text]" value="<?php echo esc_attr( $hero['hero_cta_text'] ); ?>" placeholder="<?php esc_attr_e( 'مشاهده محصولات', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'لینک دکمه', 'erfanpro' ); ?></label>
+			<input type="url" class="widefat" dir="ltr" name="<?php echo esc_attr( $base ); ?>[hero_cta_url]" value="<?php echo esc_attr( $hero['hero_cta_url'] ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'محصول شاخص (کارت هیرو)', 'erfanpro' ); ?></label>
+			<select name="<?php echo esc_attr( $base ); ?>[featured_product]">
+				<option value="0"><?php esc_html_e( '— محصول ویژه ووکامرس (خودکار) —', 'erfanpro' ); ?></option>
+				<?php foreach ( $products as $id => $name ) : ?>
+				<option value="<?php echo esc_attr( (string) $id ); ?>" <?php selected( (int) $hero['featured_product'], $id ); ?>><?php echo esc_html( $name ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+		<div class="erfanpro-metabox-field" data-erfanpro-media="single">
+			<label><?php esc_html_e( 'پس‌زمینه هیرو (تصویر)', 'erfanpro' ); ?></label>
+			<input type="hidden" data-erfanpro-media-id name="<?php echo esc_attr( $base ); ?>[hero_bg]" value="<?php echo esc_attr( $bg_id ? (string) $bg_id : '' ); ?>" />
+			<div class="erfanpro-media-row">
+				<button type="button" class="button" data-erfanpro-media-select><?php esc_html_e( 'انتخاب تصویر', 'erfanpro' ); ?></button>
+				<button type="button" class="button-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
+			</div>
+			<div data-erfanpro-media-preview style="<?php echo $bg_preview ? '' : 'display:none'; ?>"><?php echo $bg_preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+		</div>
+	</div>
+	<p class="description"><?php esc_html_e( 'خالی = مرجع استاتیک. محصول شاخص خالی = محصول ویژه ووکامرس.', 'erfanpro' ); ?></p>
+	<?php
+}
+
+/**
+ * BO-011: why-us section texts (stored as home_sections[why_us]).
+ */
+function erfanpro_options_why_us_field() {
+	$sec  = erfanpro_why_us_section();
+	$base = 'erfanpro_options[home_sections][why_us]';
+	?>
+	<div class="erfanpro-metabox-grid">
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'نشان‌واره (kicker)', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[kicker]" value="<?php echo esc_attr( $sec['kicker'] ); ?>" placeholder="<?php esc_attr_e( 'چرا عرفان صنعت؟', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'تیتر — بخش اول', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[title_a]" value="<?php echo esc_attr( $sec['title_a'] ); ?>" placeholder="<?php esc_attr_e( 'تعهد ما به', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'تیتر — بخش رنگی', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[title_b]" value="<?php echo esc_attr( $sec['title_b'] ); ?>" placeholder="<?php esc_attr_e( 'کیفیت و دوام', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field full">
+			<label><?php esc_html_e( 'توضیح', 'erfanpro' ); ?></label>
+			<textarea class="widefat" rows="2" name="<?php echo esc_attr( $base ); ?>[desc]"><?php echo esc_textarea( $sec['desc'] ); ?></textarea>
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'تیتر مراحل — بخش اول', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[steps_title_a]" value="<?php echo esc_attr( $sec['steps_title_a'] ); ?>" placeholder="<?php esc_attr_e( 'مسیر همکاری با ما؛', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'تیتر مراحل — بخش رنگی', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[steps_title_b]" value="<?php echo esc_attr( $sec['steps_title_b'] ); ?>" placeholder="<?php esc_attr_e( ' از ایده تا درخشش', 'erfanpro' ); ?>" />
+		</div>
+	</div>
+	<div data-erfanpro-repeater>
+		<label><strong><?php esc_html_e( 'کارت‌های ویژگی (۴ مورد)', 'erfanpro' ); ?></strong></label>
+		<div class="erfanpro-repeater-rows" data-erfanpro-rows>
+			<?php foreach ( $sec['features'] as $i => $feat ) : ?>
+			<div class="erfanpro-repeater-row" data-erfanpro-row data-erfanpro-index="<?php echo esc_attr( (string) $i ); ?>">
+				<div class="erfanpro-field">
+					<label><?php esc_html_e( 'تیتر', 'erfanpro' ); ?></label>
+					<input type="text" name="<?php echo esc_attr( $base ); ?>[features][<?php echo esc_attr( (string) $i ); ?>][title]" value="<?php echo esc_attr( (string) ( $feat['title'] ?? '' ) ); ?>" />
+				</div>
+				<div class="erfanpro-field">
+					<label><?php esc_html_e( 'توضیح', 'erfanpro' ); ?></label>
+					<input type="text" name="<?php echo esc_attr( $base ); ?>[features][<?php echo esc_attr( (string) $i ); ?>][desc]" value="<?php echo esc_attr( (string) ( $feat['desc'] ?? '' ) ); ?>" />
+				</div>
+				<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<script type="text/html" data-erfanpro-template>
+			<div class="erfanpro-repeater-row" data-erfanpro-row data-erfanpro-index="__i__">
+				<div class="erfanpro-field">
+					<label><?php esc_html_e( 'تیتر', 'erfanpro' ); ?></label>
+					<input type="text" name="<?php echo esc_attr( $base ); ?>[features][__i__][title]" value="" />
+				</div>
+				<div class="erfanpro-field">
+					<label><?php esc_html_e( 'توضیح', 'erfanpro' ); ?></label>
+					<input type="text" name="<?php echo esc_attr( $base ); ?>[features][__i__][desc]" value="" />
+				</div>
+				<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+			</div>
+		</script>
+		<button type="button" class="button" data-erfanpro-add><?php esc_html_e( 'افزودن کارت', 'erfanpro' ); ?></button>
+	</div>
+	<?php
+}
+
+/**
+ * BO-012: shop hero + toolbar texts.
+ */
+function erfanpro_options_shop_texts_field() {
+	$texts = erfanpro_shop_texts();
+	$base  = 'erfanpro_options[shop_texts]';
+	?>
+	<div class="erfanpro-metabox-grid">
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'تیتر هیروی فروشگاه', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[hero_title]" value="<?php echo esc_attr( $texts['hero_title'] ); ?>" placeholder="<?php esc_attr_e( 'محصولات', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field full">
+			<label><?php esc_html_e( 'زیرتیتر هیروی فروشگاه', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[hero_subtitle]" value="<?php echo esc_attr( $texts['hero_subtitle'] ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'متن جای‌نگهدار جستجو', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[search_placeholder]" value="<?php echo esc_attr( $texts['search_placeholder'] ); ?>" placeholder="<?php esc_attr_e( 'جستجو در محصولات…', 'erfanpro' ); ?>" />
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'برچسب «فقط قابل خرید»', 'erfanpro' ); ?></label>
+			<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[purchasable_label]" value="<?php echo esc_attr( $texts['purchasable_label'] ); ?>" placeholder="<?php esc_attr_e( 'فقط قابل خرید', 'erfanpro' ); ?>" />
+		</div>
+	</div>
+	<?php
+}
+
+/**
  * Sanitize all option values (whitelist-based, incl. nested repeaters).
  *
  * @param mixed $input Raw input.
@@ -370,7 +568,7 @@ function erfanpro_options_sanitize( $input ) {
 	$url_keys = array( 'catalog_full_url', 'instagram', 'telegram', 'aparat', 'linkedin' );
 	foreach ( $input as $key => $value ) {
 		$key = sanitize_key( $key );
-		if ( in_array( $key, array( 'trust_badges', 'home_counters', 'home_sections' ), true ) ) {
+		if ( in_array( $key, array( 'trust_badges', 'home_counters', 'home_sections', 'home_hero', 'shop_texts' ), true ) ) {
 			continue; // handled below.
 		}
 		if ( str_ends_with( $key, '_remove' ) || str_starts_with( $key, 'font_' ) ) {
@@ -444,8 +642,56 @@ function erfanpro_options_sanitize( $input ) {
 				'cta_url'  => esc_url_raw( (string) ( $row['cta_url'] ?? '' ) ),
 			);
 		}
+		/* BO-011 why_us (same key family, different shape). */
+		$wu  = isset( $input['home_sections']['why_us'] ) && is_array( $input['home_sections']['why_us'] )
+			? $input['home_sections']['why_us']
+			: array();
+		$wu_features = array();
+		if ( isset( $wu['features'] ) && is_array( $wu['features'] ) ) {
+			foreach ( $wu['features'] as $f ) {
+				if ( ! is_array( $f ) ) {
+					continue;
+				}
+				$row_f = array(
+					'title' => sanitize_text_field( (string) ( $f['title'] ?? '' ) ),
+					'desc'  => sanitize_text_field( (string) ( $f['desc'] ?? '' ) ),
+				);
+				if ( '' !== $row_f['title'] || '' !== $row_f['desc'] ) {
+					$wu_features[] = $row_f;
+				}
+			}
+		}
+		$sections['why_us'] = array(
+			'kicker'        => sanitize_text_field( (string) ( $wu['kicker'] ?? '' ) ),
+			'title_a'       => sanitize_text_field( (string) ( $wu['title_a'] ?? '' ) ),
+			'title_b'       => sanitize_text_field( (string) ( $wu['title_b'] ?? '' ) ),
+			'desc'          => sanitize_text_field( (string) ( $wu['desc'] ?? '' ) ),
+			'steps_title_a' => sanitize_text_field( (string) ( $wu['steps_title_a'] ?? '' ) ),
+			'steps_title_b' => sanitize_text_field( (string) ( $wu['steps_title_b'] ?? '' ) ),
+			'features'      => $wu_features,
+		);
 	}
 	$clean['home_sections'] = $sections;
+
+	/* BO-009 home hero */
+	$hero_in          = isset( $input['home_hero'] ) && is_array( $input['home_hero'] ) ? $input['home_hero'] : array();
+	$clean['home_hero'] = array(
+		'hero_title'       => sanitize_text_field( (string) ( $hero_in['hero_title'] ?? '' ) ),
+		'hero_subtitle'    => sanitize_text_field( (string) ( $hero_in['hero_subtitle'] ?? '' ) ),
+		'hero_cta_text'    => sanitize_text_field( (string) ( $hero_in['hero_cta_text'] ?? '' ) ),
+		'hero_cta_url'     => esc_url_raw( (string) ( $hero_in['hero_cta_url'] ?? '' ) ),
+		'featured_product' => absint( $hero_in['featured_product'] ?? 0 ),
+		'hero_bg'          => absint( $hero_in['hero_bg'] ?? 0 ),
+	);
+
+	/* BO-012 shop texts */
+	$shop_in            = isset( $input['shop_texts'] ) && is_array( $input['shop_texts'] ) ? $input['shop_texts'] : array();
+	$clean['shop_texts'] = array(
+		'hero_title'         => sanitize_text_field( (string) ( $shop_in['hero_title'] ?? '' ) ),
+		'hero_subtitle'      => sanitize_text_field( (string) ( $shop_in['hero_subtitle'] ?? '' ) ),
+		'search_placeholder' => sanitize_text_field( (string) ( $shop_in['search_placeholder'] ?? '' ) ),
+		'purchasable_label'  => sanitize_text_field( (string) ( $shop_in['purchasable_label'] ?? '' ) ),
+	);
 
 	/* BO-004 font uploads */
 	foreach ( array( 'font_primary_file', 'font_display_file' ) as $fkey ) {
@@ -622,5 +868,63 @@ function erfanpro_home_section( $key ) {
 		'subtitle' => (string) ( $sec['subtitle'] ?? '' ),
 		'cta_text' => (string) ( $sec['cta_text'] ?? '' ),
 		'cta_url'  => (string) ( $sec['cta_url'] ?? '' ),
+	);
+}
+
+/**
+ * BO-009: home hero values (decision 21).
+ *
+ * @return array{hero_title:string,hero_subtitle:string,hero_cta_text:string,hero_cta_url:string,featured_product:int,hero_bg:int}
+ */
+function erfanpro_home_hero() {
+	$hero = erfanpro_option( 'home_hero', array() );
+	if ( ! is_array( $hero ) ) {
+		$hero = array();
+	}
+	return array(
+		'hero_title'       => (string) ( $hero['hero_title'] ?? '' ),
+		'hero_subtitle'    => (string) ( $hero['hero_subtitle'] ?? '' ),
+		'hero_cta_text'    => (string) ( $hero['hero_cta_text'] ?? '' ),
+		'hero_cta_url'     => (string) ( $hero['hero_cta_url'] ?? '' ),
+		'featured_product' => (int) ( $hero['featured_product'] ?? 0 ),
+		'hero_bg'          => (int) ( $hero['hero_bg'] ?? 0 ),
+	);
+}
+
+/**
+ * BO-011: why-us section values (same home_sections family as BO-003).
+ *
+ * @return array{kicker:string,title_a:string,title_b:string,desc:string,steps_title_a:string,steps_title_b:string,features:array}
+ */
+function erfanpro_why_us_section() {
+	$sections = erfanpro_option( 'home_sections', array() );
+	$sec      = isset( $sections['why_us'] ) && is_array( $sections['why_us'] ) ? $sections['why_us'] : array();
+	$features = isset( $sec['features'] ) && is_array( $sec['features'] ) ? array_values( $sec['features'] ) : array();
+	return array(
+		'kicker'        => (string) ( $sec['kicker'] ?? '' ),
+		'title_a'       => (string) ( $sec['title_a'] ?? '' ),
+		'title_b'       => (string) ( $sec['title_b'] ?? '' ),
+		'desc'          => (string) ( $sec['desc'] ?? '' ),
+		'steps_title_a' => (string) ( $sec['steps_title_a'] ?? '' ),
+		'steps_title_b' => (string) ( $sec['steps_title_b'] ?? '' ),
+		'features'      => $features,
+	);
+}
+
+/**
+ * BO-012: shop hero + toolbar texts.
+ *
+ * @return array{hero_title:string,hero_subtitle:string,search_placeholder:string,purchasable_label:string}
+ */
+function erfanpro_shop_texts() {
+	$texts = erfanpro_option( 'shop_texts', array() );
+	if ( ! is_array( $texts ) ) {
+		$texts = array();
+	}
+	return array(
+		'hero_title'         => (string) ( $texts['hero_title'] ?? '' ),
+		'hero_subtitle'      => (string) ( $texts['hero_subtitle'] ?? '' ),
+		'search_placeholder' => (string) ( $texts['search_placeholder'] ?? '' ),
+		'purchasable_label'  => (string) ( $texts['purchasable_label'] ?? '' ),
 	);
 }

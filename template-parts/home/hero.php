@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* ---- BO-009: home hero admin values (reference fallbacks below) ---- */
+$erfanpro_hero_opts = erfanpro_home_hero();
+
 /* ---- Featured product card (D21: WooCommerce featured product) ---- */
 $erfanpro_fp          = null;
 $erfanpro_fp_image    = '';
@@ -24,7 +27,12 @@ $erfanpro_fp_url      = '#';
 $erfanpro_fp_specs    = array();
 $erfanpro_fp_has_data = false;
 
-if ( function_exists( 'wc_get_products' ) ) {
+/* BO-009: a manually chosen product overrides the Woo featured query. */
+if ( $erfanpro_hero_opts['featured_product'] > 0 && function_exists( 'wc_get_product' ) ) {
+	$erfanpro_fp = wc_get_product( $erfanpro_hero_opts['featured_product'] );
+}
+
+if ( ! $erfanpro_fp instanceof WC_Product && function_exists( 'wc_get_products' ) ) {
 	$fp_ids = wc_get_products(
 		array(
 			'featured' => true,
@@ -111,7 +119,7 @@ if ( count( $erfanpro_hero_counters ) < 4 ) {
 ?>
 <section id="home" class="relative isolate flex min-h-svh flex-col overflow-hidden bg-[#f6f8f7] pt-32 lg:pt-36">
 	<div class="absolute inset-0 -z-10" style="transform: translateY(0%) scale(1.02);" data-plx-bg="">
-		<img alt="نورپردازی شهری عرفان صنعت اصفهان" class="h-full w-full object-cover object-center" src="<?php echo esc_url( ERFANPRO_URI . '/assets/img/hero.jpg' ); ?>">
+		<img alt="نورپردازی شهری عرفان صنعت اصفهان" class="h-full w-full object-cover object-center" src="<?php echo esc_url( $erfanpro_hero_opts['hero_bg'] ? (string) wp_get_attachment_url( $erfanpro_hero_opts['hero_bg'] ) : ERFANPRO_URI . '/assets/img/hero.jpg' ); ?>">
 	</div>
 	<div aria-hidden="true" class="absolute inset-0 -z-10" style="background: linear-gradient(270deg, rgba(246, 248, 247, 0.99) 0%, rgba(246, 248, 247, 0.97) 30%, rgba(246, 248, 247, 0.72) 56%, rgba(246, 248, 247, 0.16) 82%, rgba(246, 248, 247, 0) 100%), linear-gradient(rgba(246, 248, 247, 0.55) 0%, transparent 22%, transparent 62%, rgb(246, 248, 247) 100%);"></div>
 	<div class="light-dot-grid absolute inset-0 -z-10 opacity-40" aria-hidden="true"></div>
@@ -138,6 +146,13 @@ if ( count( $erfanpro_hero_counters ) < 4 ) {
 					</span>
 					<span class="text-[12px] font-extrabold tracking-[0.14em] text-emerald-800"><?php esc_html_e( 'شرکت دانش‌بنیان · ISO 9001', 'erfanpro' ); ?></span>
 				</div>
+				<?php if ( '' !== $erfanpro_hero_opts['hero_title'] ) : ?>
+				<h1 class="text-[2.6rem] font-black leading-[1.2] tracking-[-0.03em] text-slate-950 sm:text-6xl sm:leading-[1.14] lg:text-[4.4rem] lg:leading-[1.1]">
+					<span class="block overflow-hidden pb-[0.08em]">
+						<span class="block"<?php erfanpro_reveal( 0.00, 'mount', 'opacity: 0; transform: translateY(100%);', 'opacity: 1; transform: none;' ); ?>><?php echo esc_html( $erfanpro_hero_opts['hero_title'] ); ?></span>
+					</span>
+				</h1>
+				<?php else : ?>
 				<h1 class="text-[2.6rem] font-black leading-[1.2] tracking-[-0.03em] text-slate-950 sm:text-6xl sm:leading-[1.14] lg:text-[4.4rem] lg:leading-[1.1]">
 					<span class="block overflow-hidden pb-[0.08em]">
 						<span class="block"<?php erfanpro_reveal( 0.00, 'mount', 'opacity: 0; transform: translateY(100%);', 'opacity: 1; transform: none;' ); ?>><?php esc_html_e( 'شهر را با نور،', 'erfanpro' ); ?></span>
@@ -146,9 +161,14 @@ if ( count( $erfanpro_hero_counters ) < 4 ) {
 						<span class="block"<?php erfanpro_reveal( 0.10, 'mount', 'opacity: 0; transform: translateY(100%);', 'opacity: 1; transform: none;' ); ?>><span class="text-emerald-700"><?php esc_html_e( 'زنده می‌کنیم.', 'erfanpro' ); ?></span></span>
 					</span>
 				</h1>
-				<p class="mt-6 max-w-xl text-[15.5px] font-medium leading-9 text-slate-600 lg:text-[17px] lg:leading-10"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(20px);' ); ?>><?php esc_html_e( 'با بیش از دو دهه تجربه، پیشگام در طراحی، تولید و اجرای پروژه‌های روشنایی شهری و صنعتی؛ روشنایی‌بخش خیابان‌ها، پارک‌ها، میادین، ساختمان‌ها و صنایع کشور هستیم.', 'erfanpro' ); ?></p>
+				<?php endif; ?>
+				<p class="mt-6 max-w-xl text-[15.5px] font-medium leading-9 text-slate-600 lg:text-[17px] lg:leading-10"<?php erfanpro_reveal( 0.18, 'mount', 'opacity: 0; transform: translateY(20px);' ); ?>><?php echo '' !== $erfanpro_hero_opts['hero_subtitle'] ? esc_html( $erfanpro_hero_opts['hero_subtitle'] ) : esc_html__( 'با بیش از دو دهه تجربه، پیشگام در طراحی، تولید و اجرای پروژه‌های روشنایی شهری و صنعتی؛ روشنایی‌بخش خیابان‌ها، پارک‌ها، میادین، ساختمان‌ها و صنایع کشور هستیم.', 'erfanpro' ); ?></p>
 				<div class="mt-9 flex flex-wrap items-center gap-4"<?php erfanpro_reveal( 0.27, 'mount', 'opacity: 0; transform: translateY(20px);' ); ?>>
-					<a class="group inline-flex items-center gap-2.5 rounded-full bg-emerald-700 px-8 py-4 text-[15px] font-extrabold text-white shadow-[0_14px_40px_-10px_rgba(0,125,45,0.7)] transition-all hover:bg-emerald-800" href="<?php echo esc_url( erfanpro_archive_url( 'projects' ) ); ?>"><?php esc_html_e( 'مشاهده پروژه‌های نورپردازی', 'erfanpro' ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down h-4.5 w-4.5 transition-transform duration-400 group-hover:translate-y-1" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></a>
+					<?php
+					$erfanpro_cta_text = '' !== $erfanpro_hero_opts['hero_cta_text'] ? $erfanpro_hero_opts['hero_cta_text'] : __( 'مشاهده پروژه‌های نورپردازی', 'erfanpro' );
+					$erfanpro_cta_url  = '' !== $erfanpro_hero_opts['hero_cta_url'] ? $erfanpro_hero_opts['hero_cta_url'] : erfanpro_archive_url( 'projects' );
+					?>
+					<a class="group inline-flex items-center gap-2.5 rounded-full bg-emerald-700 px-8 py-4 text-[15px] font-extrabold text-white shadow-[0_14px_40px_-10px_rgba(0,125,45,0.7)] transition-all hover:bg-emerald-800" href="<?php echo esc_url( $erfanpro_cta_url ); ?>"><?php echo esc_html( $erfanpro_cta_text ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down h-4.5 w-4.5 transition-transform duration-400 group-hover:translate-y-1" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></a>
 					<a class="group inline-flex items-center gap-2.5 rounded-full border border-emerald-300 bg-white px-8 py-4 text-[15px] font-bold text-emerald-900 shadow-sm transition-all hover:border-emerald-500 hover:bg-emerald-50" href="<?php echo esc_url( erfanpro_page_url( 'contact' ) ); ?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call h-5 w-5 text-emerald-600" aria-hidden="true"><path d="M13 2a9 9 0 0 1 9 9"></path><path d="M13 6a5 5 0 0 1 5 5"></path><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg><?php esc_html_e( 'دریافت مشاوره رایگان', 'erfanpro' ); ?></a>
 				</div>
 			</div>
