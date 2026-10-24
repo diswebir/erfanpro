@@ -2,13 +2,191 @@
  * erfanpro options page (appearance_page_erfanpro-settings) — display only.
  *
  * Complements wp-admin's own styles; it never overrides core layout
- * classes outside .erfanpro-opt-wrap. Logical properties only (no
- * hardcoded left/right), so the page stays correct in RTL and LTR.
+ * classes outside .erfanpro-opt-wrap. Logical properties only, except
+ * the floating save button's physical `left`: wp-admin's menu occupies
+ * the inline-start side in RTL, so the button docks to the free corner.
  * Zero external requests.
  */
 
 .erfanpro-opt-wrap {
 	max-width: 1100px;
+}
+
+/* ---- tabbed dashboard shell (reference: light lavender, white cards) ---- */
+.erfanpro-tabs.erfanpro-opt-wrap {
+	max-width: 1240px;
+	padding: 4px 20px 20px;
+	background: #e9ebff;
+	border-radius: 20px;
+}
+
+.erfanpro-tabs-layout {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+/* ---- vertical icon rail (dark indigo, like the reference sidebar) ---- */
+.erfanpro-tab-rail {
+	position: sticky;
+	top: 32px;
+	z-index: 10;
+	flex: 0 0 200px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 16px 12px;
+	background: linear-gradient(180deg, #4a4ad6, #3a3cae);
+	border-radius: 18px;
+	box-shadow: 0 12px 30px rgba(58, 60, 174, 0.25);
+}
+
+.erfanpro-tab-link {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	border-radius: 12px;
+	color: rgba(255, 255, 255, 0.78);
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.6;
+	text-decoration: none;
+}
+
+.erfanpro-tab-link:hover,
+.erfanpro-tab-link:focus {
+	background: rgba(255, 255, 255, 0.1);
+	color: #fff;
+}
+
+.erfanpro-tab-link.is-active {
+	background: rgba(255, 255, 255, 0.18);
+	border-inline-start: 3px solid #ff8a5c;
+	color: #fff;
+}
+
+.erfanpro-tab-icon {
+	display: inline-flex;
+	flex: 0 0 auto;
+}
+
+.erfanpro-tab-icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* ---- panels: only the active tab shows ---- */
+.erfanpro-tab-panels {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.erfanpro-tab-panel {
+	display: none;
+}
+
+.erfanpro-tab-panels > .erfanpro-tab-panel:first-of-type {
+	display: block;
+}
+
+/* No-JS tab switching via :target; the first-panel default above is
+ * suppressed once any panel is targeted. */
+.erfanpro-tabs:has(.erfanpro-tab-panel:target) .erfanpro-tab-panel {
+	display: none;
+}
+
+.erfanpro-tabs:has(.erfanpro-tab-panel:target) .erfanpro-tab-panel:target {
+	display: block;
+}
+
+/* JS mode wins over :target (same target == active tab by construction,
+ * but the stronger selector guards the load order). */
+.erfanpro-tabs.erfanpro-js .erfanpro-tab-panel {
+	display: none;
+}
+
+.erfanpro-tabs.erfanpro-js .erfanpro-tab-panel.is-active {
+	display: block;
+}
+
+/* No-JS rail highlight for the 9 known tabs (JS covers 'other'). */
+.erfanpro-tabs:has(#erfanpro-group-general:target) .erfanpro-tab-link[data-tab="general"],
+.erfanpro-tabs:has(#erfanpro-group-header-footer:target) .erfanpro-tab-link[data-tab="header-footer"],
+.erfanpro-tabs:has(#erfanpro-group-home:target) .erfanpro-tab-link[data-tab="home"],
+.erfanpro-tabs:has(#erfanpro-group-shop:target) .erfanpro-tab-link[data-tab="shop"],
+.erfanpro-tabs:has(#erfanpro-group-work:target) .erfanpro-tab-link[data-tab="work"],
+.erfanpro-tabs:has(#erfanpro-group-blog:target) .erfanpro-tab-link[data-tab="blog"],
+.erfanpro-tabs:has(#erfanpro-group-pages:target) .erfanpro-tab-link[data-tab="pages"],
+.erfanpro-tabs:has(#erfanpro-group-manager:target) .erfanpro-tab-link[data-tab="manager"],
+.erfanpro-tabs:has(#erfanpro-group-fonts:target) .erfanpro-tab-link[data-tab="fonts"] {
+	background: rgba(255, 255, 255, 0.18);
+	border-inline-start: 3px solid #ff8a5c;
+	color: #fff;
+}
+
+/* Panels are white rounded cards on the lavender shell. */
+.erfanpro-tab-panel.erfanpro-opt-group {
+	margin: 0;
+	padding: 24px 24px 8px;
+	background: #fff;
+	border: 1px solid #e2e4fb;
+	border-radius: 18px;
+	box-shadow: 0 8px 30px rgba(58, 60, 174, 0.08);
+}
+
+/* ---- floating save button + notice ---- */
+.erfanpro-floating-save {
+	position: fixed;
+	bottom: 28px;
+	left: 28px;
+	z-index: 10000;
+	padding: 14px 28px;
+	border: 0;
+	border-radius: 999px;
+	background: #4a4ad6;
+	box-shadow: 0 14px 34px rgba(58, 60, 174, 0.35);
+	color: #fff;
+	font-size: 14px;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+.erfanpro-floating-save:hover {
+	background: #3a3cae;
+}
+
+.erfanpro-floating-save:disabled {
+	opacity: 0.7;
+	cursor: wait;
+}
+
+.erfanpro-floating-save.is-saved {
+	background: #16a34a;
+}
+
+.erfanpro-floating-save.is-error {
+	background: #d63638;
+}
+
+.erfanpro-save-notice {
+	position: fixed;
+	bottom: 96px;
+	left: 28px;
+	z-index: 10000;
+	max-width: 360px;
+	padding: 12px 16px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-inline-start: 4px solid #16a34a;
+	border-radius: 8px;
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.erfanpro-save-notice.is-error {
+	border-inline-start-color: #d63638;
 }
 
 /* ---- header card ---- */
@@ -45,37 +223,6 @@
 	font-size: 12px;
 	font-weight: 600;
 	white-space: nowrap;
-}
-
-/* ---- sticky group nav (anchors only — works without JS) ---- */
-.erfanpro-opt-nav {
-	position: sticky;
-	top: 32px;
-	z-index: 10;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
-	margin: 0 0 20px;
-	padding: 10px 12px;
-	background: #fff;
-	border: 1px solid #dcdcde;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.erfanpro-opt-nav a {
-	padding: 6px 12px;
-	border-radius: 999px;
-	color: #2271b1;
-	font-size: 13px;
-	font-weight: 600;
-	text-decoration: none;
-}
-
-.erfanpro-opt-nav a:hover,
-.erfanpro-opt-nav a:focus {
-	background: #f0f0f1;
-	color: #135e96;
 }
 
 /* ---- group cards ---- */
@@ -163,13 +310,38 @@
 	line-height: 1.9;
 }
 
-@media screen and (max-width: 782px) {
-	.erfanpro-opt-header {
+@media screen and (max-width: 900px) {
+	.erfanpro-tabs-layout {
 		flex-direction: column;
 	}
 
-	.erfanpro-opt-nav {
-		top: 46px;
+	.erfanpro-tab-rail {
+		position: static;
+		flex-basis: auto;
+		flex-direction: row;
+		overflow-x: auto;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.erfanpro-tab-link {
+		white-space: nowrap;
+	}
+
+	.erfanpro-floating-save {
+		bottom: 16px;
+		left: 16px;
+	}
+
+	.erfanpro-save-notice {
+		bottom: 84px;
+		left: 16px;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.erfanpro-opt-header {
+		flex-direction: column;
 	}
 
 	.erfanpro-opt-group {

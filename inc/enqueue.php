@@ -298,6 +298,25 @@ function erfanpro_admin_assets( $hook ) {
 			array(),
 			ERFANPRO_VERSION
 		);
+		wp_enqueue_script(
+			'erfanpro-admin-tabs',
+			ERFANPRO_URI . '/assets/js/admin-tabs.js',
+			array(),
+			ERFANPRO_VERSION,
+			true
+		);
+		wp_localize_script(
+			'erfanpro-admin-tabs',
+			'erfanproTabs',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'erfanpro_tab_save' ),
+				'save'    => __( 'ذخیرهٔ تب فعال', 'erfanpro' ),
+				'saving'  => __( 'در حال ذخیره…', 'erfanpro' ),
+				'saved'   => __( 'ذخیره شد ✓', 'erfanpro' ),
+				'error'   => __( 'خطا در ذخیره. دوباره تلاش کنید.', 'erfanpro' ),
+			)
+		);
 	}
 	wp_enqueue_script(
 		'erfanpro-admin',

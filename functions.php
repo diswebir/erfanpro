@@ -18,6 +18,7 @@ require_once ERFANPRO_DIR . '/inc/options.php';
 require_once ERFANPRO_DIR . '/inc/sections.php';
 require_once ERFANPRO_DIR . '/inc/menu-walkers.php';
 require_once ERFANPRO_DIR . '/inc/enqueue.php';
+require_once ERFANPRO_DIR . '/inc/ajax.php';
 require_once ERFANPRO_DIR . '/inc/meta-format.php';
 require_once ERFANPRO_DIR . '/inc/cpt-services.php';
 require_once ERFANPRO_DIR . '/inc/cpt-projects-fallback.php';

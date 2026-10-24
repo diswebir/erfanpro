@@ -1959,16 +1959,83 @@ function erfanpro_options_groups() {
 }
 
 /**
- * Render the options page: header card, sticky anchor nav, grouped
- * sections in one form, then the help card (outside the form).
+ * Inline SVG icons for the tab rail (static strings, no external assets).
+ *
+ * @return array Tab id => SVG markup.
+ */
+function erfanpro_options_tab_icons() {
+	$stroke = 'stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+	return array(
+		'general'       => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>',
+		'header-footer' => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18"/></svg>',
+		'home'          => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
+		'shop'          => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8a3 3 0 016 0"/></svg>',
+		'work'          => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M4 8h16v11H4z"/><path d="M9 8V6a3 3 0 016 0v2"/><path d="M4 13h16"/></svg>',
+		'blog'          => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M14 4l6 6L8 22H2v-6L14 4z"/><path d="M13 7l4 4"/></svg>',
+		'pages'         => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M7 3h11v18H7z"/><path d="M10 8h5M10 12h5"/></svg>',
+		'manager'       => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/></svg>',
+		'fonts'         => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><path d="M4 6h16M12 6v12M8 18h8"/></svg>',
+		'other'         => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ' . $stroke . '><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>',
+	);
+}
+
+/**
+ * Tab list for the dashboard: the 9 groups, plus a «سایر تنظیمات» tab
+ * for any registered section missing from the map.
+ *
+ * The safety net matters: the spec sanitizer rebuilds each option key
+ * from the submitted form, so a section rendered nowhere would wipe
+ * its saved values on the next save. Every section must render.
+ *
+ * @return array Tab id => group (title, desc, sections).
+ */
+function erfanpro_options_tab_groups() {
+	global $wp_settings_sections;
+	$groups = erfanpro_options_groups();
+	if ( ! isset( $wp_settings_sections['erfanpro-settings'] ) ) {
+		return $groups;
+	}
+	$mapped = array();
+	foreach ( $groups as $group ) {
+		foreach ( $group['sections'] as $section_id ) {
+			$mapped[] = $section_id;
+		}
+	}
+	$leftover = array();
+	foreach ( $wp_settings_sections['erfanpro-settings'] as $section ) {
+		if ( ! in_array( $section['id'], $mapped, true ) ) {
+			$leftover[] = $section['id'];
+		}
+	}
+	if ( $leftover ) {
+		$groups['other'] = array(
+			'title'    => __( 'سایر تنظیمات', 'erfanpro' ),
+			'desc'     => __( 'سکشن‌هایی که در نقشه‌ی تب‌ها نیستند؛ اینجا گم نمی‌شوند.', 'erfanpro' ),
+			'sections' => $leftover,
+		);
+	}
+	return $groups;
+}
+
+/**
+ * Render the options page as a tabbed dashboard: header card, vertical
+ * icon rail, one tab panel per group, floating save button, then the
+ * help card (outside the form).
+ *
+ * All tabs stay in ONE form and one DOM: tab switching never loses
+ * unsaved input in other tabs, and without JS the rail links are
+ * plain anchors and the form submits to options.php exactly like
+ * before (the floating button is a submit button; admin-tabs.js only
+ * intercepts its click to save the active tab via AJAX).
  */
 function erfanpro_options_render() {
 	if ( ! current_user_can( 'edit_theme_options' ) ) {
 		return;
 	}
-	$groups = erfanpro_options_groups();
+	$tabs  = erfanpro_options_tab_groups();
+	$icons = erfanpro_options_tab_icons();
 	?>
-	<div class="wrap erfanpro-opt-wrap">
+	<div class="wrap erfanpro-opt-wrap erfanpro-tabs">
 		<div class="erfanpro-opt-header">
 			<div class="erfanpro-opt-header-main">
 				<h1><?php echo esc_html__( 'تنظیمات قالب erfanpro', 'erfanpro' ); ?></h1>
@@ -1976,17 +2043,28 @@ function erfanpro_options_render() {
 			</div>
 			<span class="erfanpro-opt-version"><?php echo esc_html( sprintf( __( 'نسخه %s', 'erfanpro' ), ERFANPRO_VERSION ) ); ?></span>
 		</div>
-		<nav class="erfanpro-opt-nav" aria-label="<?php esc_attr_e( 'گروه‌های تنظیمات', 'erfanpro' ); ?>">
-			<?php foreach ( $groups as $group_id => $group ) : ?>
-				<a href="#erfanpro-group-<?php echo esc_attr( $group_id ); ?>"><?php echo esc_html( $group['title'] ); ?></a>
-			<?php endforeach; ?>
-		</nav>
-		<form method="post" action="options.php" enctype="multipart/form-data">
-			<?php
-			settings_fields( 'erfanpro_options_group' );
-			erfanpro_options_render_groups( $groups );
-			submit_button();
-			?>
+		<form method="post" action="options.php" enctype="multipart/form-data" class="erfanpro-tabs-form">
+			<?php settings_fields( 'erfanpro_options_group' ); ?>
+			<div class="erfanpro-tabs-layout">
+				<nav class="erfanpro-tab-rail" aria-label="<?php esc_attr_e( 'تب‌های تنظیمات', 'erfanpro' ); ?>">
+					<?php foreach ( $tabs as $tab_id => $tab ) : ?>
+						<a class="erfanpro-tab-link" data-tab="<?php echo esc_attr( $tab_id ); ?>" href="#erfanpro-group-<?php echo esc_attr( $tab_id ); ?>">
+							<span class="erfanpro-tab-icon"><?php echo $icons[ $tab_id ] ?? $icons['other']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static inline SVG icon. ?></span>
+							<span class="erfanpro-tab-label"><?php echo esc_html( $tab['title'] ); ?></span>
+						</a>
+					<?php endforeach; ?>
+				</nav>
+				<div class="erfanpro-tab-panels">
+					<?php
+					foreach ( $tabs as $tab_id => $tab ) {
+						erfanpro_options_render_panel( $tab_id, $tab );
+					}
+					?>
+				</div>
+			</div>
+			<button type="submit" id="erfanpro-floating-save" class="erfanpro-floating-save"><?php esc_html_e( 'ذخیرهٔ تب فعال', 'erfanpro' ); ?></button>
+			<div class="erfanpro-save-notice" id="erfanpro-save-notice" role="alert" aria-live="polite" hidden></div>
+			<?php submit_button(); ?>
 		</form>
 		<div class="erfanpro-opt-help">
 			<h2><?php esc_html_e( 'مواردی که در این صفحه نیستند، کجا ویرایش می‌شوند؟', 'erfanpro' ); ?></h2>
@@ -2006,54 +2084,29 @@ function erfanpro_options_render() {
 }
 
 /**
- * Render all groups, then any registered section missing from the map.
+ * Render one tab panel: group title + description + its sections.
  *
- * The safety net matters: the spec sanitizer rebuilds each option key
- * from the submitted form, so a section rendered nowhere would wipe
- * its saved values on the next save. Every section must render.
+ * The panel id keeps the old anchor (erfanpro-group-{id}) so existing
+ * #hash links still land on the right tab; data-tab is what the JS
+ * and the AJAX save use.
  *
- * @param array $groups Group map from erfanpro_options_groups().
+ * @param string $tab_id Tab id.
+ * @param array  $group  Group (title, desc, sections).
  */
-function erfanpro_options_render_groups( $groups ) {
-	global $wp_settings_sections;
-	if ( ! isset( $wp_settings_sections['erfanpro-settings'] ) ) {
-		return;
-	}
-	$rendered = array();
-	foreach ( $groups as $group_id => $group ) {
-		?>
-		<section class="erfanpro-opt-group" id="erfanpro-group-<?php echo esc_attr( $group_id ); ?>">
-			<h2 class="erfanpro-opt-group-title"><?php echo esc_html( $group['title'] ); ?></h2>
-			<?php if ( ! empty( $group['desc'] ) ) : ?>
-				<p class="erfanpro-opt-group-desc"><?php echo esc_html( $group['desc'] ); ?></p>
-			<?php endif; ?>
-			<?php
-			foreach ( $group['sections'] as $section_id ) {
-				erfanpro_options_render_section( $section_id );
-				$rendered[] = $section_id;
-			}
-			?>
-		</section>
+function erfanpro_options_render_panel( $tab_id, $group ) {
+	?>
+	<section class="erfanpro-opt-group erfanpro-tab-panel" id="erfanpro-group-<?php echo esc_attr( $tab_id ); ?>" data-tab="<?php echo esc_attr( $tab_id ); ?>">
+		<h2 class="erfanpro-opt-group-title"><?php echo esc_html( $group['title'] ); ?></h2>
+		<?php if ( ! empty( $group['desc'] ) ) : ?>
+			<p class="erfanpro-opt-group-desc"><?php echo esc_html( $group['desc'] ); ?></p>
+		<?php endif; ?>
 		<?php
-	}
-	$leftover = array();
-	foreach ( $wp_settings_sections['erfanpro-settings'] as $section ) {
-		if ( ! in_array( $section['id'], $rendered, true ) ) {
-			$leftover[] = $section['id'];
+		foreach ( $group['sections'] as $section_id ) {
+			erfanpro_options_render_section( $section_id );
 		}
-	}
-	if ( $leftover ) {
 		?>
-		<section class="erfanpro-opt-group" id="erfanpro-group-other">
-			<h2 class="erfanpro-opt-group-title"><?php esc_html_e( 'سایر تنظیمات', 'erfanpro' ); ?></h2>
-			<?php
-			foreach ( $leftover as $section_id ) {
-				erfanpro_options_render_section( $section_id );
-			}
-			?>
-		</section>
-		<?php
-	}
+	</section>
+	<?php
 }
 
 /**
