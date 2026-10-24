@@ -25,6 +25,7 @@ require_once ERFANPRO_DIR . '/inc/metaboxes-services.php';
 require_once ERFANPRO_DIR . '/inc/view-counter.php';
 require_once ERFANPRO_DIR . '/inc/multilang.php';
 require_once ERFANPRO_DIR . '/inc/leads.php';
+require_once ERFANPRO_DIR . '/inc/shop.php';
 
 /**
  * Theme setup: supports + menu locations matching the blueprint menus

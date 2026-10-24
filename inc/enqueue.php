@@ -79,6 +79,25 @@ function erfanpro_enqueue_assets() {
 			true
 		);
 	}
+
+	/* Phase 4: shop AJAX filter/search/sort (decisions 14 + 20). */
+	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) ) {
+		wp_enqueue_script(
+			'erfanpro-shop',
+			ERFANPRO_URI . '/assets/js/shop.js',
+			array(),
+			ERFANPRO_VERSION,
+			true
+		);
+		wp_localize_script(
+			'erfanpro-shop',
+			'erfanproShop',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'erfanpro-shop-filter' ),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'erfanpro_enqueue_assets' );
 
