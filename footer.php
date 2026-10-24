@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $erfanpro_footer_about = (string) erfanpro_option( 'footer_about', 'شرکت دانش‌بنیان عرفان صنعت اصفهان؛ متخصص نورپردازی شهری و تولید انواع المان‌های نورانی با بیش از دو دهه تجربه. ارائه‌دهنده راهکارهای نوین و کاربردی برای طراحی و اجرای پروژه‌های نورپردازی در سراسر کشور.' );
 $erfanpro_email        = (string) erfanpro_option( 'email', 'info@erfansanat.com' );
 $erfanpro_address      = (string) erfanpro_option( 'address', 'اصفهان، خمینی‌شهر، شهرک صنعتی برق و الکترونیک، پلاک ۱۱۹' );
+$erfanpro_ft = erfanpro_section_texts( 'footer_texts' );
 
 $erfanpro_socials = array(
 	'instagram' => array(
@@ -124,18 +125,18 @@ $erfanpro_badges = erfanpro_trust_badges();
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><?php echo $erfanpro_social['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static inline SVG paths defined above. ?></svg>
 					</a>
 					<?php endforeach; ?>
-					<span class="mr-2 text-[12px] text-slate-500"><?php esc_html_e( 'ما را دنبال کنید', 'erfanpro' ); ?></span>
+					<span class="mr-2 text-[12px] text-slate-500"><?php echo esc_html( erfanpro_panel_text( $erfanpro_ft, 'follow_label', __( 'ما را دنبال کنید', 'erfanpro' ) ) ); ?></span>
 				</div>
 				<?php endif; ?>
 			</div>
 			<div class="lg:col-span-2">
-				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php esc_html_e( 'دسترسی سریع', 'erfanpro' ); ?></h4>
+				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php echo esc_html( erfanpro_panel_text( $erfanpro_ft, 'quick_title', __( 'دسترسی سریع', 'erfanpro' ) ) ); ?></h4>
 				<ul class="flex flex-col gap-3">
 					<?php erfanpro_render_footer_quick_links(); ?>
 				</ul>
 			</div>
 			<div class="lg:col-span-2">
-				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php esc_html_e( 'خدمات نورپردازی', 'erfanpro' ); ?></h4>
+				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php echo esc_html( erfanpro_panel_text( $erfanpro_ft, 'services_title', __( 'خدمات نورپردازی', 'erfanpro' ) ) ); ?></h4>
 				<ul class="flex flex-col gap-3">
 					<?php foreach ( $erfanpro_service_links as $erfanpro_link ) : ?>
 					<li><a class="group flex items-center gap-2 text-[13.5px] text-slate-600 transition-colors duration-300 hover:text-emerald-700" href="<?php echo esc_url( $erfanpro_link[1] ); ?>"><span class="h-1 w-1 rounded-full bg-slate-400 transition-all duration-300 group-hover:w-2.5 group-hover:bg-emerald-600"></span><?php echo esc_html( $erfanpro_link[0] ); ?></a></li>
@@ -143,7 +144,7 @@ $erfanpro_badges = erfanpro_trust_badges();
 				</ul>
 			</div>
 			<div class="lg:col-span-2">
-				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php esc_html_e( 'محصولات برگزیده', 'erfanpro' ); ?></h4>
+				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php echo esc_html( erfanpro_panel_text( $erfanpro_ft, 'products_title', __( 'محصولات برگزیده', 'erfanpro' ) ) ); ?></h4>
 				<ul class="flex flex-col gap-3">
 					<?php foreach ( $erfanpro_product_links as $erfanpro_link ) : ?>
 					<li><a class="group flex items-center gap-2 text-[13.5px] text-slate-600 transition-colors duration-300 hover:text-emerald-700" href="<?php echo esc_url( $erfanpro_link[1] ); ?>"><span class="h-1 w-1 rounded-full bg-slate-400 transition-all duration-300 group-hover:w-2.5 group-hover:bg-emerald-600"></span><?php echo esc_html( $erfanpro_link[0] ); ?></a></li>
@@ -151,7 +152,7 @@ $erfanpro_badges = erfanpro_trust_badges();
 				</ul>
 			</div>
 			<div class="lg:col-span-2">
-				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php esc_html_e( 'تماس با ما', 'erfanpro' ); ?></h4>
+				<h4 class="mb-5 flex items-center gap-2 text-[15px] font-extrabold text-slate-900"><span class="h-4 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span><?php echo esc_html( erfanpro_panel_text( $erfanpro_ft, 'contact_title', __( 'تماس با ما', 'erfanpro' ) ) ); ?></h4>
 				<ul class="flex flex-col gap-4 text-[13px] leading-6 text-slate-600">
 					<li class="flex items-start gap-2.5">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>
@@ -169,7 +170,7 @@ $erfanpro_badges = erfanpro_trust_badges();
 			</div>
 		</div>
 		<div class="mt-14 flex flex-col items-center justify-between gap-5 border-t border-slate-200 pt-8 sm:flex-row">
-			<p class="text-[12.5px] text-slate-500">© ۱۴۰۴ — تمامی حقوق متعلق به <span class="font-bold text-slate-700">شرکت دانش‌بنیان عرفان صنعت اصفهان</span> می‌باشد.</p>
+			<p class="text-[12.5px] text-slate-500"><?php echo wp_kses_post( erfanpro_panel_text( $erfanpro_ft, 'copyright', '© ۱۴۰۴ — تمامی حقوق متعلق به <span class="font-bold text-slate-700">شرکت دانش‌بنیان عرفان صنعت اصفهان</span> می‌باشد.' ) ); ?></p>
 			<?php if ( $erfanpro_badges ) : ?>
 			<div class="flex items-center gap-3">
 				<?php

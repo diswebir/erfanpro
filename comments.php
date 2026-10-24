@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_cm = erfanpro_section_texts( 'comments_texts' );
+
 if ( post_password_required() ) {
 	return;
 }
@@ -28,6 +30,7 @@ if ( ! function_exists( 'erfanpro_comment_callback' ) ) {
 	 * @param int        $depth   Depth.
 	 */
 	function erfanpro_comment_callback( $comment, $args, $depth ) {
+	$erfanpro_cm = erfanpro_section_texts( 'comments_texts' );
 		$GLOBALS['comment'] = $comment;
 		$tag                = ( 'div' === $args['style'] ) ? 'div' : 'li';
 		$date               = erfanpro_jalali_date( (int) strtotime( $comment->comment_date ) );
@@ -53,7 +56,7 @@ if ( ! function_exists( 'erfanpro_comment_callback' ) ) {
 								array(
 									'depth'      => $depth,
 									'max_depth'  => $args['max_depth'],
-									'reply_text' => __( 'پاسخ', 'erfanpro' ),
+									'reply_text' => erfanpro_panel_text( $erfanpro_cm, 'reply', __( 'پاسخ', 'erfanpro' ) ),
 									'before'     => '',
 									'after'      => '',
 								)
@@ -96,8 +99,8 @@ $comment_count = get_comments_number();
 		<?php
 		the_comments_navigation(
 			array(
-				'prev_text' => __( 'دیدگاه‌های قدیمی‌تر', 'erfanpro' ),
-				'next_text' => __( 'دیدگاه‌های جدیدتر', 'erfanpro' ),
+				'prev_text' => erfanpro_panel_text( $erfanpro_cm, 'prev', __( 'دیدگاه‌های قدیمی‌تر', 'erfanpro' ) ),
+				'next_text' => erfanpro_panel_text( $erfanpro_cm, 'next', __( 'دیدگاه‌های جدیدتر', 'erfanpro' ) ),
 			)
 		);
 		?>
@@ -109,49 +112,49 @@ $comment_count = get_comments_number();
 			$input_class = 'w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-[14px] font-medium text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100';
 			comment_form(
 				array(
-					'title_reply'         => __( 'دیدگاه شما', 'erfanpro' ),
+					'title_reply'         => erfanpro_panel_text( $erfanpro_cm, 'reply_title', __( 'دیدگاه شما', 'erfanpro' ) ),
 					'title_reply_before'  => '<h3 id="reply-title" class="comment-reply-title mb-2 flex items-center gap-3 text-xl font-extrabold text-slate-900"><span class="h-6 w-1.5 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-700"></span>',
 					'title_reply_after'   => '</h3>',
-					'comment_notes_before' => '<p class="mb-6 text-[13px] leading-7 text-slate-500">' . esc_html__( 'دیدگاه شما پس از تأیید نمایش داده می‌شود.', 'erfanpro' ) . '</p>',
-					'label_submit'        => __( 'ثبت دیدگاه', 'erfanpro' ),
-					'submit_button'       => '<button name="%1$s" type="submit" id="%2$s" class="%3$s">' . esc_html__( 'ثبت دیدگاه', 'erfanpro' ) . '</button>',
+					'comment_notes_before' => '<p class="mb-6 text-[13px] leading-7 text-slate-500">' . esc_html( erfanpro_panel_text( $erfanpro_cm, 'notes', __( 'دیدگاه شما پس از تأیید نمایش داده می‌شود.', 'erfanpro' ) ) ) . '</p>',
+					'label_submit'        => erfanpro_panel_text( $erfanpro_cm, 'submit', __( 'ثبت دیدگاه', 'erfanpro' ) ),
+					'submit_button'       => '<button name="%1$s" type="submit" id="%2$s" class="%3$s">' . esc_html( erfanpro_panel_text( $erfanpro_cm, 'submit', __( 'ثبت دیدگاه', 'erfanpro' ) ) ) . '</button>',
 					'submit_field'        => '<p class="form-submit mt-6">%1$s %2$s</p>',
 					'class_submit'        => 'rounded-full bg-emerald-600 px-8 py-3.5 text-[14px] font-extrabold text-white shadow-lg shadow-emerald-600/25 transition-all hover:bg-emerald-700 cursor-pointer',
 					'class_form'          => 'comment-form grid gap-5',
 					'fields'              => array(
 						'author' => sprintf(
 							'<p class="comment-form-author"><label for="author" class="mb-2 block text-[13px] font-bold text-slate-700">%s <span class="text-rose-500">*</span></label><input id="author" name="author" type="text" value="%s" size="30" maxlength="245" autocomplete="name" required class="%s" placeholder="%s"></p>',
-							esc_html__( 'نام', 'erfanpro' ),
+							esc_html( erfanpro_panel_text( $erfanpro_cm, 'label_name', __( 'نام', 'erfanpro' ) ) ),
 							esc_attr( $commenter['comment_author'] ?? '' ),
 							esc_attr( $input_class ),
-							esc_attr__( 'نام شما', 'erfanpro' )
+							esc_attr( erfanpro_panel_text( $erfanpro_cm, 'ph_name', __( 'نام شما', 'erfanpro' ) ) )
 						),
 						'email'  => sprintf(
 							'<p class="comment-form-email"><label for="email" class="mb-2 block text-[13px] font-bold text-slate-700">%s <span class="text-rose-500">*</span></label><input id="email" name="email" type="email" value="%s" size="30" maxlength="100" autocomplete="email" required class="%s" placeholder="%s" dir="ltr" style="text-align:right"></p>',
-							esc_html__( 'ایمیل', 'erfanpro' ),
+							esc_html( erfanpro_panel_text( $erfanpro_cm, 'label_email', __( 'ایمیل', 'erfanpro' ) ) ),
 							esc_attr( $commenter['comment_author_email'] ?? '' ),
 							esc_attr( $input_class ),
 							esc_attr__( 'example@mail.com', 'erfanpro' )
 						),
 						'url'    => sprintf(
 							'<p class="comment-form-url"><label for="url" class="mb-2 block text-[13px] font-bold text-slate-700">%s</label><input id="url" name="url" type="url" value="%s" size="30" maxlength="200" autocomplete="url" class="%s" placeholder="https://" dir="ltr" style="text-align:right"></p>',
-							esc_html__( 'وب‌سایت', 'erfanpro' ),
+							esc_html( erfanpro_panel_text( $erfanpro_cm, 'label_url', __( 'وب‌سایت', 'erfanpro' ) ) ),
 							esc_attr( $commenter['comment_author_url'] ?? '' ),
 							esc_attr( $input_class )
 						),
 					),
 					'comment_field'       => sprintf(
 						'<p class="comment-form-comment"><label for="comment" class="mb-2 block text-[13px] font-bold text-slate-700">%s <span class="text-rose-500">*</span></label><textarea id="comment" name="comment" cols="45" rows="5" maxlength="65525" required class="%s" placeholder="%s"></textarea></p>',
-						esc_html__( 'دیدگاه', 'erfanpro' ),
+						esc_html( erfanpro_panel_text( $erfanpro_cm, 'label_comment', __( 'دیدگاه', 'erfanpro' ) ) ),
 						esc_attr( $input_class ),
-						esc_attr__( 'دیدگاه خود را بنویسید…', 'erfanpro' )
+						esc_attr( erfanpro_panel_text( $erfanpro_cm, 'ph_comment', __( 'دیدگاه خود را بنویسید…', 'erfanpro' ) ) )
 					),
 				)
 			);
 			?>
 		</div>
 		<?php elseif ( $comment_count > 0 ) : ?>
-		<p class="mt-10 rounded-3xl border border-emerald-100 bg-white p-6 text-center text-[13.5px] font-bold text-slate-600"><?php esc_html_e( 'ثبت دیدگاه برای این مقاله بسته شده است.', 'erfanpro' ); ?></p>
+		<p class="mt-10 rounded-3xl border border-emerald-100 bg-white p-6 text-center text-[13.5px] font-bold text-slate-600"><?php echo esc_html( erfanpro_panel_text( $erfanpro_cm, 'closed', __( 'ثبت دیدگاه برای این مقاله بسته شده است.', 'erfanpro' ) ) ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>

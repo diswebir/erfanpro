@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $erfanpro_st = erfanpro_section_texts( 'product_order' );
+$erfanpro_badges = erfanpro_section_texts( 'product_badges' );
 
 /* The assembler sets $erfanpro_product (WC_Product). */
 $product    = isset( $args['erfanpro_product'] ) && $args['erfanpro_product'] instanceof WC_Product ? $args['erfanpro_product'] : null;
@@ -31,10 +32,10 @@ if ( $product ) {
 $in_stock = $product ? $product->is_in_stock() : true;
 
 $trust = array(
-	array( __( '۲۴ ماه گارانتی', 'erfanpro' ), __( 'تعویض بی‌قید', 'erfanpro' ), 'shield-check' ),
-	array( __( '۵ سال خدمات', 'erfanpro' ), __( 'تأمین قطعات', 'erfanpro' ), 'wrench' ),
-	array( __( 'استاندارد IP67', 'erfanpro' ), __( 'مقاوم در برابر آب', 'erfanpro' ), 'droplets' ),
-	array( __( 'خرید مستقیم', 'erfanpro' ), __( 'از کارخانه', 'erfanpro' ), 'factory' ),
+	array( erfanpro_panel_text( $erfanpro_badges, 'trust1_title', __( '۲۴ ماه گارانتی', 'erfanpro' ) ), erfanpro_panel_text( $erfanpro_badges, 'trust1_sub', __( 'تعویض بی‌قید', 'erfanpro' ) ), 'shield-check' ),
+	array( erfanpro_panel_text( $erfanpro_badges, 'trust2_title', __( '۵ سال خدمات', 'erfanpro' ) ), erfanpro_panel_text( $erfanpro_badges, 'trust2_sub', __( 'تأمین قطعات', 'erfanpro' ) ), 'wrench' ),
+	array( erfanpro_panel_text( $erfanpro_badges, 'trust3_title', __( 'استاندارد IP67', 'erfanpro' ) ), erfanpro_panel_text( $erfanpro_badges, 'trust3_sub', __( 'مقاوم در برابر آب', 'erfanpro' ) ), 'droplets' ),
+	array( erfanpro_panel_text( $erfanpro_badges, 'trust4_title', __( 'خرید مستقیم', 'erfanpro' ) ), erfanpro_panel_text( $erfanpro_badges, 'trust4_sub', __( 'از کارخانه', 'erfanpro' ) ), 'factory' ),
 );
 $trust_svgs = array(
 	'shield-check' => '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path>',

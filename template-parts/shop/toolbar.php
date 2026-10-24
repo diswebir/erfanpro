@@ -19,6 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_tb = erfanpro_section_texts( 'shop_toolbar' );
+
 /* Seed the initial render from the archive context: current product
  * category on taxonomy archives, the search term on product search. */
 $erfanpro_shop_seed = array(
@@ -87,7 +89,7 @@ if ( $erfanpro_shop_result['total'] > 0 ) {
 		<div class="flex items-center gap-3">
 			<label class="flex items-center gap-2 text-[13px] font-bold text-slate-600" for="erfanpro-shop-sort">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-wide-narrow h-4 w-4 text-emerald-600" aria-hidden="true"><path d="m3 16 4 4 4-4"></path><path d="M7 20V4"></path><path d="M11 4h4"></path><path d="M11 8h7"></path><path d="M11 12h10"></path></svg>
-				<?php esc_html_e( 'مرتب‌سازی:', 'erfanpro' ); ?>
+				<?php echo esc_html( erfanpro_panel_text( $erfanpro_tb, 'sort_label', __( 'مرتب‌سازی:', 'erfanpro' ) ) ); ?>
 			</label>
 			<select id="erfanpro-shop-sort" class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-bold text-slate-700 focus:border-emerald-500 focus:outline-none">
 				<?php foreach ( $erfanpro_tb_sort as $value => $label ) : ?>
@@ -97,7 +99,7 @@ if ( $erfanpro_shop_result['total'] > 0 ) {
 			<?php if ( ! empty( $erfanpro_tb_attrs ) ) : ?>
 			<button type="button" id="erfanpro-shop-attrs-toggle" aria-expanded="false" class="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-bold text-slate-700 transition-all hover:border-emerald-400 hover:text-emerald-700">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sliders-horizontal h-4 w-4 text-emerald-600" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
-				<?php esc_html_e( 'فیلتر ویژگی‌ها', 'erfanpro' ); ?>
+				<?php echo esc_html( erfanpro_panel_text( $erfanpro_tb, 'filter_label', __( 'فیلتر ویژگی‌ها', 'erfanpro' ) ) ); ?>
 			</button>
 			<?php endif; ?>
 		</div>
@@ -122,7 +124,7 @@ if ( $erfanpro_shop_result['total'] > 0 ) {
 	<?php endif; ?>
 
 	<div class="mb-6 flex flex-wrap items-center justify-center gap-2.5" data-shop-toolbar-pills<?php erfanpro_reveal( 0.07, 'inview', null, 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>
-		<button type="button" data-shop-cat="" class="<?php echo esc_attr( '' === $erfanpro_shop_params['cat'] ? $erfanpro_tb_pill_active : $erfanpro_tb_pill_inactive ); ?>"><?php esc_html_e( 'همه', 'erfanpro' ); ?></button>
+		<button type="button" data-shop-cat="" class="<?php echo esc_attr( '' === $erfanpro_shop_params['cat'] ? $erfanpro_tb_pill_active : $erfanpro_tb_pill_inactive ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_tb, 'all_label', __( 'همه', 'erfanpro' ) ) ); ?></button>
 		<?php foreach ( $erfanpro_tb_cats as $term ) : ?>
 		<button type="button" data-shop-cat="<?php echo esc_attr( $term->slug ); ?>" class="<?php echo esc_attr( $term->slug === $erfanpro_shop_params['cat'] ? $erfanpro_tb_pill_active : $erfanpro_tb_pill_inactive ); ?>"><?php echo esc_html( $term->name ); ?></button>
 		<?php endforeach; ?>

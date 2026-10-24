@@ -16,6 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_pd = erfanpro_section_texts( 'project_details' );
+
 $erfanpro_project_id = get_queried_object_id();
 $erfanpro_title      = get_the_title( $erfanpro_project_id );
 $erfanpro_slides     = erfanpro_project_slides( $erfanpro_project_id );
@@ -25,22 +27,22 @@ $erfanpro_year = erfanpro_project_year( $erfanpro_project_id );
 
 $erfanpro_info_rows = array(
 	array(
-		'label' => __( 'موقعیت پروژه', 'erfanpro' ),
+		'label' => erfanpro_panel_text( $erfanpro_pd, 'gallery_location', __( 'موقعیت پروژه', 'erfanpro' ) ),
 		'value' => '' !== $erfanpro_city ? $erfanpro_city : __( '—', 'erfanpro' ),
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-4 w-4" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>',
 	),
 	array(
-		'label' => __( 'کارفرما', 'erfanpro' ),
+		'label' => erfanpro_panel_text( $erfanpro_pd, 'gallery_client', __( 'کارفرما', 'erfanpro' ) ),
 		'value' => __( 'سازمان زیباسازی', 'erfanpro' ),
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building-2 h-4 w-4" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>',
 	),
 	array(
-		'label' => __( 'مدت اجرا', 'erfanpro' ),
+		'label' => erfanpro_panel_text( $erfanpro_pd, 'gallery_duration', __( 'مدت اجرا', 'erfanpro' ) ),
 		'value' => __( '۲ هفته', 'erfanpro' ),
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock h-4 w-4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
 	),
 	array(
-		'label' => __( 'سال بهره‌برداری', 'erfanpro' ),
+		'label' => erfanpro_panel_text( $erfanpro_pd, 'gallery_year', __( 'سال بهره‌برداری', 'erfanpro' ) ),
 		'value' => sprintf( __( 'سال %s', 'erfanpro' ), $erfanpro_year ),
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check h-4 w-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>',
 	),
@@ -75,8 +77,8 @@ $erfanpro_info_rows = array(
 		<div class="<?php echo ! empty( $erfanpro_slides ) ? 'lg:col-span-5' : 'lg:col-span-12'; ?>">
 			<div class="overflow-hidden rounded-[1.75rem] border border-emerald-100 bg-white shadow-lg"<?php erfanpro_reveal( 0.09, 'mount', 'opacity: 0; transform: translateY(28px);', 'opacity: 1; transform: none;' ); ?>>
 				<div class="border-b border-slate-100 px-6 py-5">
-					<h2 class="text-lg font-extrabold text-slate-900"><?php esc_html_e( 'اطلاعات پروژه', 'erfanpro' ); ?></h2>
-					<p class="mt-1 text-[12.5px] text-slate-500"><?php esc_html_e( 'مشخصات اجرایی ثبت‌شده برای این پروژه', 'erfanpro' ); ?></p>
+					<h2 class="text-lg font-extrabold text-slate-900"><?php echo esc_html( erfanpro_panel_text( $erfanpro_pd, 'gallery_info_title', __( 'اطلاعات پروژه', 'erfanpro' ) ) ); ?></h2>
+					<p class="mt-1 text-[12.5px] text-slate-500"><?php echo esc_html( erfanpro_panel_text( $erfanpro_pd, 'gallery_info_desc', __( 'مشخصات اجرایی ثبت‌شده برای این پروژه', 'erfanpro' ) ) ); ?></p>
 				</div>
 				<div class="divide-y divide-slate-100">
 					<?php foreach ( $erfanpro_info_rows as $row ) : ?>
@@ -90,8 +92,8 @@ $erfanpro_info_rows = array(
 					<?php endforeach; ?>
 				</div>
 				<div class="flex flex-col gap-3 border-t border-slate-100 bg-emerald-50/60 px-6 py-5">
-					<a class="flex items-center justify-center gap-2 rounded-full bg-emerald-700 px-5 py-3 text-[13.5px] font-black text-white shadow-md shadow-emerald-700/25 transition-colors hover:bg-emerald-800" href="tel:<?php echo esc_attr( erfanpro_phone_tel() ); ?>"><?php esc_html_e( 'تماس مستقیم: ', 'erfanpro' ); ?><?php echo esc_html( erfanpro_phone_display() ); ?></a>
-					<a class="flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-white px-5 py-3 text-[13.5px] font-black text-emerald-800 transition-colors hover:bg-emerald-50" href="<?php echo esc_url( erfanpro_whatsapp_url() ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'ارسال درخواست در واتساپ', 'erfanpro' ); ?></a>
+					<a class="flex items-center justify-center gap-2 rounded-full bg-emerald-700 px-5 py-3 text-[13.5px] font-black text-white shadow-md shadow-emerald-700/25 transition-colors hover:bg-emerald-800" href="tel:<?php echo esc_attr( erfanpro_phone_tel() ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_pd, 'call_label', __( 'تماس مستقیم: ', 'erfanpro' ) ) ); ?><?php echo esc_html( erfanpro_phone_display() ); ?></a>
+					<a class="flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-white px-5 py-3 text-[13.5px] font-black text-emerald-800 transition-colors hover:bg-emerald-50" href="<?php echo esc_url( erfanpro_whatsapp_url() ); ?>" target="_blank" rel="noopener"><?php echo esc_html( erfanpro_panel_text( $erfanpro_pd, 'whatsapp_label', __( 'ارسال درخواست در واتساپ', 'erfanpro' ) ) ); ?></a>
 				</div>
 			</div>
 		</div>

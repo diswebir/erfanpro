@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $erfanpro_st = erfanpro_section_texts( 'post_hero' );
+$erfanpro_blog_st = erfanpro_section_texts( 'blog_hero' );
 
 $post_id = get_the_ID();
 $title   = get_the_title();
@@ -51,7 +52,7 @@ $image = get_the_post_thumbnail_url( $post_id, 'full' );
 				<a class="flex shrink-0 items-center gap-1.5 rounded-lg px-1.5 py-0.5 transition-colors hover:bg-white/10 hover:text-emerald-200" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<span class="grid h-6 w-6 place-items-center rounded-lg bg-emerald-400/15 text-emerald-200"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house lucide-home h-3.5 w-3.5" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><?php esc_html_e( 'صفحه اصلی', 'erfanpro' ); ?>
 				</a>
-				<span class="flex min-w-0 items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left h-3.5 w-3.5 shrink-0 text-white/30" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg><a class="truncate rounded-lg px-1.5 py-0.5 transition-colors hover:bg-white/10 hover:text-emerald-200" href="<?php echo esc_url( erfanpro_blog_index_url() ); ?>"><?php esc_html_e( 'وبلاگ', 'erfanpro' ); ?></a></span>
+				<span class="flex min-w-0 items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left h-3.5 w-3.5 shrink-0 text-white/30" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg><a class="truncate rounded-lg px-1.5 py-0.5 transition-colors hover:bg-white/10 hover:text-emerald-200" href="<?php echo esc_url( erfanpro_blog_index_url() ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_blog_st, 'title', __( 'وبلاگ', 'erfanpro' ) ) ); ?></a></span>
 				<?php if ( '' !== $cat_name ) : ?>
 				<span class="flex min-w-0 items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left h-3.5 w-3.5 shrink-0 text-white/30" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg><span class="max-w-[16rem] truncate rounded-lg px-2 py-0.5 font-extrabold bg-emerald-400/15 text-emerald-200"><?php echo esc_html( $cat_name ); ?></span></span>
 				<?php endif; ?>

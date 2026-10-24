@@ -39,7 +39,8 @@ if ( $video_only ) {
 	$first    = $images[0];
 }
 $num      = $video_only ? 1 : count( $images ); // image slides; the video thumb is extra.
-$warranty = __( '۲۴ ماه گارانتی تعویض', 'erfanpro' );
+$erfanpro_badges = erfanpro_section_texts( 'product_badges' );
+$warranty = erfanpro_panel_text( $erfanpro_badges, 'gallery_warranty', __( '۲۴ ماه گارانتی تعویض', 'erfanpro' ) );
 ?>
 <div class="lg:col-span-7">
 	<div<?php erfanpro_reveal( 0.00, 'mount', 'opacity: 0; filter: blur(6px); transform: translateY(42px);', 'opacity: 1; filter: blur(0px); transform: none;' ); ?>>

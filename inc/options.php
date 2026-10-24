@@ -50,34 +50,104 @@ function erfanpro_options_init() {
 		)
 	);
 
-	/* ---- general (phase 0) ---- */
+	/* ---- contact info (phase 0 fields, regrouped) ---- */
 	add_settings_section(
-		'erfanpro_general',
-		__( 'تنظیمات عمومی', 'erfanpro' ),
+		'erfanpro_contact_info',
+		__( 'تماس و نشانی', 'erfanpro' ),
 		'__return_false',
 		'erfanpro-settings'
 	);
-
-	$fields = array(
-		'phone'            => __( 'تلفن تماس (مثال: 031-91091011)', 'erfanpro' ),
-		'whatsapp'         => __( 'شماره واتساپ', 'erfanpro' ),
-		'email'            => __( 'ایمیل', 'erfanpro' ),
-		'address'          => __( 'نشانی', 'erfanpro' ),
-		'catalog_full_url' => __( 'لینک کاتالوگ کامل سایت (فال‌بک کاتالوگ محصول)', 'erfanpro' ),
-		'footer_about'     => __( 'متن معرفی کوتاه فوتر', 'erfanpro' ),
-		'instagram'        => __( 'لینک اینستاگرام', 'erfanpro' ),
-		'telegram'         => __( 'لینک تلگرام', 'erfanpro' ),
-		'aparat'           => __( 'لینک آپارات', 'erfanpro' ),
-		'linkedin'         => __( 'لینک لینکدین', 'erfanpro' ),
-	);
-
-	foreach ( $fields as $key => $label ) {
+	foreach ( array(
+		'phone'    => __( 'تلفن تماس (مثال: 031-91091011)', 'erfanpro' ),
+		'whatsapp' => __( 'شماره واتساپ', 'erfanpro' ),
+		'email'    => __( 'ایمیل', 'erfanpro' ),
+		'address'  => __( 'نشانی', 'erfanpro' ),
+	) as $key => $label ) {
 		add_settings_field(
 			'erfanpro_' . $key,
 			$label,
 			'erfanpro_options_field',
 			'erfanpro-settings',
-			'erfanpro_general',
+			'erfanpro_contact_info',
+			array( 'key' => $key )
+		);
+	}
+
+	/* ---- site-wide catalog fallback ---- */
+	add_settings_section(
+		'erfanpro_catalog',
+		__( 'کاتالوگ کامل سایت', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_catalog_full_url',
+		__( 'لینک کاتالوگ کامل سایت (فال‌بک کاتالوگ محصول)', 'erfanpro' ),
+		'erfanpro_options_field',
+		'erfanpro-settings',
+		'erfanpro_catalog',
+		array( 'key' => 'catalog_full_url' )
+	);
+
+	/* ---- header texts ---- */
+	add_settings_section(
+		'erfanpro_header_texts',
+		__( 'متن‌های سربرگ', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_header_texts_fields',
+		__( 'جستجو و برچسب‌های سربرگ', 'erfanpro' ),
+		'erfanpro_options_text_groups_field',
+		'erfanpro-settings',
+		'erfanpro_header_texts',
+		array( 'option_key' => 'section_texts', 'groups' => array( 'header_texts' ) )
+	);
+
+	/* ---- footer texts + footer intro ---- */
+	add_settings_section(
+		'erfanpro_footer_texts',
+		__( 'متن‌های پاصفحه', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_footer_about',
+		__( 'متن معرفی کوتاه فوتر', 'erfanpro' ),
+		'erfanpro_options_field',
+		'erfanpro-settings',
+		'erfanpro_footer_texts',
+		array( 'key' => 'footer_about' )
+	);
+	add_settings_field(
+		'erfanpro_footer_texts_fields',
+		__( 'تیتر ستون‌ها و کپی‌رایت', 'erfanpro' ),
+		'erfanpro_options_text_groups_field',
+		'erfanpro-settings',
+		'erfanpro_footer_texts',
+		array( 'option_key' => 'section_texts', 'groups' => array( 'footer_texts' ) )
+	);
+
+	/* ---- socials ---- */
+	add_settings_section(
+		'erfanpro_socials',
+		__( 'شبکه‌های اجتماعی', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	foreach ( array(
+		'instagram' => __( 'لینک اینستاگرام', 'erfanpro' ),
+		'telegram'  => __( 'لینک تلگرام', 'erfanpro' ),
+		'aparat'    => __( 'لینک آپارات', 'erfanpro' ),
+		'linkedin'  => __( 'لینک لینکدین', 'erfanpro' ),
+	) as $key => $label ) {
+		add_settings_field(
+			'erfanpro_' . $key,
+			$label,
+			'erfanpro_options_field',
+			'erfanpro-settings',
+			'erfanpro_socials',
 			array( 'key' => $key )
 		);
 	}
@@ -257,21 +327,79 @@ function erfanpro_options_init() {
 		'erfanpro_page_sections'
 	);
 
-	/* ---- Section texts for the remaining page families ---- */
-	add_settings_section(
-		'erfanpro_section_texts',
-		__( 'متن‌های سکشن‌های دیگر برگه‌ها', 'erfanpro' ),
-		'__return_false',
-		'erfanpro-settings'
+	/* ---- Section texts, grouped by page family (one section per family).
+	 * Every group of the section_texts spec is rendered in exactly one
+	 * section below; the spec sanitizer rebuilds the whole key from the
+	 * submitted form, so a group rendered nowhere would lose its values.
+	 * ---- */
+	$family_sections = array(
+		'erfanpro_shop_toolbar'   => array(
+			'title'  => __( 'نوار ابزار فروشگاه', 'erfanpro' ),
+			'field'  => __( 'مرتب‌سازی و فیلتر', 'erfanpro' ),
+			'groups' => array( 'shop_toolbar' ),
+		),
+		'erfanpro_product_texts'  => array(
+			'title'  => __( 'متن‌های تک‌محصول', 'erfanpro' ),
+			'field'  => __( 'هیرو، کارت سفارش، زبانه‌ها، مرتبط و نشان‌ها', 'erfanpro' ),
+			'groups' => array( 'product_hero', 'product_order', 'product_tabs', 'product_related', 'product_badges' ),
+		),
+		'erfanpro_projects_texts' => array(
+			'title'  => __( 'متن‌های آرشیو پروژه‌ها', 'erfanpro' ),
+			'field'  => __( 'هیرو و نوار فیلتر', 'erfanpro' ),
+			'groups' => array( 'projects_hero', 'projects_toolbar' ),
+		),
+		'erfanpro_project_texts'  => array(
+			'title'  => __( 'متن‌های تک‌پروژه', 'erfanpro' ),
+			'field'  => __( 'هیرو، جزئیات، محصولات و مرتبط', 'erfanpro' ),
+			'groups' => array( 'project_hero', 'project_products', 'project_related', 'project_details' ),
+		),
+		'erfanpro_services_texts' => array(
+			'title'  => __( 'متن‌های آرشیو خدمات', 'erfanpro' ),
+			'field'  => __( 'هیرو، فهرست و مسیر همکاری', 'erfanpro' ),
+			'groups' => array( 'services_hero', 'services_list', 'services_process' ),
+		),
+		'erfanpro_service_texts'  => array(
+			'title'  => __( 'متن‌های تک‌خدمت', 'erfanpro' ),
+			'field'  => __( 'جزئیات، سوالات، مرتبط و سایر خدمات', 'erfanpro' ),
+			'groups' => array( 'service_faq', 'service_related', 'service_others', 'service_details' ),
+		),
+		'erfanpro_blog_texts'     => array(
+			'title'  => __( 'متن‌های وبلاگ', 'erfanpro' ),
+			'field'  => __( 'هیرو و شبکه مقالات', 'erfanpro' ),
+			'groups' => array( 'blog_hero', 'blog_grid' ),
+		),
+		'erfanpro_post_texts'     => array(
+			'title'  => __( 'متن‌های تک‌نوشته', 'erfanpro' ),
+			'field'  => __( 'هیرو، متن و مقالات مرتبط', 'erfanpro' ),
+			'groups' => array( 'post_hero', 'post_article', 'post_related' ),
+		),
+		'erfanpro_comments_texts' => array(
+			'title'  => __( 'متن‌های دیدگاه‌ها', 'erfanpro' ),
+			'field'  => __( 'فرم و پیام‌های دیدگاه', 'erfanpro' ),
+			'groups' => array( 'comments_texts' ),
+		),
+		'erfanpro_search_texts'   => array(
+			'title'  => __( 'متن‌های جستجو و صفحه ۴۰۴', 'erfanpro' ),
+			'field'  => __( 'صفحه نتایج جستجو و صفحه پیدا نشد', 'erfanpro' ),
+			'groups' => array( 'search_texts', 'not_found_texts' ),
+		),
 	);
-	add_settings_field(
-		'erfanpro_section_texts_fields',
-		__( 'پروژه‌ها، خدمات، تک‌محصول و وبلاگ', 'erfanpro' ),
-		'erfanpro_options_text_groups_field',
-		'erfanpro-settings',
-		'erfanpro_section_texts',
-		array( 'option_key' => 'section_texts' )
-	);
+	foreach ( $family_sections as $section_id => $section ) {
+		add_settings_section(
+			$section_id,
+			$section['title'],
+			'__return_false',
+			'erfanpro-settings'
+		);
+		add_settings_field(
+			$section_id . '_fields',
+			$section['field'],
+			'erfanpro_options_text_groups_field',
+			'erfanpro-settings',
+			$section_id,
+			array( 'option_key' => 'section_texts', 'groups' => $section['groups'] )
+		);
+	}
 }
 add_action( 'admin_init', 'erfanpro_options_init' );
 
@@ -980,6 +1108,7 @@ function erfanpro_panel_text_specs() {
 			'services_hero'    => array(
 				'label'     => __( 'هیروی آرشیو خدمات', 'erfanpro' ),
 				'fields'    => array(
+					'breadcrumb' => array( 'label' => __( 'متن مسیر صفحه (خالی = همان تیتر)', 'erfanpro' ), 'type' => 'text' ),
 					'kicker'     => array( 'label' => __( 'نشان‌واره', 'erfanpro' ), 'type' => 'text' ),
 					'title_a'    => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
 					'title_b'    => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
@@ -997,7 +1126,16 @@ function erfanpro_panel_text_specs() {
 					'title_a' => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
 					'title_b' => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
 				),
-				'repeaters' => array(),
+				'repeaters' => array(
+					'steps' => array(
+						'label'  => __( 'گام‌های مسیر همکاری (مشترک بین کارت هیرو و شبکه مراحل)', 'erfanpro' ),
+						'add'    => __( 'افزودن گام', 'erfanpro' ),
+						'fields' => array(
+							'title' => __( 'تیتر گام', 'erfanpro' ),
+							'desc'  => __( 'توضیح گام', 'erfanpro' ),
+						),
+					),
+				),
 			),
 			'services_list'    => array(
 				'label'     => __( 'فهرست خدمات', 'erfanpro' ),
@@ -1099,6 +1237,7 @@ function erfanpro_panel_text_specs() {
 			'blog_hero'        => array(
 				'label'     => __( 'هیروی وبلاگ', 'erfanpro' ),
 				'fields'    => array(
+					'breadcrumb'        => array( 'label' => __( 'متن مسیر صفحه (خالی = همان تیتر)', 'erfanpro' ), 'type' => 'text' ),
 					'title'             => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
 					'subtitle'          => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
 					'search_placeholder' => array( 'label' => __( 'جای‌نما جستجو', 'erfanpro' ), 'type' => 'text' ),
@@ -1128,6 +1267,7 @@ function erfanpro_panel_text_specs() {
 					'share_label'   => array( 'label' => __( 'اشتراک‌گذاری', 'erfanpro' ), 'type' => 'text' ),
 					'toc_title'     => array( 'label' => __( 'سرفصل‌ها', 'erfanpro' ), 'type' => 'text' ),
 					'consult_title' => array( 'label' => __( 'تیتر مشاوره', 'erfanpro' ), 'type' => 'text' ),
+					'consult_desc'  => array( 'label' => __( 'توضیح مشاوره', 'erfanpro' ), 'type' => 'textarea' ),
 					'whatsapp_text' => array( 'label' => __( 'متن دکمه واتساپ', 'erfanpro' ), 'type' => 'text' ),
 				),
 				'repeaters' => array(),
@@ -1137,6 +1277,170 @@ function erfanpro_panel_text_specs() {
 				'fields'    => array(
 					'title' => array( 'label' => __( 'تیتر', 'erfanpro' ), 'type' => 'text' ),
 					'cta'   => array( 'label' => __( 'متن دکمه', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'project_details'  => array(
+				'label'     => __( 'جزئیات تک‌پروژه', 'erfanpro' ),
+				'fields'    => array(
+					'intro_title'        => array( 'label' => __( 'تیتر معرفی و شرح اجرا', 'erfanpro' ), 'type' => 'text' ),
+					'identity_title'     => array( 'label' => __( 'تیتر شناسنامه و مشخصات فنی', 'erfanpro' ), 'type' => 'text' ),
+					'identity_desc'      => array( 'label' => __( 'توضیح شناسنامه', 'erfanpro' ), 'type' => 'textarea' ),
+					'features_title'     => array( 'label' => __( 'تیتر ویژگی‌های برجسته', 'erfanpro' ), 'type' => 'text' ),
+					'summary_title'      => array( 'label' => __( 'تیتر خلاصه پروژه', 'erfanpro' ), 'type' => 'text' ),
+					'similar_title'      => array( 'label' => __( 'تیتر «پروژه مشابه»', 'erfanpro' ), 'type' => 'text' ),
+					'similar_desc'       => array( 'label' => __( 'توضیح «پروژه مشابه»', 'erfanpro' ), 'type' => 'textarea' ),
+					'spec_location'      => array( 'label' => __( 'برچسب محل اجرا', 'erfanpro' ), 'type' => 'text' ),
+					'spec_client'        => array( 'label' => __( 'برچسب کارفرما / سازمان', 'erfanpro' ), 'type' => 'text' ),
+					'spec_duration'      => array( 'label' => __( 'برچسب مدت اجرا', 'erfanpro' ), 'type' => 'text' ),
+					'spec_year'          => array( 'label' => __( 'برچسب سال اجرا و بهره‌برداری', 'erfanpro' ), 'type' => 'text' ),
+					'spec_type'          => array( 'label' => __( 'برچسب نوع سازه', 'erfanpro' ), 'type' => 'text' ),
+					'spec_control'       => array( 'label' => __( 'برچسب سیستم کنترل', 'erfanpro' ), 'type' => 'text' ),
+					'spec_standard'      => array( 'label' => __( 'برچسب استاندارد مقاومت', 'erfanpro' ), 'type' => 'text' ),
+					'spec_warranty'      => array( 'label' => __( 'برچسب گارانتی و خدمات', 'erfanpro' ), 'type' => 'text' ),
+					'info_client'        => array( 'label' => __( 'برچسب کارفرما (فهرست دوم)', 'erfanpro' ), 'type' => 'text' ),
+					'info_location'      => array( 'label' => __( 'برچسب موقعیت (فهرست دوم)', 'erfanpro' ), 'type' => 'text' ),
+					'info_duration'      => array( 'label' => __( 'برچسب زمان اجرا (فهرست دوم)', 'erfanpro' ), 'type' => 'text' ),
+					'info_year'          => array( 'label' => __( 'برچسب سال بهره‌برداری (فهرست دوم)', 'erfanpro' ), 'type' => 'text' ),
+					'info_equipment'     => array( 'label' => __( 'برچسب تعداد تجهیزات (فهرست دوم)', 'erfanpro' ), 'type' => 'text' ),
+					'warranty_title'     => array( 'label' => __( 'تیتر گارانتی (کارت جزئیات)', 'erfanpro' ), 'type' => 'text' ),
+					'warranty_sub'       => array( 'label' => __( 'زیرتیتر گارانتی (کارت جزئیات)', 'erfanpro' ), 'type' => 'text' ),
+					'service_title'      => array( 'label' => __( 'تیتر خدمات (کارت جزئیات)', 'erfanpro' ), 'type' => 'text' ),
+					'service_sub'        => array( 'label' => __( 'زیرتیتر خدمات (کارت جزئیات)', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_info_title' => array( 'label' => __( 'تیتر کارت اطلاعات گالری', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_info_desc'  => array( 'label' => __( 'توضیح کارت اطلاعات گالری', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_location'   => array( 'label' => __( 'برچسب موقعیت (گالری)', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_client'     => array( 'label' => __( 'برچسب کارفرما (گالری)', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_duration'   => array( 'label' => __( 'برچسب مدت اجرا (گالری)', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_year'       => array( 'label' => __( 'برچسب سال بهره‌برداری (گالری)', 'erfanpro' ), 'type' => 'text' ),
+					'call_label'         => array( 'label' => __( 'برچسب تماس مستقیم', 'erfanpro' ), 'type' => 'text' ),
+					'whatsapp_label'     => array( 'label' => __( 'متن دکمه واتساپ', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'service_details'  => array(
+				'label'     => __( 'جزئیات تک‌خدمت', 'erfanpro' ),
+				'fields'    => array(
+					'breadcrumb_services' => array( 'label' => __( 'متن مسیر صفحه «خدمات»', 'erfanpro' ), 'type' => 'text' ),
+					'details_button'      => array( 'label' => __( 'متن دکمه جزئیات خدمت', 'erfanpro' ), 'type' => 'text' ),
+					'request_button'      => array( 'label' => __( 'متن دکمه درخواست اجرا', 'erfanpro' ), 'type' => 'text' ),
+					'items_title'         => array( 'label' => __( 'تیتر اقلام اجرایی', 'erfanpro' ), 'type' => 'text' ),
+					'process_title'       => array( 'label' => __( 'تیتر مسیر اجرای خدمت', 'erfanpro' ), 'type' => 'text' ),
+					'step_start_badge'    => array( 'label' => __( 'نشان گام اول («شروع»)', 'erfanpro' ), 'type' => 'text' ),
+					'note_title'          => array( 'label' => __( 'تیتر یادداشت مهم', 'erfanpro' ), 'type' => 'text' ),
+					'cta_title'           => array( 'label' => __( 'تیتر دعوت به اقدام', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'footer_texts'     => array(
+				'label'     => __( 'متن‌های پاصفحه', 'erfanpro' ),
+				'fields'    => array(
+					'follow_label'   => array( 'label' => __( 'برچسب «ما را دنبال کنید»', 'erfanpro' ), 'type' => 'text' ),
+					'quick_title'    => array( 'label' => __( 'تیتر ستون دسترسی سریع', 'erfanpro' ), 'type' => 'text' ),
+					'services_title' => array( 'label' => __( 'تیتر ستون خدمات', 'erfanpro' ), 'type' => 'text' ),
+					'products_title' => array( 'label' => __( 'تیتر ستون محصولات', 'erfanpro' ), 'type' => 'text' ),
+					'contact_title'  => array( 'label' => __( 'تیتر ستون تماس', 'erfanpro' ), 'type' => 'text' ),
+					'back_to_top'    => array( 'label' => __( 'متن دکمه بازگشت به بالا', 'erfanpro' ), 'type' => 'text' ),
+					'copyright'      => array( 'label' => __( 'متن کپی‌رایت (متن ساده)', 'erfanpro' ), 'type' => 'textarea' ),
+				),
+				'repeaters' => array(),
+			),
+			'header_texts'     => array(
+				'label'     => __( 'متن‌های سربرگ', 'erfanpro' ),
+				'fields'    => array(
+					'search_placeholder' => array( 'label' => __( 'جای‌نما جستجوی سربرگ', 'erfanpro' ), 'type' => 'text' ),
+					'search_button'      => array( 'label' => __( 'متن دکمه جستجو', 'erfanpro' ), 'type' => 'text' ),
+					'menu_aria'          => array( 'label' => __( 'برچسب دسترس‌پذیری دکمه منو', 'erfanpro' ), 'type' => 'text' ),
+					'mobile_aria'        => array( 'label' => __( 'برچسب دسترس‌پذیری منوی موبایل', 'erfanpro' ), 'type' => 'text' ),
+					'nav_aria'           => array( 'label' => __( 'برچسب دسترس‌پذیری ناوبری اصلی', 'erfanpro' ), 'type' => 'text' ),
+					'lang_aria'          => array( 'label' => __( 'برچسب دسترس‌پذیری انتخاب زبان', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'search_texts'     => array(
+				'label'     => __( 'متن‌های صفحه جستجو', 'erfanpro' ),
+				'fields'    => array(
+					'crumb'         => array( 'label' => __( 'متن مسیر صفحه', 'erfanpro' ), 'type' => 'text' ),
+					'type_all'      => array( 'label' => __( 'برچسب فیلتر «همه»', 'erfanpro' ), 'type' => 'text' ),
+					'type_product'  => array( 'label' => __( 'برچسب فیلتر محصولات', 'erfanpro' ), 'type' => 'text' ),
+					'type_projects' => array( 'label' => __( 'برچسب فیلتر پروژه‌ها', 'erfanpro' ), 'type' => 'text' ),
+					'type_services' => array( 'label' => __( 'برچسب فیلتر خدمات', 'erfanpro' ), 'type' => 'text' ),
+					'type_post'     => array( 'label' => __( 'برچسب فیلتر مقالات', 'erfanpro' ), 'type' => 'text' ),
+					'type_page'     => array( 'label' => __( 'برچسب فیلتر برگه‌ها', 'erfanpro' ), 'type' => 'text' ),
+					'badge_product' => array( 'label' => __( 'نشان نوع «محصول»', 'erfanpro' ), 'type' => 'text' ),
+					'badge_projects' => array( 'label' => __( 'نشان نوع «پروژه»', 'erfanpro' ), 'type' => 'text' ),
+					'badge_services' => array( 'label' => __( 'نشان نوع «خدمت»', 'erfanpro' ), 'type' => 'text' ),
+					'badge_post'    => array( 'label' => __( 'نشان نوع «مقاله»', 'erfanpro' ), 'type' => 'text' ),
+					'badge_page'    => array( 'label' => __( 'نشان نوع «برگه»', 'erfanpro' ), 'type' => 'text' ),
+					'view_button'   => array( 'label' => __( 'متن دکمه مشاهده نتیجه', 'erfanpro' ), 'type' => 'text' ),
+					'price_fallback' => array( 'label' => __( 'متن قیمت نامشخص محصول', 'erfanpro' ), 'type' => 'text' ),
+					'empty_title'   => array( 'label' => __( 'تیتر حالت بدون نتیجه', 'erfanpro' ), 'type' => 'text' ),
+					'empty_hint'    => array( 'label' => __( 'راهنمای حالت بدون نتیجه', 'erfanpro' ), 'type' => 'textarea' ),
+					'empty_home'    => array( 'label' => __( 'دکمه صفحه اصلی (بدون نتیجه)', 'erfanpro' ), 'type' => 'text' ),
+					'empty_shop'    => array( 'label' => __( 'دکمه فروشگاه (بدون نتیجه)', 'erfanpro' ), 'type' => 'text' ),
+					'empty_contact' => array( 'label' => __( 'دکمه تماس (بدون نتیجه)', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'not_found_texts'  => array(
+				'label'     => __( 'متن‌های صفحه ۴۰۴', 'erfanpro' ),
+				'fields'    => array(
+					'title'        => array( 'label' => __( 'تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'desc'         => array( 'label' => __( 'توضیح', 'erfanpro' ), 'type' => 'textarea' ),
+					'home_button'  => array( 'label' => __( 'دکمه بازگشت به صفحه اصلی', 'erfanpro' ), 'type' => 'text' ),
+					'shop_button'  => array( 'label' => __( 'دکمه فروشگاه', 'erfanpro' ), 'type' => 'text' ),
+					'contact_button' => array( 'label' => __( 'دکمه تماس با ما', 'erfanpro' ), 'type' => 'text' ),
+					'card1_title'  => array( 'label' => __( 'تیتر کارت محصولات', 'erfanpro' ), 'type' => 'text' ),
+					'card1_desc'   => array( 'label' => __( 'توضیح کارت محصولات', 'erfanpro' ), 'type' => 'text' ),
+					'card2_title'  => array( 'label' => __( 'تیتر کارت پروژه‌ها', 'erfanpro' ), 'type' => 'text' ),
+					'card2_desc'   => array( 'label' => __( 'توضیح کارت پروژه‌ها', 'erfanpro' ), 'type' => 'text' ),
+					'card3_title'  => array( 'label' => __( 'تیتر کارت خدمات', 'erfanpro' ), 'type' => 'text' ),
+					'card3_desc'   => array( 'label' => __( 'توضیح کارت خدمات', 'erfanpro' ), 'type' => 'text' ),
+					'card4_title'  => array( 'label' => __( 'تیتر کارت درباره ما', 'erfanpro' ), 'type' => 'text' ),
+					'card4_desc'   => array( 'label' => __( 'توضیح کارت درباره ما', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'comments_texts'   => array(
+				'label'     => __( 'متن‌های دیدگاه‌ها', 'erfanpro' ),
+				'fields'    => array(
+					'prev'         => array( 'label' => __( 'متن «دیدگاه‌های قدیمی‌تر»', 'erfanpro' ), 'type' => 'text' ),
+					'next'         => array( 'label' => __( 'متن «دیدگاه‌های جدیدتر»', 'erfanpro' ), 'type' => 'text' ),
+					'reply'        => array( 'label' => __( 'متن دکمه پاسخ', 'erfanpro' ), 'type' => 'text' ),
+					'reply_title'  => array( 'label' => __( 'تیتر فرم دیدگاه', 'erfanpro' ), 'type' => 'text' ),
+					'notes'        => array( 'label' => __( 'یادداشت پیش از فرم', 'erfanpro' ), 'type' => 'text' ),
+					'submit'       => array( 'label' => __( 'متن دکمه ثبت دیدگاه', 'erfanpro' ), 'type' => 'text' ),
+					'closed'       => array( 'label' => __( 'پیام بسته بودن دیدگاه‌ها', 'erfanpro' ), 'type' => 'text' ),
+					'label_name'   => array( 'label' => __( 'برچسب نام', 'erfanpro' ), 'type' => 'text' ),
+					'ph_name'      => array( 'label' => __( 'جای‌نما نام', 'erfanpro' ), 'type' => 'text' ),
+					'label_email'  => array( 'label' => __( 'برچسب ایمیل', 'erfanpro' ), 'type' => 'text' ),
+					'label_url'    => array( 'label' => __( 'برچسب وب‌سایت', 'erfanpro' ), 'type' => 'text' ),
+					'label_comment' => array( 'label' => __( 'برچسب متن دیدگاه', 'erfanpro' ), 'type' => 'text' ),
+					'ph_comment'   => array( 'label' => __( 'جای‌نما متن دیدگاه', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'shop_toolbar'     => array(
+				'label'     => __( 'نوار ابزار فروشگاه', 'erfanpro' ),
+				'fields'    => array(
+					'sort_label'   => array( 'label' => __( 'برچسب مرتب‌سازی', 'erfanpro' ), 'type' => 'text' ),
+					'filter_label' => array( 'label' => __( 'برچسب فیلتر ویژگی‌ها', 'erfanpro' ), 'type' => 'text' ),
+					'all_label'    => array( 'label' => __( 'برچسب دسته «همه»', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'product_badges'   => array(
+				'label'     => __( 'نشان‌های اعتماد تک‌محصول', 'erfanpro' ),
+				'fields'    => array(
+					'trust1_title'    => array( 'label' => __( 'نشان اول — تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust1_sub'      => array( 'label' => __( 'نشان اول — زیرتیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust2_title'    => array( 'label' => __( 'نشان دوم — تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust2_sub'      => array( 'label' => __( 'نشان دوم — زیرتیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust3_title'    => array( 'label' => __( 'نشان سوم — تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust3_sub'      => array( 'label' => __( 'نشان سوم — زیرتیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust4_title'    => array( 'label' => __( 'نشان چهارم — تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'trust4_sub'      => array( 'label' => __( 'نشان چهارم — زیرتیتر', 'erfanpro' ), 'type' => 'text' ),
+					'gallery_warranty' => array( 'label' => __( 'متن گارانتی گالری', 'erfanpro' ), 'type' => 'text' ),
 				),
 				'repeaters' => array(),
 			),
@@ -1163,7 +1467,16 @@ function erfanpro_options_text_groups_field( $args ) {
 	if ( ! is_array( $saved ) ) {
 		$saved = array();
 	}
-	foreach ( $spec[ $key ] as $group_key => $group ) {
+	// Optional subset: a section may render only some groups of the key
+	// (the admin page groups section_texts by page family). Every group
+	// of every key must still be rendered in exactly one section of the
+	// same form, or the spec sanitizer would wipe its saved values.
+	$group_keys = isset( $args['groups'] ) && is_array( $args['groups'] ) ? $args['groups'] : array_keys( $spec[ $key ] );
+	foreach ( $group_keys as $group_key ) {
+		if ( ! isset( $spec[ $key ][ $group_key ] ) ) {
+			continue;
+		}
+		$group = $spec[ $key ][ $group_key ];
 		$values = isset( $saved[ $group_key ] ) && is_array( $saved[ $group_key ] ) ? $saved[ $group_key ] : array();
 		$base   = 'erfanpro_options[' . $key . '][' . $group_key . ']';
 		?>
@@ -1587,22 +1900,203 @@ function erfanpro_delete_custom_font( $url ) {
 }
 
 /**
- * Render the options page.
+ * Option-page groups: section id => group. The render below groups the
+ * registered sections into cards with a sticky anchor nav. Field names,
+ * the option key and the sanitize callback are untouched, so saving
+ * behaves exactly like the old single-form page; the nav and the cards
+ * are display-only (no JS dependency — anchors work without it).
+ *
+ * @return array
+ */
+function erfanpro_options_groups() {
+	return array(
+		'general'       => array(
+			'title'    => __( 'عمومی و تماس', 'erfanpro' ),
+			'desc'     => __( 'اطلاعات تماس و لینک کاتالوگ کامل سایت.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_contact_info', 'erfanpro_catalog' ),
+		),
+		'header-footer' => array(
+			'title'    => __( 'سربرگ و پاصفحه', 'erfanpro' ),
+			'desc'     => __( 'متن‌های سربرگ و پاصفحه، نمادهای اعتماد و شبکه‌های اجتماعی.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_header_texts', 'erfanpro_footer_texts', 'erfanpro_trust', 'erfanpro_socials' ),
+		),
+		'home'          => array(
+			'title'    => __( 'خانه', 'erfanpro' ),
+			'desc'     => __( 'هیرو، شمارنده‌ها، سکشن‌ها و نوار شهرهای صفحه خانه.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_home_hero', 'erfanpro_counters', 'erfanpro_home_sections', 'erfanpro_why_us', 'erfanpro_city_marquee' ),
+		),
+		'shop'          => array(
+			'title'    => __( 'فروشگاه و محصول', 'erfanpro' ),
+			'desc'     => __( 'متن‌های فروشگاه و تک‌محصول.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_shop_texts', 'erfanpro_shop_toolbar', 'erfanpro_product_texts' ),
+		),
+		'work'          => array(
+			'title'    => __( 'پروژه‌ها و خدمات', 'erfanpro' ),
+			'desc'     => __( 'متن‌های آرشیو و تک‌پروژه، آرشیو و تک‌خدمت.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_projects_texts', 'erfanpro_project_texts', 'erfanpro_services_texts', 'erfanpro_service_texts' ),
+		),
+		'blog'          => array(
+			'title'    => __( 'وبلاگ و دیدگاه‌ها', 'erfanpro' ),
+			'desc'     => __( 'متن‌های وبلاگ، تک‌نوشته و فرم دیدگاه‌ها.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_blog_texts', 'erfanpro_post_texts', 'erfanpro_comments_texts' ),
+		),
+		'pages'         => array(
+			'title'    => __( 'برگه‌ها و پیام‌ها', 'erfanpro' ),
+			'desc'     => __( 'متن‌های درباره، تماس، برگه‌های ساده، جستجو و صفحه ۴۰۴.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_about_contact', 'erfanpro_minor_pages', 'erfanpro_search_texts' ),
+		),
+		'manager'       => array(
+			'title'    => __( 'مدیر سکشن‌ها', 'erfanpro' ),
+			'desc'     => __( 'نمایش، ترتیب و فعال/غیرفعال بودن سکشن‌های هر نوع برگه؛ با دکمه‌های بالا/پایین و بازنشانی.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_page_sections' ),
+		),
+		'fonts'         => array(
+			'title'    => __( 'فونت و راهنما', 'erfanpro' ),
+			'desc'     => __( 'فونت‌های سفارشی و نشانی ویرایش مواردی که در این صفحه نیستند.', 'erfanpro' ),
+			'sections' => array( 'erfanpro_fonts' ),
+		),
+	);
+}
+
+/**
+ * Render the options page: header card, sticky anchor nav, grouped
+ * sections in one form, then the help card (outside the form).
  */
 function erfanpro_options_render() {
 	if ( ! current_user_can( 'edit_theme_options' ) ) {
 		return;
 	}
+	$groups = erfanpro_options_groups();
 	?>
-	<div class="wrap">
-		<h1><?php echo esc_html__( 'تنظیمات قالب erfanpro', 'erfanpro' ); ?></h1>
+	<div class="wrap erfanpro-opt-wrap">
+		<div class="erfanpro-opt-header">
+			<div class="erfanpro-opt-header-main">
+				<h1><?php echo esc_html__( 'تنظیمات قالب erfanpro', 'erfanpro' ); ?></h1>
+				<p class="erfanpro-opt-subtitle"><?php esc_html_e( 'همه‌ی متن‌ها و سکشن‌های قالب از همین‌جا ویرایش می‌شوند؛ تا وقتی چیزی ذخیره نشده باشد، خروجی سایت دقیقاً مثل قبل می‌ماند.', 'erfanpro' ); ?></p>
+			</div>
+			<span class="erfanpro-opt-version"><?php echo esc_html( sprintf( __( 'نسخه %s', 'erfanpro' ), ERFANPRO_VERSION ) ); ?></span>
+		</div>
+		<nav class="erfanpro-opt-nav" aria-label="<?php esc_attr_e( 'گروه‌های تنظیمات', 'erfanpro' ); ?>">
+			<?php foreach ( $groups as $group_id => $group ) : ?>
+				<a href="#erfanpro-group-<?php echo esc_attr( $group_id ); ?>"><?php echo esc_html( $group['title'] ); ?></a>
+			<?php endforeach; ?>
+		</nav>
 		<form method="post" action="options.php" enctype="multipart/form-data">
 			<?php
 			settings_fields( 'erfanpro_options_group' );
-			do_settings_sections( 'erfanpro-settings' );
+			erfanpro_options_render_groups( $groups );
 			submit_button();
 			?>
 		</form>
+		<div class="erfanpro-opt-help">
+			<h2><?php esc_html_e( 'مواردی که در این صفحه نیستند، کجا ویرایش می‌شوند؟', 'erfanpro' ); ?></h2>
+			<ul>
+				<li><?php esc_html_e( 'فهرست‌ها (مگامنو، موبایل، لندینگ): ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>"><?php esc_html_e( 'نمایش ← فهرست‌ها', 'erfanpro' ); ?></a></li>
+				<li><?php esc_html_e( 'لوگو: ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>"><?php esc_html_e( 'نمایش ← سفارشی‌سازی', 'erfanpro' ); ?></a></li>
+				<li><?php esc_html_e( 'سبد، تسویه و حساب کاربری: ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings' ) ); ?>"><?php esc_html_e( 'ووکامرس ← تنظیمات', 'erfanpro' ); ?></a></li>
+				<li><?php esc_html_e( 'لیدهای فرم تماس: ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=erfanpro_lead' ) ); ?>"><?php esc_html_e( 'لیدهای تماس', 'erfanpro' ); ?></a></li>
+				<li><?php esc_html_e( 'شمارنده بازدید هر نوشته: دکمه بازنشانی در جعبه «بازدیدها» در صفحه ویرایش همان نوشته.', 'erfanpro' ); ?></li>
+				<li><?php esc_html_e( 'لینک‌های دستی نسخه انگلیسی/عربی: جعبه «نسخه‌های زبانی» در صفحه ویرایش همان نوشته یا برگه.', 'erfanpro' ); ?></li>
+				<li><?php esc_html_e( 'محتوای ادیتور برگه‌ها (از جمله بخش نیروهای فروش در تماس با ما): برگه‌ها ← ویرایش برگه مربوط.', 'erfanpro' ); ?></li>
+				<li><?php esc_html_e( 'مشخصات محصول، پروژه و خدمت (متا): صفحه ویرایش همان محصول، پروژه یا خدمت.', 'erfanpro' ); ?></li>
+			</ul>
+		</div>
+	</div>
+	<?php
+}
+
+/**
+ * Render all groups, then any registered section missing from the map.
+ *
+ * The safety net matters: the spec sanitizer rebuilds each option key
+ * from the submitted form, so a section rendered nowhere would wipe
+ * its saved values on the next save. Every section must render.
+ *
+ * @param array $groups Group map from erfanpro_options_groups().
+ */
+function erfanpro_options_render_groups( $groups ) {
+	global $wp_settings_sections;
+	if ( ! isset( $wp_settings_sections['erfanpro-settings'] ) ) {
+		return;
+	}
+	$rendered = array();
+	foreach ( $groups as $group_id => $group ) {
+		?>
+		<section class="erfanpro-opt-group" id="erfanpro-group-<?php echo esc_attr( $group_id ); ?>">
+			<h2 class="erfanpro-opt-group-title"><?php echo esc_html( $group['title'] ); ?></h2>
+			<?php if ( ! empty( $group['desc'] ) ) : ?>
+				<p class="erfanpro-opt-group-desc"><?php echo esc_html( $group['desc'] ); ?></p>
+			<?php endif; ?>
+			<?php
+			foreach ( $group['sections'] as $section_id ) {
+				erfanpro_options_render_section( $section_id );
+				$rendered[] = $section_id;
+			}
+			?>
+		</section>
+		<?php
+	}
+	$leftover = array();
+	foreach ( $wp_settings_sections['erfanpro-settings'] as $section ) {
+		if ( ! in_array( $section['id'], $rendered, true ) ) {
+			$leftover[] = $section['id'];
+		}
+	}
+	if ( $leftover ) {
+		?>
+		<section class="erfanpro-opt-group" id="erfanpro-group-other">
+			<h2 class="erfanpro-opt-group-title"><?php esc_html_e( 'سایر تنظیمات', 'erfanpro' ); ?></h2>
+			<?php
+			foreach ( $leftover as $section_id ) {
+				erfanpro_options_render_section( $section_id );
+			}
+			?>
+		</section>
+		<?php
+	}
+}
+
+/**
+ * Render one settings section: title + its fields in a form-table,
+ * mirroring WordPress core's do_settings_sections() markup.
+ *
+ * @param string $section_id Registered section id.
+ */
+function erfanpro_options_render_section( $section_id ) {
+	global $wp_settings_sections, $wp_settings_fields;
+	$section = null;
+	foreach ( $wp_settings_sections['erfanpro-settings'] as $s ) {
+		if ( $s['id'] === $section_id ) {
+			$section = $s;
+			break;
+		}
+	}
+	if ( ! $section ) {
+		return;
+	}
+	if ( ! empty( $section['callback'] ) && is_callable( $section['callback'] ) ) {
+		call_user_func( $section['callback'], $section );
+	}
+	if ( empty( $wp_settings_fields['erfanpro-settings'][ $section_id ] ) ) {
+		return;
+	}
+	?>
+	<div class="erfanpro-opt-section">
+		<h3 class="erfanpro-opt-section-title"><?php echo esc_html( $section['title'] ); ?></h3>
+		<table class="form-table" role="presentation">
+			<tbody>
+			<?php
+			foreach ( $wp_settings_fields['erfanpro-settings'][ $section_id ] as $field ) {
+				?>
+				<tr>
+					<th scope="row"><?php echo esc_html( $field['title'] ); ?></th>
+					<td><?php call_user_func( $field['callback'], $field['args'] ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
+			</tbody>
+		</table>
 	</div>
 	<?php
 }
@@ -1882,4 +2376,24 @@ function erfanpro_panel_text_list( $group, $key, $fallback ) {
 		}
 	}
 	return $merged;
+}
+
+/**
+ * Shared collaboration-path steps (services hero card + process grid).
+ *
+ * One repeater in the services_process group feeds both render sites,
+ * so the two copies can never drift apart. Unsaved => the five
+ * reference steps, in reference order — byte-identical output.
+ *
+ * @return array<int, array{title:string,desc:string}>
+ */
+function erfanpro_process_steps() {
+	$fallback = array(
+		array( 'title' => 'بازدید و مشاوره رایگان', 'desc' => 'کارشناسان ما از محل پروژه بازدید و نیازسنجی می‌کنند' ),
+		array( 'title' => 'طراحی اختصاصی', 'desc' => 'طرح سه‌بعدی و سناریوی نوری مخصوص پروژه شما آماده می‌شود' ),
+		array( 'title' => 'تولید در کارخانه', 'desc' => 'ساخت با متریال درجه‌یک و استانداردهای IP67/IP68' ),
+		array( 'title' => 'نصب و اجرا', 'desc' => 'تیم اجرایی مجرب، نصب سریع و ایمن را انجام می‌دهد' ),
+		array( 'title' => 'تحویل و پشتیبانی', 'desc' => '۲۴ ماه گارانتی و ۵ سال خدمات پس از فروش' ),
+	);
+	return erfanpro_panel_rows_merged( erfanpro_section_texts( 'services_process' ), 'steps', $fallback );
 }

@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$erfanpro_hd = erfanpro_section_texts( 'header_texts' );
+
 $erfanpro_lang_en = erfanpro_lang_url( 'en' );
 $erfanpro_lang_ar = erfanpro_lang_url( 'ar' );
 
@@ -19,7 +21,7 @@ if ( ! $erfanpro_lang_en && ! $erfanpro_lang_ar ) {
 	return;
 }
 ?>
-<div class="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-2 py-1 text-[11.5px] font-bold text-slate-500 sm:flex" role="group" aria-label="<?php esc_attr_e( 'زبان', 'erfanpro' ); ?>">
+<div class="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-2 py-1 text-[11.5px] font-bold text-slate-500 sm:flex" role="group" aria-label="<?php echo esc_attr( erfanpro_panel_text( $erfanpro_hd, 'lang_aria', __( 'زبان', 'erfanpro' ) ) ); ?>">
 	<span class="text-emerald-700" aria-current="true">FA</span>
 	<?php if ( $erfanpro_lang_en ) : ?>
 		<a href="<?php echo esc_url( $erfanpro_lang_en ); ?>" hreflang="en" class="transition-colors hover:text-emerald-700">EN</a>

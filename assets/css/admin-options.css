@@ -1,0 +1,185 @@
+/**
+ * erfanpro options page (appearance_page_erfanpro-settings) — display only.
+ *
+ * Complements wp-admin's own styles; it never overrides core layout
+ * classes outside .erfanpro-opt-wrap. Logical properties only (no
+ * hardcoded left/right), so the page stays correct in RTL and LTR.
+ * Zero external requests.
+ */
+
+.erfanpro-opt-wrap {
+	max-width: 1100px;
+}
+
+/* ---- header card ---- */
+.erfanpro-opt-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	margin: 16px 0;
+	padding: 20px 24px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+}
+
+.erfanpro-opt-header-main h1 {
+	margin: 0;
+	padding: 0;
+}
+
+.erfanpro-opt-subtitle {
+	margin: 8px 0 0;
+	color: #50575e;
+	font-size: 14px;
+	line-height: 1.8;
+}
+
+.erfanpro-opt-version {
+	flex-shrink: 0;
+	padding: 6px 12px;
+	background: #f0f0f1;
+	border-radius: 999px;
+	color: #50575e;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+/* ---- sticky group nav (anchors only — works without JS) ---- */
+.erfanpro-opt-nav {
+	position: sticky;
+	top: 32px;
+	z-index: 10;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 0 0 20px;
+	padding: 10px 12px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.erfanpro-opt-nav a {
+	padding: 6px 12px;
+	border-radius: 999px;
+	color: #2271b1;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.erfanpro-opt-nav a:hover,
+.erfanpro-opt-nav a:focus {
+	background: #f0f0f1;
+	color: #135e96;
+}
+
+/* ---- group cards ---- */
+.erfanpro-opt-group {
+	margin: 0 0 24px;
+	padding: 20px 24px 8px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	scroll-margin-top: 110px;
+}
+
+.erfanpro-opt-group-title {
+	margin: 0 0 4px;
+	padding: 0;
+	font-size: 20px;
+	line-height: 1.5;
+}
+
+.erfanpro-opt-group-desc {
+	margin: 0 0 16px;
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+/* ---- sections inside a group ---- */
+.erfanpro-opt-section {
+	margin: 0 0 20px;
+	padding: 16px;
+	background: #fbfbfc;
+	border: 1px solid #e5e5e5;
+	border-radius: 6px;
+}
+
+.erfanpro-opt-section-title {
+	margin: 0 0 12px;
+	padding: 0;
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+/* Keep core's form-table readable inside cards: narrower labels,
+ * full-width inputs, stacked on small screens. */
+.erfanpro-opt-section .form-table th {
+	width: 180px;
+	padding: 12px 0;
+	vertical-align: top;
+}
+
+.erfanpro-opt-section .form-table td {
+	padding: 12px 0;
+}
+
+.erfanpro-opt-section .form-table td input[type="text"],
+.erfanpro-opt-section .form-table td input[type="url"],
+.erfanpro-opt-section .form-table td input[type="email"],
+.erfanpro-opt-section .form-table td input[type="number"],
+.erfanpro-opt-section .form-table td textarea,
+.erfanpro-opt-section .form-table td select {
+	max-width: 100%;
+}
+
+/* ---- help card (outside the form) ---- */
+.erfanpro-opt-help {
+	margin: 0 0 24px;
+	padding: 20px 24px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+}
+
+.erfanpro-opt-help h2 {
+	margin: 0 0 12px;
+	padding: 0;
+	font-size: 16px;
+}
+
+.erfanpro-opt-help ul {
+	margin: 0;
+}
+
+.erfanpro-opt-help li {
+	margin-bottom: 8px;
+	line-height: 1.9;
+}
+
+@media screen and (max-width: 782px) {
+	.erfanpro-opt-header {
+		flex-direction: column;
+	}
+
+	.erfanpro-opt-nav {
+		top: 46px;
+	}
+
+	.erfanpro-opt-group {
+		padding: 16px 16px 4px;
+	}
+
+	.erfanpro-opt-section .form-table th,
+	.erfanpro-opt-section .form-table td {
+		display: block;
+		width: auto;
+		padding: 8px 0;
+	}
+}

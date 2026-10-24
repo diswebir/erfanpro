@@ -17,13 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $erfanpro_query = get_search_query();
+$erfanpro_st = erfanpro_section_texts( 'search_texts' );
 $erfanpro_types = array(
-	'all'      => __( 'همه', 'erfanpro' ),
-	'product'  => __( 'محصولات', 'erfanpro' ),
-	'projects' => __( 'پروژه‌ها', 'erfanpro' ),
-	'services' => __( 'خدمات', 'erfanpro' ),
-	'post'     => __( 'مقالات', 'erfanpro' ),
-	'page'     => __( 'برگه‌ها', 'erfanpro' ),
+	'all'      => erfanpro_panel_text( $erfanpro_st, 'type_all', __( 'همه', 'erfanpro' ) ),
+	'product'  => erfanpro_panel_text( $erfanpro_st, 'type_product', __( 'محصولات', 'erfanpro' ) ),
+	'projects' => erfanpro_panel_text( $erfanpro_st, 'type_projects', __( 'پروژه‌ها', 'erfanpro' ) ),
+	'services' => erfanpro_panel_text( $erfanpro_st, 'type_services', __( 'خدمات', 'erfanpro' ) ),
+	'post'     => erfanpro_panel_text( $erfanpro_st, 'type_post', __( 'مقالات', 'erfanpro' ) ),
+	'page'     => erfanpro_panel_text( $erfanpro_st, 'type_page', __( 'برگه‌ها', 'erfanpro' ) ),
 );
 $erfanpro_type  = isset( $_GET['type'] ) ? sanitize_key( wp_unslash( $_GET['type'] ) ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only filter.
 if ( ! isset( $erfanpro_types[ $erfanpro_type ] ) ) {
@@ -52,11 +53,11 @@ $erfanpro_results = new WP_Query(
 );
 
 $erfanpro_type_labels = array(
-	'product'  => __( 'محصول', 'erfanpro' ),
-	'projects' => __( 'پروژه', 'erfanpro' ),
-	'services' => __( 'خدمت', 'erfanpro' ),
-	'post'     => __( 'مقاله', 'erfanpro' ),
-	'page'     => __( 'برگه', 'erfanpro' ),
+	'product'  => erfanpro_panel_text( $erfanpro_st, 'badge_product', __( 'محصول', 'erfanpro' ) ),
+	'projects' => erfanpro_panel_text( $erfanpro_st, 'badge_projects', __( 'پروژه', 'erfanpro' ) ),
+	'services' => erfanpro_panel_text( $erfanpro_st, 'badge_services', __( 'خدمت', 'erfanpro' ) ),
+	'post'     => erfanpro_panel_text( $erfanpro_st, 'badge_post', __( 'مقاله', 'erfanpro' ) ),
+	'page'     => erfanpro_panel_text( $erfanpro_st, 'badge_page', __( 'برگه', 'erfanpro' ) ),
 );
 
 get_header();
@@ -68,7 +69,7 @@ get_header();
 			<nav aria-label="<?php esc_attr_e( 'مسیر صفحه', 'erfanpro' ); ?>" class="inline-flex max-w-full flex-wrap items-center gap-x-1.5 gap-y-1.5 rounded-2xl border border-white/15 bg-white/[0.07] px-4 py-2.5 text-[12.5px] font-semibold text-white/70 backdrop-blur">
 				<a class="rounded-lg px-1.5 py-0.5 transition-colors hover:bg-white/10 hover:text-emerald-200" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'صفحه اصلی', 'erfanpro' ); ?></a>
 				<span class="text-white/30">‹</span>
-				<span class="rounded-lg bg-emerald-400/15 px-2 py-0.5 font-extrabold text-emerald-200"><?php esc_html_e( 'جستجو', 'erfanpro' ); ?></span>
+				<span class="rounded-lg bg-emerald-400/15 px-2 py-0.5 font-extrabold text-emerald-200"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'crumb', __( 'جستجو', 'erfanpro' ) ) ); ?></span>
 			</nav>
 			<h1 class="mt-8 text-[2rem] font-black leading-[1.3] text-white sm:text-[2.6rem] lg:text-[3.2rem]">
 				<?php
@@ -122,11 +123,11 @@ get_header();
 								if ( $erfanpro_product ) :
 									?>
 									<p class="mt-3 text-[14px] font-extrabold text-emerald-700">
-										<?php echo '' !== $erfanpro_product->get_price() ? wp_kses_post( $erfanpro_product->get_price_html() ) : esc_html__( 'استعلام قیمت', 'erfanpro' ); ?>
+										<?php echo '' !== $erfanpro_product->get_price() ? wp_kses_post( $erfanpro_product->get_price_html() ) : esc_html( erfanpro_panel_text( $erfanpro_st, 'price_fallback', __( 'استعلام قیمت', 'erfanpro' ) ) ); ?>
 									</p>
 								<?php endif; ?>
 							<?php endif; ?>
-							<a class="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-bold text-emerald-700 hover:text-emerald-800" href="<?php the_permalink(); ?>"><?php esc_html_e( 'مشاهده', 'erfanpro' ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-left h-4 w-4" aria-hidden="true"><path d="M7 17V7h10"></path><path d="M17 17 7 7"></path></svg></a>
+							<a class="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-bold text-emerald-700 hover:text-emerald-800" href="<?php the_permalink(); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'view_button', __( 'مشاهده', 'erfanpro' ) ) ); ?><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-left h-4 w-4" aria-hidden="true"><path d="M7 17V7h10"></path><path d="M17 17 7 7"></path></svg></a>
 						</div>
 					</article>
 					<?php
@@ -151,15 +152,15 @@ get_header();
 		<?php else : ?>
 			<div class="card-light mx-auto max-w-2xl rounded-[2rem] p-8 text-center lg:p-10">
 				<p class="text-5xl font-black text-emerald-700">؟</p>
-				<h2 class="mt-4 text-xl font-extrabold text-slate-900"><?php esc_html_e( 'برای جستجوی شما نتیجه‌ای پیدا نشد', 'erfanpro' ); ?></h2>
-				<p class="mt-3 text-[14px] leading-8 text-slate-600"><?php esc_html_e( 'املای عبارت را بررسی کنید یا با کلمات کوتاه‌تر و کلی‌تر دوباره جستجو کنید.', 'erfanpro' ); ?></p>
+				<h2 class="mt-4 text-xl font-extrabold text-slate-900"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'empty_title', __( 'برای جستجوی شما نتیجه‌ای پیدا نشد', 'erfanpro' ) ) ); ?></h2>
+				<p class="mt-3 text-[14px] leading-8 text-slate-600"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'empty_hint', __( 'املای عبارت را بررسی کنید یا با کلمات کوتاه‌تر و کلی‌تر دوباره جستجو کنید.', 'erfanpro' ) ) ); ?></p>
 				<div class="mx-auto mt-6 max-w-md">
 					<?php get_search_form(); ?>
 				</div>
 				<div class="mt-8 flex flex-wrap justify-center gap-3">
-					<a class="rounded-full bg-emerald-600 px-6 py-3 text-[13.5px] font-bold text-white transition-colors hover:bg-emerald-700" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'صفحه اصلی', 'erfanpro' ); ?></a>
-					<a class="rounded-full border border-emerald-200 bg-emerald-50 px-6 py-3 text-[13.5px] font-bold text-emerald-800 transition-colors hover:bg-emerald-100" href="<?php echo esc_url( erfanpro_archive_url( 'product' ) ); ?>"><?php esc_html_e( 'فروشگاه', 'erfanpro' ); ?></a>
-					<a class="rounded-full border border-emerald-200 bg-emerald-50 px-6 py-3 text-[13.5px] font-bold text-emerald-800 transition-colors hover:bg-emerald-100" href="<?php echo esc_url( erfanpro_contact_url() ); ?>"><?php esc_html_e( 'تماس با ما', 'erfanpro' ); ?></a>
+					<a class="rounded-full bg-emerald-600 px-6 py-3 text-[13.5px] font-bold text-white transition-colors hover:bg-emerald-700" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'empty_home', __( 'صفحه اصلی', 'erfanpro' ) ) ); ?></a>
+					<a class="rounded-full border border-emerald-200 bg-emerald-50 px-6 py-3 text-[13.5px] font-bold text-emerald-800 transition-colors hover:bg-emerald-100" href="<?php echo esc_url( erfanpro_archive_url( 'product' ) ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'empty_shop', __( 'فروشگاه', 'erfanpro' ) ) ); ?></a>
+					<a class="rounded-full border border-emerald-200 bg-emerald-50 px-6 py-3 text-[13.5px] font-bold text-emerald-800 transition-colors hover:bg-emerald-100" href="<?php echo esc_url( erfanpro_contact_url() ); ?>"><?php echo esc_html( erfanpro_panel_text( $erfanpro_st, 'empty_contact', __( 'تماس با ما', 'erfanpro' ) ) ); ?></a>
 				</div>
 			</div>
 		<?php endif; ?>

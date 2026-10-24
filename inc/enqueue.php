@@ -291,6 +291,14 @@ function erfanpro_admin_assets( $hook ) {
 		array(),
 		ERFANPRO_VERSION
 	);
+	if ( $is_settings_screen ) {
+		wp_enqueue_style(
+			'erfanpro-admin-options',
+			ERFANPRO_URI . '/assets/css/admin-options.css',
+			array(),
+			ERFANPRO_VERSION
+		);
+	}
 	wp_enqueue_script(
 		'erfanpro-admin',
 		ERFANPRO_URI . '/assets/js/admin-metabox.js',

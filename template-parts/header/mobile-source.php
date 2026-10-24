@@ -16,7 +16,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$erfanpro_hd = erfanpro_section_texts( 'header_texts' );
 ?>
-<nav class="hidden" aria-label="<?php esc_attr_e( 'منوی موبایل', 'erfanpro' ); ?>" data-erfanpro-mobile-source>
+<nav class="hidden" aria-label="<?php echo esc_attr( erfanpro_panel_text( $erfanpro_hd, 'mobile_aria', __( 'منوی موبایل', 'erfanpro' ) ) ); ?>" data-erfanpro-mobile-source>
 	<?php erfanpro_render_mobile_source(); ?>
 </nav>
