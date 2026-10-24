@@ -190,6 +190,30 @@ function erfanpro_enqueue_assets() {
 			ERFANPRO_VERSION
 		);
 	}
+	/* Phase 10: WooCommerce cart / checkout / account styling. */
+	if ( function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() ) ) {
+		wp_enqueue_style(
+			'erfanpro-woocommerce',
+			ERFANPRO_URI . '/assets/css/woocommerce.css',
+			array( 'erfanpro-app' ),
+			ERFANPRO_VERSION
+		);
+	}
+	/* Phase 10: site FAQ accordion (page-faq.php template). */
+	if ( is_page() ) {
+		$erfanpro_page_obj = get_queried_object();
+		$erfanpro_is_faq = $erfanpro_page_obj instanceof WP_Post
+			&& 'page-faq.php' === get_page_template_slug( $erfanpro_page_obj->ID );
+		if ( $erfanpro_is_faq ) {
+			wp_enqueue_script(
+				'erfanpro-faq',
+				ERFANPRO_URI . '/assets/js/faq.js',
+				array(),
+				ERFANPRO_VERSION,
+				true
+			);
+		}
+	}
 }
 add_action( 'wp_enqueue_scripts', 'erfanpro_enqueue_assets' );
 

@@ -1,0 +1,419 @@
+/**
+ * Phase 10: WooCommerce pages (cart, checkout, my-account) in the
+ * erfanpro visual language — white cards on #f8faf9, emerald-700
+ * primary actions, amber accents, rounded 2rem corners.
+ *
+ * This stylesheet styles both the phase-10 template overrides and
+ * the WooCommerce default endpoint templates that render inside
+ * the themed my-account shell (orders, addresses, edit-account),
+ * so the whole commerce area looks like the theme, not like stock
+ * WooCommerce. Zero external requests.
+ */
+
+/* Shared buttons + notices. */
+.erfanpro-cart-table + .cart-collaterals .button,
+.woocommerce .button,
+.woocommerce button.button,
+.woocommerce a.button,
+.woocommerce input.button {
+	background: #047857;
+	color: #fff;
+	border: 0;
+	border-radius: 9999px;
+	padding: 0.75rem 1.5rem;
+	font-weight: 800;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	cursor: pointer;
+}
+.woocommerce .button:hover,
+.woocommerce button.button:hover,
+.woocommerce a.button:hover,
+.woocommerce input.button:hover {
+	background: #065f46;
+	color: #fff;
+}
+.woocommerce .button:disabled,
+.woocommerce button.button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+	border-radius: 1.5rem;
+	border: 1px solid #e2e8f0;
+	background: #fff;
+	padding: 1rem 1.25rem;
+	margin-bottom: 1.5rem;
+	line-height: 2;
+	font-size: 0.9375rem;
+}
+.woocommerce-message {
+	border-inline-start: 4px solid #059669;
+}
+.woocommerce-info {
+	border-inline-start: 4px solid #f59e0b;
+}
+.woocommerce-error {
+	border-inline-start: 4px solid #dc2626;
+}
+
+/* Shared form fields. */
+.woocommerce form .form-row label {
+	display: block;
+	font-weight: 700;
+	font-size: 0.875rem;
+	color: #1e293b;
+	margin-bottom: 0.375rem;
+}
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select,
+.woocommerce .input-text {
+	width: 100%;
+	border: 1px solid #e2e8f0;
+	border-radius: 1rem;
+	padding: 0.75rem 1rem;
+	font-size: 0.9375rem;
+	background: #fff;
+	color: #0f172a;
+	box-sizing: border-box;
+}
+.woocommerce form .form-row input.input-text:focus,
+.woocommerce form .form-row textarea:focus,
+.woocommerce form .form-row select:focus {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+	border-color: #059669;
+}
+.woocommerce form .form-row {
+	margin-bottom: 1rem;
+}
+
+/* Cart table. */
+.erfanpro-cart-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.erfanpro-cart-table thead th {
+	text-align: start;
+	padding: 1rem 1.25rem;
+	font-size: 0.8125rem;
+	font-weight: 800;
+	color: #475569;
+	border-bottom: 1px solid #f1f5f9;
+}
+.erfanpro-cart-table tbody td {
+	padding: 1rem 1.25rem;
+	vertical-align: middle;
+	border-bottom: 1px solid #f1f5f9;
+	font-size: 0.9375rem;
+}
+.erfanpro-cart-table .product-thumbnail img {
+	width: 72px;
+	height: 72px;
+	object-fit: cover;
+	border-radius: 1rem;
+}
+.erfanpro-cart-table .product-remove a.remove {
+	display: inline-grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 9999px;
+	background: #fef2f2;
+	color: #dc2626;
+	font-size: 1.25rem;
+	line-height: 1;
+	text-decoration: none;
+}
+.erfanpro-cart-table .product-remove a.remove:hover {
+	background: #dc2626;
+	color: #fff;
+}
+.erfanpro-cart-table td.actions {
+	padding: 1.25rem;
+}
+.erfanpro-cart-table td.actions .coupon {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+	margin-bottom: 0.75rem;
+}
+.erfanpro-cart-table td.actions .coupon .input-text {
+	width: auto;
+	flex: 1 1 12rem;
+}
+.erfanpro-cart-table .quantity input.qty {
+	width: 4.5rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 0.75rem;
+	padding: 0.5rem;
+	text-align: center;
+}
+
+/* Cart totals + cross-sells. */
+.cart-collaterals .cart_totals {
+	background: #fff;
+	border: 1px solid #f1f5f9;
+	border-radius: 2rem;
+	padding: 1.5rem;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.cart-collaterals .cart_totals h2 {
+	font-size: 1.125rem;
+	font-weight: 800;
+	color: #0f172a;
+	margin-bottom: 1rem;
+}
+.cart-collaterals .cart_totals table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.cart-collaterals .cart_totals th,
+.cart-collaterals .cart_totals td {
+	padding: 0.75rem 0;
+	border-bottom: 1px solid #f1f5f9;
+	text-align: start;
+	font-size: 0.9375rem;
+}
+.cart-collaterals .cross-sells {
+	margin-top: 2rem;
+}
+.cart-collaterals .cross-sells > h2 {
+	font-size: 1.125rem;
+	font-weight: 800;
+	margin-bottom: 1rem;
+}
+
+/* Checkout columns: grid instead of the default floats. */
+.erfanpro-checkout-columns {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+}
+.erfanpro-checkout-columns .col-1,
+.erfanpro-checkout-columns .col-2 {
+	background: #fff;
+	border: 1px solid #f1f5f9;
+	border-radius: 2rem;
+	padding: 1.5rem;
+}
+.erfanpro-checkout-columns h3,
+#order_review_heading {
+	font-size: 1.125rem;
+	font-weight: 800;
+	color: #0f172a;
+	margin-bottom: 1rem;
+}
+#order_review {
+	background: #fff;
+	border: 1px solid #f1f5f9;
+	border-radius: 2rem;
+	padding: 1.5rem;
+}
+#order_review table.shop_table {
+	width: 100%;
+	border-collapse: collapse;
+}
+#order_review table.shop_table th,
+#order_review table.shop_table td {
+	padding: 0.75rem 0;
+	border-bottom: 1px solid #f1f5f9;
+	text-align: start;
+	font-size: 0.9375rem;
+}
+#payment {
+	background: #f8fafc;
+	border: 1px solid #f1f5f9;
+	border-radius: 1.5rem;
+	padding: 1.25rem;
+	margin-top: 1rem;
+}
+#payment ul.payment_methods {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#payment ul.payment_methods li {
+	padding: 0.75rem 0;
+	border-bottom: 1px solid #f1f5f9;
+}
+#payment div.place-order {
+	margin-top: 1rem;
+}
+
+/* My-account shell: nav + content grid. */
+.erfanpro-account {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5rem;
+}
+.erfanpro-account-nav {
+	background: #fff;
+	border: 1px solid #f1f5f9;
+	border-radius: 2rem;
+	padding: 1rem;
+	height: fit-content;
+}
+.erfanpro-account-nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.erfanpro-account-nav li a {
+	display: block;
+	padding: 0.75rem 1rem;
+	border-radius: 1rem;
+	color: #334155;
+	font-weight: 700;
+	font-size: 0.9375rem;
+	text-decoration: none;
+}
+.erfanpro-account-nav li a:hover {
+	background: #ecfdf5;
+	color: #065f46;
+}
+.erfanpro-account-nav li.is-active a {
+	background: #047857;
+	color: #fff;
+}
+.erfanpro-account .woocommerce-MyAccount-content {
+	background: #fff;
+	border: 1px solid #f1f5f9;
+	border-radius: 2rem;
+	padding: 1.5rem;
+	line-height: 2;
+	font-size: 0.9375rem;
+}
+.erfanpro-account .woocommerce-MyAccount-content h2,
+.erfanpro-account .woocommerce-MyAccount-content h3 {
+	font-weight: 800;
+	color: #0f172a;
+	margin-bottom: 0.75rem;
+}
+.erfanpro-account table.woocommerce-orders-table,
+.erfanpro-account table.shop_table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.erfanpro-account table.woocommerce-orders-table th,
+.erfanpro-account table.woocommerce-orders-table td,
+.erfanpro-account table.shop_table th,
+.erfanpro-account table.shop_table td {
+	padding: 0.75rem 0.5rem;
+	border-bottom: 1px solid #f1f5f9;
+	text-align: start;
+	font-size: 0.875rem;
+}
+.erfanpro-account-dashboard p {
+	margin-bottom: 1rem;
+	color: #475569;
+}
+.erfanpro-account-cards {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+	margin: 1.5rem 0;
+}
+.erfanpro-account-cards a {
+	display: block;
+	border: 1px solid #f1f5f9;
+	border-radius: 1.5rem;
+	padding: 1.25rem;
+	text-decoration: none;
+	color: #0f172a;
+}
+.erfanpro-account-cards a:hover {
+	border-color: #059669;
+}
+.erfanpro-account-cards a strong {
+	display: block;
+	font-size: 1rem;
+}
+.erfanpro-account-cards a span {
+	color: #64748b;
+	font-size: 0.875rem;
+}
+.erfanpro-account-note {
+	background: #fffbeb;
+	border: 1px solid #fde68a;
+	border-radius: 1.5rem;
+	padding: 1rem 1.25rem;
+	color: #92400e;
+	margin-top: 1.5rem;
+}
+
+/* Login / register. */
+.erfanpro-auth-columns {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5rem;
+}
+.erfanpro-auth-card {
+	background: #fff;
+	border: 1px solid #f1f5f9;
+	border-radius: 2rem;
+	padding: 1.5rem;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.erfanpro-auth-card h2 {
+	font-size: 1.125rem;
+	font-weight: 800;
+	color: #0f172a;
+	margin-bottom: 1.25rem;
+}
+
+/* Mobile-first: stack everything at 390px, widen from 768px up. */
+@media (min-width: 768px) {
+	.erfanpro-checkout-columns {
+		grid-template-columns: 1fr 1fr;
+	}
+	.erfanpro-account {
+		grid-template-columns: 16rem 1fr;
+		align-items: start;
+	}
+	.erfanpro-auth-columns {
+		grid-template-columns: 1fr 1fr;
+	}
+	.erfanpro-account-cards {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (max-width: 640px) {
+	.erfanpro-cart-table thead {
+		display: none;
+	}
+	.erfanpro-cart-table tbody tr {
+		display: block;
+		border-bottom: 1px solid #f1f5f9;
+		padding: 0.5rem 0;
+	}
+	.erfanpro-cart-table tbody td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 0;
+		padding: 0.5rem 1.25rem;
+	}
+	.erfanpro-cart-table tbody td::before {
+		content: attr(data-title);
+		font-weight: 700;
+		color: #64748b;
+		font-size: 0.8125rem;
+	}
+	.erfanpro-cart-table tbody td.product-remove,
+	.erfanpro-cart-table tbody td.product-thumbnail {
+		justify-content: flex-end;
+	}
+	.erfanpro-cart-table tbody td.product-remove::before,
+	.erfanpro-cart-table tbody td.product-thumbnail::before {
+		content: none;
+	}
+	.erfanpro-cart-table td.actions {
+		display: block;
+	}
+}
