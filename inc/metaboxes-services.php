@@ -116,6 +116,35 @@ function erfanpro_service_main_box( $post ) {
 		$projects,
 		erfanpro_get_id_list( $id, 'service_projects' )
 	);
+	erfanpro_field_text(
+		'service_short_name',
+		__( 'نام کوتاه (چیپ‌های آرشیو)', 'erfanpro' ),
+		get_post_meta( $id, 'service_short_name', true ),
+		__( 'پیش‌فرض: عنوان بدون پیشوند «نورپردازی»', 'erfanpro' )
+	);
+	erfanpro_field_text(
+		'service_kicker',
+		__( 'نشان‌واره ردیف آرشیو', 'erfanpro' ),
+		get_post_meta( $id, 'service_kicker', true ),
+		__( 'بج بالای عنوان در آرشیو خدمات؛ پیش‌فرض: خلاصه', 'erfanpro' )
+	);
+	erfanpro_field_text(
+		'service_subtitle',
+		__( 'زیرعنوان (هیروی تکی)', 'erfanpro' ),
+		get_post_meta( $id, 'service_subtitle', true ),
+		__( 'بج هیرو + کپشن تصویر؛ پیش‌فرض: خلاصه', 'erfanpro' )
+	);
+	erfanpro_field_text(
+		'service_badge',
+		__( 'بج تصویر هیرو', 'erfanpro' ),
+		get_post_meta( $id, 'service_badge', true ),
+		__( 'پیش‌فرض: IP67/IP68', 'erfanpro' )
+	);
+	erfanpro_field_text(
+		'service_note',
+		__( 'جعبه «نکته مهم» زیر ویژگی‌ها', 'erfanpro' ),
+		get_post_meta( $id, 'service_note', true )
+	);
 }
 
 /**
@@ -147,6 +176,9 @@ function erfanpro_save_services_meta( $post_id, $post ) {
 		erfanpro_sanitize_repeater_input( $data['service_faq'] ?? array(), array( 'question' => 'text', 'answer' => 'html' ) )
 	);
 	erfanpro_update_id_array( $post_id, 'service_projects', $data['service_projects'] ?? array() );
+	foreach ( array( 'service_short_name', 'service_kicker', 'service_subtitle', 'service_badge', 'service_note' ) as $key ) {
+		update_post_meta( $post_id, $key, sanitize_text_field( (string) ( $data[ $key ] ?? '' ) ) );
+	}
 }
 add_action( 'save_post_services', 'erfanpro_save_services_meta', 10, 2 );
 
