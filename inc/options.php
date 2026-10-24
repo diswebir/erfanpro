@@ -8,6 +8,9 @@
  * - BO-002 home counters with real value + offset (decision 22)
  * - BO-003 home section texts (6 sections)
  * - BO-004 custom font uploads replacing Vazirmatn/Lalezar (decision 34)
+ * - BO-010 city marquee (source / manual list / speed)
+ * - BO-013 about + contact page texts (about_texts / contact_texts)
+ * - BO-014 five simple page texts (minor_pages_texts)
  *
  * Repeaters share the markup/JS convention of the post metaboxes
  * (assets/js/admin-metabox.js, data-erfanpro-repeater).
@@ -182,6 +185,61 @@ function erfanpro_options_init() {
 		'erfanpro_options_shop_texts_field',
 		'erfanpro-settings',
 		'erfanpro_shop_texts'
+	);
+
+	/* ---- BO-010 city marquee ---- */
+	add_settings_section(
+		'erfanpro_city_marquee',
+		__( 'نوار شهرها', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_city_marquee_fields',
+		__( 'نوار شهرها', 'erfanpro' ),
+		'erfanpro_options_city_marquee_field',
+		'erfanpro-settings',
+		'erfanpro_city_marquee'
+	);
+
+	/* ---- BO-013 about + contact texts ---- */
+	add_settings_section(
+		'erfanpro_about_contact',
+		__( 'متن‌های درباره و تماس', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_about_texts_fields',
+		__( 'درباره ما', 'erfanpro' ),
+		'erfanpro_options_text_groups_field',
+		'erfanpro-settings',
+		'erfanpro_about_contact',
+		array( 'option_key' => 'about_texts' )
+	);
+	add_settings_field(
+		'erfanpro_contact_texts_fields',
+		__( 'تماس با ما', 'erfanpro' ),
+		'erfanpro_options_text_groups_field',
+		'erfanpro-settings',
+		'erfanpro_about_contact',
+		array( 'option_key' => 'contact_texts' )
+	);
+
+	/* ---- BO-014 five simple page texts ---- */
+	add_settings_section(
+		'erfanpro_minor_pages',
+		__( 'متن‌های برگه‌های ساده', 'erfanpro' ),
+		'__return_false',
+		'erfanpro-settings'
+	);
+	add_settings_field(
+		'erfanpro_minor_pages_fields',
+		__( 'گارانتی، مجوزها، سوالات، استخدام، بازخورد', 'erfanpro' ),
+		'erfanpro_options_text_groups_field',
+		'erfanpro-settings',
+		'erfanpro_minor_pages',
+		array( 'option_key' => 'minor_pages_texts' )
 	);
 }
 add_action( 'admin_init', 'erfanpro_options_init' );
@@ -549,6 +607,455 @@ function erfanpro_options_shop_texts_field() {
 }
 
 /**
+ * BO-013 / BO-014: field spec for the panel-editable page texts.
+ *
+ * Shape: option key -> group -> {label, fields, repeaters}. A field is
+ * text or textarea; a repeater row is an assoc array of text subfields.
+ * Templates keep the current literals as fallbacks, so this spec only
+ * defines the admin form and the sanitize whitelist — never defaults.
+ *
+ * @return array
+ */
+function erfanpro_panel_text_specs() {
+	$hero_fields = array(
+		'hero_title'    => array( 'label' => __( 'تیتر هیرو', 'erfanpro' ), 'type' => 'text' ),
+		'hero_subtitle' => array( 'label' => __( 'زیرتیتر هیرو', 'erfanpro' ), 'type' => 'textarea' ),
+		'hero_badge'    => array( 'label' => __( 'نشان هیرو', 'erfanpro' ), 'type' => 'text' ),
+	);
+	return array(
+		'about_texts'       => array(
+			'hero'   => array(
+				'label'     => __( 'هیروی درباره', 'erfanpro' ),
+				'fields'    => array(
+					'kicker'     => array( 'label' => __( 'نشان‌واره', 'erfanpro' ), 'type' => 'text' ),
+					'title_a'    => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
+					'title_b'    => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
+					'quote'      => array( 'label' => __( 'نقل‌قول زیر تیتر', 'erfanpro' ), 'type' => 'textarea' ),
+					'caption'    => array( 'label' => __( 'متن روی کارت کارخانه', 'erfanpro' ), 'type' => 'text' ),
+					'since'      => array( 'label' => __( 'نشان «از ۱۳۷۸»', 'erfanpro' ), 'type' => 'text' ),
+					'iso_title'  => array( 'label' => __( 'تیتر نشان ISO', 'erfanpro' ), 'type' => 'text' ),
+					'iso_sub'    => array( 'label' => __( 'زیرتیتر نشان ISO', 'erfanpro' ), 'type' => 'text' ),
+					'team_title' => array( 'label' => __( 'تیتر نشان تیم', 'erfanpro' ), 'type' => 'text' ),
+					'team_sub'   => array( 'label' => __( 'زیرتیتر نشان تیم', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(
+					'hero_counters' => array(
+						'label'  => __( 'شمارنده‌های هیرو', 'erfanpro' ),
+						'add'    => __( 'افزودن شمارنده', 'erfanpro' ),
+						'fields' => array(
+							'value' => __( 'عدد', 'erfanpro' ),
+							'label' => __( 'برچسب', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'story'  => array(
+				'label'     => __( 'داستان شرکت', 'erfanpro' ),
+				'fields'    => array(
+					'kicker'        => array( 'label' => __( 'نشان‌واره', 'erfanpro' ), 'type' => 'text' ),
+					'title_a'       => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
+					'title_b'       => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
+					'para1_bold'    => array( 'label' => __( 'پاراگراف اول — عبارت پررنگ', 'erfanpro' ), 'type' => 'text' ),
+					'para1'         => array( 'label' => __( 'پاراگراف اول — ادامه', 'erfanpro' ), 'type' => 'textarea' ),
+					'para2'         => array( 'label' => __( 'پاراگراف دوم', 'erfanpro' ), 'type' => 'textarea' ),
+					'factory_title' => array( 'label' => __( 'تیتر نشان کارخانه', 'erfanpro' ), 'type' => 'text' ),
+					'factory_sub'   => array( 'label' => __( 'زیرتیتر نشان کارخانه', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(
+					'story_stats' => array(
+						'label'  => __( 'کارت‌های آمار', 'erfanpro' ),
+						'add'    => __( 'افزودن کارت آمار', 'erfanpro' ),
+						'fields' => array(
+							'value' => __( 'عدد', 'erfanpro' ),
+							'label' => __( 'برچسب', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'iso'    => array(
+				'label'     => __( 'گواهینامه ISO', 'erfanpro' ),
+				'fields'    => array(
+					'kicker'     => array( 'label' => __( 'نشان‌واره', 'erfanpro' ), 'type' => 'text' ),
+					'title_a'    => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
+					'title_b'    => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
+					'para'       => array( 'label' => __( 'پاراگراف', 'erfanpro' ), 'type' => 'textarea' ),
+					'card_title' => array( 'label' => __( 'تیتر کارت ISO', 'erfanpro' ), 'type' => 'text' ),
+					'card_sub1'  => array( 'label' => __( 'زیرتیتر اول کارت', 'erfanpro' ), 'type' => 'text' ),
+					'card_sub2'  => array( 'label' => __( 'زیرتیتر دوم کارت (انگلیسی)', 'erfanpro' ), 'type' => 'text' ),
+					'card_badge' => array( 'label' => __( 'نشان کارت', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(
+					'iso_bullets' => array(
+						'label'  => __( 'موارد فهرست', 'erfanpro' ),
+						'add'    => __( 'افزودن مورد', 'erfanpro' ),
+						'fields' => array(
+							'text' => __( 'متن', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'values' => array(
+				'label'     => __( 'اصول بنیادین', 'erfanpro' ),
+				'fields'    => array(
+					'title_a'      => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
+					'title_b'      => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
+					'banner_title' => array( 'label' => __( 'تیتر بنر سراسری', 'erfanpro' ), 'type' => 'text' ),
+					'banner_para'  => array( 'label' => __( 'پاراگراف بنر', 'erfanpro' ), 'type' => 'textarea' ),
+					'banner_cta'   => array( 'label' => __( 'متن دکمه بنر', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(
+					'value_cards' => array(
+						'label'  => __( 'کارت‌های اصول', 'erfanpro' ),
+						'add'    => __( 'افزودن کارت', 'erfanpro' ),
+						'fields' => array(
+							'title' => __( 'تیتر', 'erfanpro' ),
+							'desc'  => __( 'توضیح', 'erfanpro' ),
+						),
+					),
+				),
+			),
+		),
+		'contact_texts'     => array(
+			'hero'       => array(
+				'label'     => __( 'هیروی تماس', 'erfanpro' ),
+				'fields'    => array(
+					'kicker'           => array( 'label' => __( 'نشان‌واره', 'erfanpro' ), 'type' => 'text' ),
+					'title_a'          => array( 'label' => __( 'تیتر — بخش اول', 'erfanpro' ), 'type' => 'text' ),
+					'title_b'          => array( 'label' => __( 'تیتر — بخش رنگی', 'erfanpro' ), 'type' => 'text' ),
+					'desc'             => array( 'label' => __( 'توضیح زیر تیتر', 'erfanpro' ), 'type' => 'textarea' ),
+					'caption'          => array( 'label' => __( 'متن روی کارت تصویر', 'erfanpro' ), 'type' => 'text' ),
+					'since'            => array( 'label' => __( 'نشان «از ۱۳۷۸»', 'erfanpro' ), 'type' => 'text' ),
+					'phone_suffix'     => array( 'label' => __( 'پسوند دکمه تلفن', 'erfanpro' ), 'type' => 'text' ),
+					'whatsapp_label'   => array( 'label' => __( 'متن دکمه واتساپ', 'erfanpro' ), 'type' => 'text' ),
+					'badge_sales_title' => array( 'label' => __( 'تیتر نشان فروش', 'erfanpro' ), 'type' => 'text' ),
+					'badge_hours_title' => array( 'label' => __( 'تیتر نشان ساعات', 'erfanpro' ), 'type' => 'text' ),
+					'badge_hours_sub'  => array( 'label' => __( 'زیرتیتر نشان ساعات', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(
+					'hero_counters' => array(
+						'label'  => __( 'شمارنده‌های هیرو', 'erfanpro' ),
+						'add'    => __( 'افزودن شمارنده', 'erfanpro' ),
+						'fields' => array(
+							'value' => __( 'عدد', 'erfanpro' ),
+							'label' => __( 'برچسب', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'cards'      => array(
+				'label'     => __( 'کارت‌های اطلاعات', 'erfanpro' ),
+				'fields'    => array(
+					'card1_label' => array( 'label' => __( 'برچسب کارت تلفن', 'erfanpro' ), 'type' => 'text' ),
+					'card1_sub'   => array( 'label' => __( 'زیرتیتر کارت تلفن', 'erfanpro' ), 'type' => 'text' ),
+					'card2_label' => array( 'label' => __( 'برچسب کارت ایمیل', 'erfanpro' ), 'type' => 'text' ),
+					'card2_value' => array( 'label' => __( 'ایمیل', 'erfanpro' ), 'type' => 'text' ),
+					'card2_sub'   => array( 'label' => __( 'زیرتیتر کارت ایمیل', 'erfanpro' ), 'type' => 'text' ),
+					'card3_label' => array( 'label' => __( 'برچسب کارت ساعات', 'erfanpro' ), 'type' => 'text' ),
+					'card3_value' => array( 'label' => __( 'ساعات کاری', 'erfanpro' ), 'type' => 'text' ),
+					'card3_sub'   => array( 'label' => __( 'زیرتیتر کارت ساعات', 'erfanpro' ), 'type' => 'text' ),
+					'card4_label' => array( 'label' => __( 'برچسب کارت آدرس', 'erfanpro' ), 'type' => 'text' ),
+					'card4_value' => array( 'label' => __( 'آدرس', 'erfanpro' ), 'type' => 'text' ),
+					'card4_sub'   => array( 'label' => __( 'زیرتیتر کارت آدرس', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'form_card'  => array(
+				'label'     => __( 'کارت فرم مشاوره', 'erfanpro' ),
+				'fields'    => array(
+					'form_title' => array( 'label' => __( 'تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'form_desc'  => array( 'label' => __( 'توضیح', 'erfanpro' ), 'type' => 'textarea' ),
+				),
+				'repeaters' => array(),
+			),
+			'expert'     => array(
+				'label'     => __( 'کارت مشاور فروش', 'erfanpro' ),
+				'fields'    => array(
+					'expert_title'         => array( 'label' => __( 'تیتر', 'erfanpro' ), 'type' => 'text' ),
+					'expert_name'          => array( 'label' => __( 'نام مشاور', 'erfanpro' ), 'type' => 'text' ),
+					'expert_role'          => array( 'label' => __( 'سمت', 'erfanpro' ), 'type' => 'text' ),
+					'expert_mobile_display' => array( 'label' => __( 'شماره نمایشی (ارقام فارسی)', 'erfanpro' ), 'type' => 'text' ),
+					'expert_mobile_tel'    => array( 'label' => __( 'شماره tel (ارقام لاتین)', 'erfanpro' ), 'type' => 'text' ),
+					'btn_call'             => array( 'label' => __( 'متن دکمه تماس', 'erfanpro' ), 'type' => 'text' ),
+					'btn_whatsapp'         => array( 'label' => __( 'متن دکمه واتساپ', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+			'map_design' => array(
+				'label'     => __( 'نقشه و یادداشت طراحی', 'erfanpro' ),
+				'fields'    => array(
+					'map_address'     => array( 'label' => __( 'متن آدرس روی نقشه', 'erfanpro' ), 'type' => 'text' ),
+					'map_postcode'    => array( 'label' => __( 'متن کدپستی', 'erfanpro' ), 'type' => 'text' ),
+					'design_title'    => array( 'label' => __( 'تیتر یادداشت', 'erfanpro' ), 'type' => 'text' ),
+					'design_para_a'   => array( 'label' => __( 'پاراگراف — بخش اول', 'erfanpro' ), 'type' => 'textarea' ),
+					'design_para_bold' => array( 'label' => __( 'عبارت پررنگ', 'erfanpro' ), 'type' => 'text' ),
+					'design_para_b'   => array( 'label' => __( 'پاراگراف — بخش دوم', 'erfanpro' ), 'type' => 'textarea' ),
+				),
+				'repeaters' => array(),
+			),
+			'form'       => array(
+				'label'     => __( 'متن‌های فرم تماس', 'erfanpro' ),
+				'fields'    => array(
+					'status_sent'       => array( 'label' => __( 'پیام موفقیت', 'erfanpro' ), 'type' => 'text' ),
+					'status_error'      => array( 'label' => __( 'پیام خطا', 'erfanpro' ), 'type' => 'text' ),
+					'honeypot_label'    => array( 'label' => __( 'برچسب فیلد مخفی', 'erfanpro' ), 'type' => 'text' ),
+					'label_name'        => array( 'label' => __( 'برچسب نام', 'erfanpro' ), 'type' => 'text' ),
+					'placeholder_name'  => array( 'label' => __( 'جای‌نگهدار نام', 'erfanpro' ), 'type' => 'text' ),
+					'label_mobile'      => array( 'label' => __( 'برچسب موبایل', 'erfanpro' ), 'type' => 'text' ),
+					'placeholder_mobile' => array( 'label' => __( 'جای‌نگهدار موبایل', 'erfanpro' ), 'type' => 'text' ),
+					'label_org'         => array( 'label' => __( 'برچسب سازمان', 'erfanpro' ), 'type' => 'text' ),
+					'placeholder_org'   => array( 'label' => __( 'جای‌نگهدار سازمان', 'erfanpro' ), 'type' => 'text' ),
+					'label_message'     => array( 'label' => __( 'برچسب توضیحات', 'erfanpro' ), 'type' => 'text' ),
+					'placeholder_message' => array( 'label' => __( 'جای‌نگهدار توضیحات', 'erfanpro' ), 'type' => 'text' ),
+					'submit'            => array( 'label' => __( 'متن دکمه ارسال', 'erfanpro' ), 'type' => 'text' ),
+				),
+				'repeaters' => array(),
+			),
+		),
+		'minor_pages_texts' => array(
+			'guarantee' => array(
+				'label'     => __( 'شرایط گارانتی', 'erfanpro' ),
+				'fields'    => array_merge(
+					$hero_fields,
+					array(
+						'steps_title' => array( 'label' => __( 'تیتر مراحل', 'erfanpro' ), 'type' => 'text' ),
+						'cta'         => array( 'label' => __( 'متن دکمه', 'erfanpro' ), 'type' => 'text' ),
+					)
+				),
+				'repeaters' => array(
+					'cards' => array(
+						'label'  => __( 'کارت‌ها', 'erfanpro' ),
+						'add'    => __( 'افزودن کارت', 'erfanpro' ),
+						'fields' => array(
+							'title' => __( 'تیتر', 'erfanpro' ),
+							'desc'  => __( 'توضیح', 'erfanpro' ),
+						),
+					),
+					'steps' => array(
+						'label'  => __( 'مراحل', 'erfanpro' ),
+						'add'    => __( 'افزودن مرحله', 'erfanpro' ),
+						'fields' => array(
+							'text' => __( 'متن', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'licenses'  => array(
+				'label'     => __( 'مجوزها و افتخارات', 'erfanpro' ),
+				'fields'    => array_merge(
+					$hero_fields,
+					array(
+						'bottom_title' => array( 'label' => __( 'تیتر بخش پایانی', 'erfanpro' ), 'type' => 'text' ),
+						'bottom_desc'  => array( 'label' => __( 'توضیح بخش پایانی', 'erfanpro' ), 'type' => 'textarea' ),
+						'cta'          => array( 'label' => __( 'متن دکمه', 'erfanpro' ), 'type' => 'text' ),
+					)
+				),
+				'repeaters' => array(
+					'cards' => array(
+						'label'  => __( 'کارت‌ها', 'erfanpro' ),
+						'add'    => __( 'افزودن کارت', 'erfanpro' ),
+						'fields' => array(
+							'badge' => __( 'نشان', 'erfanpro' ),
+							'title' => __( 'تیتر', 'erfanpro' ),
+							'desc'  => __( 'توضیح', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'faq'       => array(
+				'label'     => __( 'سوالات متداول', 'erfanpro' ),
+				'fields'    => array_merge(
+					$hero_fields,
+					array(
+						'cta' => array( 'label' => __( 'متن دکمه', 'erfanpro' ), 'type' => 'text' ),
+					)
+				),
+				'repeaters' => array(
+					'items' => array(
+						'label'  => __( 'پرسش‌ها', 'erfanpro' ),
+						'add'    => __( 'افزودن پرسش', 'erfanpro' ),
+						'fields' => array(
+							'q' => __( 'پرسش', 'erfanpro' ),
+							'a' => __( 'پاسخ', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'careers'   => array(
+				'label'     => __( 'فرصت‌های شغلی', 'erfanpro' ),
+				'fields'    => array_merge(
+					$hero_fields,
+					array(
+						'resume_title' => array( 'label' => __( 'تیتر بخش رزومه', 'erfanpro' ), 'type' => 'text' ),
+						'resume_desc'  => array( 'label' => __( 'توضیح بخش رزومه', 'erfanpro' ), 'type' => 'textarea' ),
+						'cta'          => array( 'label' => __( 'متن دکمه', 'erfanpro' ), 'type' => 'text' ),
+					)
+				),
+				'repeaters' => array(
+					'areas' => array(
+						'label'  => __( 'حوزه‌ها', 'erfanpro' ),
+						'add'    => __( 'افزودن حوزه', 'erfanpro' ),
+						'fields' => array(
+							'title' => __( 'تیتر', 'erfanpro' ),
+							'desc'  => __( 'توضیح', 'erfanpro' ),
+						),
+					),
+				),
+			),
+			'feedback'  => array(
+				'label'     => __( 'بازخورد مشتریان', 'erfanpro' ),
+				'fields'    => array_merge(
+					$hero_fields,
+					array(
+						'listen_title' => array( 'label' => __( 'تیتر بخش شنیدن نظر', 'erfanpro' ), 'type' => 'text' ),
+						'listen_desc'  => array( 'label' => __( 'توضیح بخش شنیدن نظر', 'erfanpro' ), 'type' => 'textarea' ),
+						'cta1'         => array( 'label' => __( 'دکمه اول', 'erfanpro' ), 'type' => 'text' ),
+						'cta2'         => array( 'label' => __( 'دکمه دوم', 'erfanpro' ), 'type' => 'text' ),
+					)
+				),
+				'repeaters' => array(
+					'counters' => array(
+						'label'  => __( 'شمارنده‌ها', 'erfanpro' ),
+						'add'    => __( 'افزودن شمارنده', 'erfanpro' ),
+						'fields' => array(
+							'value' => __( 'عدد', 'erfanpro' ),
+							'label' => __( 'برچسب', 'erfanpro' ),
+						),
+					),
+				),
+			),
+		),
+	);
+}
+
+/**
+ * Generic admin field for one panel-text option key (BO-013/014).
+ *
+ * Renders one bordered box per spec group: scalar inputs/textareas
+ * plus repeater blocks (same data-erfanpro-repeater convention as
+ * BO-001/002/011). Saved values only — empty means "template fallback".
+ *
+ * @param array $args Field args ({option_key}).
+ */
+function erfanpro_options_text_groups_field( $args ) {
+	$key  = $args['option_key'];
+	$spec = erfanpro_panel_text_specs();
+	if ( ! isset( $spec[ $key ] ) ) {
+		return;
+	}
+	$saved = erfanpro_option( $key, array() );
+	if ( ! is_array( $saved ) ) {
+		$saved = array();
+	}
+	foreach ( $spec[ $key ] as $group_key => $group ) {
+		$values = isset( $saved[ $group_key ] ) && is_array( $saved[ $group_key ] ) ? $saved[ $group_key ] : array();
+		$base   = 'erfanpro_options[' . $key . '][' . $group_key . ']';
+		?>
+		<div style="border:1px solid #dcdcde;border-radius:6px;padding:12px;margin-bottom:12px;background:#fff;">
+			<h3 style="margin:0 0 10px;"><?php echo esc_html( $group['label'] ); ?></h3>
+			<div class="erfanpro-metabox-grid">
+				<?php foreach ( $group['fields'] as $fkey => $field ) : ?>
+					<div class="erfanpro-metabox-field<?php echo 'textarea' === $field['type'] ? ' full' : ''; ?>">
+						<label><?php echo esc_html( $field['label'] ); ?></label>
+						<?php if ( 'textarea' === $field['type'] ) : ?>
+							<textarea class="widefat" rows="3" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $fkey ); ?>]"><?php echo esc_textarea( (string) ( $values[ $fkey ] ?? '' ) ); ?></textarea>
+						<?php else : ?>
+							<input type="text" class="widefat" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $fkey ); ?>]" value="<?php echo esc_attr( (string) ( $values[ $fkey ] ?? '' ) ); ?>" />
+						<?php endif; ?>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<?php foreach ( $group['repeaters'] as $rkey => $repeater ) : ?>
+				<?php erfanpro_options_repeater_block( $base . '[' . $rkey . ']', isset( $values[ $rkey ] ) && is_array( $values[ $rkey ] ) ? $values[ $rkey ] : array(), $repeater ); ?>
+			<?php endforeach; ?>
+		</div>
+		<?php
+	}
+}
+
+/**
+ * One repeater block (admin), following the BO-001/002 convention.
+ *
+ * @param string $base     Input name base (without row index).
+ * @param array  $rows     Saved rows.
+ * @param array  $repeater Repeater spec ({label, add, fields}).
+ */
+function erfanpro_options_repeater_block( $base, $rows, $repeater ) {
+	if ( ! is_array( $rows ) || empty( $rows ) ) {
+		$rows = array( array() );
+	}
+	?>
+	<div data-erfanpro-repeater style="margin-top:12px;">
+		<label><strong><?php echo esc_html( $repeater['label'] ); ?></strong></label>
+		<div class="erfanpro-repeater-rows" data-erfanpro-rows>
+			<?php foreach ( $rows as $i => $row ) : ?>
+				<?php erfanpro_options_repeater_row( $base, $i, is_array( $row ) ? $row : array(), $repeater['fields'] ); ?>
+			<?php endforeach; ?>
+		</div>
+		<script type="text/html" data-erfanpro-template><?php erfanpro_options_repeater_row( $base, '__i__', array(), $repeater['fields'] ); ?></script>
+		<button type="button" class="button" data-erfanpro-add><?php echo esc_html( $repeater['add'] ); ?></button>
+	</div>
+	<?php
+}
+
+/**
+ * One repeater row (admin).
+ *
+ * @param string     $base   Input name base.
+ * @param int|string $i      Row index.
+ * @param array      $row    Row values.
+ * @param array      $fields Subfield key => label.
+ */
+function erfanpro_options_repeater_row( $base, $i, $row, $fields ) {
+	?>
+	<div class="erfanpro-repeater-row" data-erfanpro-row data-erfanpro-index="<?php echo esc_attr( (string) $i ); ?>">
+		<?php foreach ( $fields as $fkey => $flabel ) : ?>
+			<div class="erfanpro-field">
+				<label><?php echo esc_html( $flabel ); ?></label>
+				<input type="text" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( (string) $i ); ?>][<?php echo esc_attr( $fkey ); ?>]" value="<?php echo esc_attr( (string) ( $row[ $fkey ] ?? '' ) ); ?>" />
+			</div>
+		<?php endforeach; ?>
+		<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+	</div>
+	<?php
+}
+
+/**
+ * BO-010: city marquee fields (source / manual list / speed).
+ */
+function erfanpro_options_city_marquee_field() {
+	$mq     = erfanpro_city_marquee();
+	$base   = 'erfanpro_options[city_marquee]';
+	$source = $mq['source'];
+	?>
+	<div class="erfanpro-metabox-grid">
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'منبع فهرست شهرها', 'erfanpro' ); ?></label>
+			<select name="<?php echo esc_attr( $base ); ?>[source]">
+				<option value="auto" <?php selected( $source, 'auto' ); ?>><?php esc_html_e( 'خودکار — ترم‌های تاکسونومی city', 'erfanpro' ); ?></option>
+				<option value="manual" <?php selected( $source, 'manual' ); ?>><?php esc_html_e( 'دستی — فهرست زیر', 'erfanpro' ); ?></option>
+			</select>
+		</div>
+		<div class="erfanpro-metabox-field">
+			<label><?php esc_html_e( 'سرعت حرکت (ثانیه)', 'erfanpro' ); ?></label>
+			<input type="number" min="1" name="<?php echo esc_attr( $base ); ?>[speed]" value="<?php echo esc_attr( $mq['speed'] ? (string) $mq['speed'] : '' ); ?>" placeholder="38" />
+		</div>
+	</div>
+	<?php
+	erfanpro_options_repeater_block(
+		$base . '[manual_cities]',
+		$mq['manual_cities'],
+		array(
+			'label'  => __( 'شهرهای دستی (فقط وقتی منبع دستی است)', 'erfanpro' ),
+			'add'    => __( 'افزودن شهر', 'erfanpro' ),
+			'fields' => array( 'text' => __( 'نام شهر', 'erfanpro' ) ),
+		)
+	);
+	?>
+	<p class="description"><?php esc_html_e( 'خالی = سرعت فعلی قالب (۳۸ ثانیه). وقتی منبع دستی است و فهرست خالی باشد، فهرست خودکار نمایش داده می‌شود.', 'erfanpro' ); ?></p>
+	<?php
+}
+
+/**
  * Sanitize all option values (whitelist-based, incl. nested repeaters).
  *
  * @param mixed $input Raw input.
@@ -568,7 +1075,7 @@ function erfanpro_options_sanitize( $input ) {
 	$url_keys = array( 'catalog_full_url', 'instagram', 'telegram', 'aparat', 'linkedin' );
 	foreach ( $input as $key => $value ) {
 		$key = sanitize_key( $key );
-		if ( in_array( $key, array( 'trust_badges', 'home_counters', 'home_sections', 'home_hero', 'shop_texts' ), true ) ) {
+		if ( in_array( $key, array( 'trust_badges', 'home_counters', 'home_sections', 'home_hero', 'shop_texts', 'city_marquee', 'about_texts', 'contact_texts', 'minor_pages_texts' ), true ) ) {
 			continue; // handled below.
 		}
 		if ( str_ends_with( $key, '_remove' ) || str_starts_with( $key, 'font_' ) ) {
@@ -693,6 +1200,36 @@ function erfanpro_options_sanitize( $input ) {
 		'purchasable_label'  => sanitize_text_field( (string) ( $shop_in['purchasable_label'] ?? '' ) ),
 	);
 
+	/* BO-010 city marquee */
+	$mq_in             = isset( $input['city_marquee'] ) && is_array( $input['city_marquee'] ) ? $input['city_marquee'] : array();
+	$mq_source         = (string) ( $mq_in['source'] ?? 'auto' );
+	$mq_cities         = array();
+	if ( isset( $mq_in['manual_cities'] ) && is_array( $mq_in['manual_cities'] ) ) {
+		foreach ( $mq_in['manual_cities'] as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$city = sanitize_text_field( (string) ( $row['text'] ?? '' ) );
+			if ( '' !== $city ) {
+				$mq_cities[] = array( 'text' => $city );
+			}
+		}
+	}
+	$clean['city_marquee'] = array(
+		'source'        => in_array( $mq_source, array( 'auto', 'manual' ), true ) ? $mq_source : 'auto',
+		'manual_cities' => $mq_cities,
+		'speed'         => max( 0, (int) ( $mq_in['speed'] ?? 0 ) ),
+	);
+
+	/* BO-013 / BO-014 panel texts (spec-driven) */
+	$specs = erfanpro_panel_text_specs();
+	foreach ( array( 'about_texts', 'contact_texts', 'minor_pages_texts' ) as $tkey ) {
+		$clean[ $tkey ] = erfanpro_sanitize_text_groups(
+			isset( $input[ $tkey ] ) && is_array( $input[ $tkey ] ) ? $input[ $tkey ] : array(),
+			$specs[ $tkey ]
+		);
+	}
+
 	/* BO-004 font uploads */
 	foreach ( array( 'font_primary_file', 'font_display_file' ) as $fkey ) {
 		if ( ! empty( $input[ $fkey . '_remove' ] ) ) {
@@ -712,6 +1249,52 @@ function erfanpro_options_sanitize( $input ) {
 		$clean[ $fkey ] = isset( $prev[ $fkey ] ) ? esc_url_raw( (string) $prev[ $fkey ] ) : '';
 	}
 
+	return $clean;
+}
+
+/**
+ * Sanitize one panel-text option key from its spec (BO-013/014).
+ *
+ * Scalar text fields use sanitize_text_field, textarea fields use
+ * sanitize_textarea_field, repeater rows keep only spec'd subfields and
+ * fully-empty rows are dropped. Unknown keys are never stored.
+ *
+ * @param mixed $input Raw group input.
+ * @param array $spec  Group spec from erfanpro_panel_text_specs().
+ * @return array
+ */
+function erfanpro_sanitize_text_groups( $input, $spec ) {
+	$clean = array();
+	if ( ! is_array( $input ) ) {
+		$input = array();
+	}
+	foreach ( $spec as $group_key => $group ) {
+		$row_in = isset( $input[ $group_key ] ) && is_array( $input[ $group_key ] ) ? $input[ $group_key ] : array();
+		$clean_group = array();
+		foreach ( $group['fields'] as $fkey => $field ) {
+			$value = (string) ( $row_in[ $fkey ] ?? '' );
+			$clean_group[ $fkey ] = 'textarea' === $field['type'] ? sanitize_textarea_field( $value ) : sanitize_text_field( $value );
+		}
+		foreach ( $group['repeaters'] as $rkey => $repeater ) {
+			$rows = array();
+			if ( isset( $row_in[ $rkey ] ) && is_array( $row_in[ $rkey ] ) ) {
+				foreach ( $row_in[ $rkey ] as $row ) {
+					if ( ! is_array( $row ) ) {
+						continue;
+					}
+					$clean_row = array();
+					foreach ( $repeater['fields'] as $fkey => $flabel ) {
+						$clean_row[ $fkey ] = sanitize_text_field( (string) ( $row[ $fkey ] ?? '' ) );
+					}
+					if ( '' !== implode( '', $clean_row ) ) {
+						$rows[] = $clean_row;
+					}
+				}
+			}
+			$clean_group[ $rkey ] = $rows;
+		}
+		$clean[ $group_key ] = $clean_group;
+	}
 	return $clean;
 }
 
@@ -927,4 +1510,156 @@ function erfanpro_shop_texts() {
 		'search_placeholder' => (string) ( $texts['search_placeholder'] ?? '' ),
 		'purchasable_label'  => (string) ( $texts['purchasable_label'] ?? '' ),
 	);
+}
+
+/**
+ * BO-010: city marquee values.
+ *
+ * Speed 0 means "unset" — the template then emits no inline duration
+ * and the compiled CSS duration (38s) applies, keeping output
+ * byte-identical to before this change.
+ *
+ * @return array{source:string,manual_cities:array,speed:int}
+ */
+function erfanpro_city_marquee() {
+	$m = erfanpro_option( 'city_marquee', array() );
+	if ( ! is_array( $m ) ) {
+		$m = array();
+	}
+	$source = (string) ( $m['source'] ?? 'auto' );
+	if ( ! in_array( $source, array( 'auto', 'manual' ), true ) ) {
+		$source = 'auto';
+	}
+	return array(
+		'source'        => $source,
+		'manual_cities' => erfanpro_panel_rows( $m, 'manual_cities' ),
+		'speed'         => max( 0, (int) ( $m['speed'] ?? 0 ) ),
+	);
+}
+
+/**
+ * BO-013: raw about texts (template applies reference fallbacks).
+ *
+ * @return array
+ */
+function erfanpro_about_texts() {
+	$texts = erfanpro_option( 'about_texts', array() );
+	return is_array( $texts ) ? $texts : array();
+}
+
+/**
+ * BO-013: raw contact texts (template applies reference fallbacks).
+ *
+ * @return array
+ */
+function erfanpro_contact_texts() {
+	$texts = erfanpro_option( 'contact_texts', array() );
+	return is_array( $texts ) ? $texts : array();
+}
+
+/**
+ * BO-014: raw texts of one simple page (template applies fallbacks).
+ *
+ * @param string $page Page key: guarantee|licenses|faq|careers|feedback.
+ * @return array
+ */
+function erfanpro_minor_page_texts( $page ) {
+	$all = erfanpro_option( 'minor_pages_texts', array() );
+	if ( ! is_array( $all ) ) {
+		return array();
+	}
+	return isset( $all[ $page ] ) && is_array( $all[ $page ] ) ? $all[ $page ] : array();
+}
+
+/**
+ * One panel text with reference fallback (BO-013/014 pattern).
+ *
+ * Empty saved value means "not edited" and returns the fallback, so
+ * templates render byte-identical output until an admin saves a value.
+ *
+ * @param array  $group    Saved group array (or empty).
+ * @param string $key      Field key.
+ * @param string $fallback Reference literal.
+ * @return string
+ */
+function erfanpro_panel_text( $group, $key, $fallback ) {
+	if ( is_array( $group ) && isset( $group[ $key ] ) && '' !== (string) $group[ $key ] ) {
+		return (string) $group[ $key ];
+	}
+	return $fallback;
+}
+
+/**
+ * Saved repeater rows of one group, fully-empty rows dropped.
+ *
+ * @param array  $group Saved group array (or empty).
+ * @param string $key   Repeater key.
+ * @return array
+ */
+function erfanpro_panel_rows( $group, $key ) {
+	if ( ! is_array( $group ) || ! isset( $group[ $key ] ) || ! is_array( $group[ $key ] ) ) {
+		return array();
+	}
+	$rows = array();
+	foreach ( $group[ $key ] as $row ) {
+		if ( ! is_array( $row ) ) {
+			continue;
+		}
+		if ( '' !== implode( '', array_map( 'strval', $row ) ) ) {
+			$rows[] = $row;
+		}
+	}
+	return $rows;
+}
+
+/**
+ * Fallback rows merged with saved rows, positionally and per-field.
+ *
+ * A saved row replaces its fallback row field-by-field; missing saved
+ * rows keep their fallback; extra saved rows are appended. Templates
+ * that index fixed positions (counters, cards) use this so a partial
+ * save can never blank out the remaining positions.
+ *
+ * @param array  $group    Saved group array (or empty).
+ * @param string $key      Repeater key.
+ * @param array  $fallback Fallback rows.
+ * @return array
+ */
+function erfanpro_panel_rows_merged( $group, $key, $fallback ) {
+	$merged = $fallback;
+	foreach ( erfanpro_panel_rows( $group, $key ) as $i => $row ) {
+		if ( isset( $merged[ $i ] ) && is_array( $merged[ $i ] ) ) {
+			foreach ( $row as $rk => $rv ) {
+				if ( '' !== (string) $rv ) {
+					$merged[ $i ][ $rk ] = $rv;
+				}
+			}
+		} else {
+			$merged[ $i ] = $row;
+		}
+	}
+	return $merged;
+}
+
+/**
+ * Fallback string list merged with saved single-text rows.
+ *
+ * Same positional, skip-empty semantics as
+ * erfanpro_panel_rows_merged(), for fixed lists rendered as separate
+ * elements (ISO bullets, guarantee steps).
+ *
+ * @param array  $group    Saved group array (or empty).
+ * @param string $key      Repeater key (rows with a `text` subfield).
+ * @param array  $fallback Fallback strings.
+ * @return array
+ */
+function erfanpro_panel_text_list( $group, $key, $fallback ) {
+	$merged = $fallback;
+	foreach ( erfanpro_panel_rows( $group, $key ) as $i => $row ) {
+		$text = trim( (string) ( $row['text'] ?? '' ) );
+		if ( '' !== $text ) {
+			$merged[ $i ] = $text;
+		}
+	}
+	return $merged;
 }

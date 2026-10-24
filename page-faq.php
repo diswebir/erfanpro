@@ -12,6 +12,7 @@
  * for this template in inc/enqueue.php. The page's own editor
  * content renders below via template-parts/page/content.php.
  *
+ * BO-014: texts from erfanpro_options[minor_pages_texts][faq].
  * @package Erfanpro
  */
 
@@ -19,7 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$erfanpro_faq_items = array(
+/* ---- BO-014: FAQ texts (template fallbacks) ---- */
+$erfanpro_page        = erfanpro_minor_page_texts( 'faq' );
+$erfanpro_hero_title    = erfanpro_panel_text( $erfanpro_page, 'hero_title', __( 'سوالات متداول', 'erfanpro' ) );
+$erfanpro_hero_subtitle = erfanpro_panel_text( $erfanpro_page, 'hero_subtitle', __( 'پاسخ پرسش‌های پرتکرار درباره سفارش، قیمت، گارانتی، ارسال و تولید سفارشی؛ اگر پاسخ سؤالتان را پیدا نکردید، از فرم تماس بپرسید.', 'erfanpro' ) );
+$erfanpro_hero_badge    = erfanpro_panel_text( $erfanpro_page, 'hero_badge', __( 'راهنمای خرید', 'erfanpro' ) );
+$erfanpro_cta           = erfanpro_panel_text( $erfanpro_page, 'cta', __( 'سؤال دیگری دارم — تماس با ما', 'erfanpro' ) );
+
+$erfanpro_faq_fallback = array(
 	array(
 		'q' => __( 'چطور سفارش ثبت کنم؟', 'erfanpro' ),
 		'a' => __( 'محصولات دارای قیمت را می‌توانید مستقیم از فروشگاه به سبد خرید اضافه و تسویه کنید. برای محصولات بدون قیمت، از کارت استعلام همان محصول یا فرم تماس استفاده کنید تا کارشناسان فروش پیش‌فاکتور صادر کنند.', 'erfanpro' ),
@@ -45,6 +53,10 @@ $erfanpro_faq_items = array(
 		'a' => __( 'در برگه هر محصول، دکمه دانلود کاتالوگ همان محصول قرار دارد و اگر محصولی کاتالوگ اختصاصی نداشت، کاتالوگ کامل سایت جایگزین آن می‌شود.', 'erfanpro' ),
 	),
 );
+$erfanpro_faq_items = erfanpro_panel_rows( $erfanpro_page, 'items' );
+if ( empty( $erfanpro_faq_items ) ) {
+	$erfanpro_faq_items = $erfanpro_faq_fallback;
+}
 
 get_header();
 ?>
@@ -54,9 +66,9 @@ get_header();
 		'template-parts/page/hero',
 		null,
 		array(
-			'title'    => __( 'سوالات متداول', 'erfanpro' ),
-			'subtitle' => __( 'پاسخ پرسش‌های پرتکرار درباره سفارش، قیمت، گارانتی، ارسال و تولید سفارشی؛ اگر پاسخ سؤالتان را پیدا نکردید، از فرم تماس بپرسید.', 'erfanpro' ),
-			'badge'    => __( 'راهنمای خرید', 'erfanpro' ),
+			'title'    => $erfanpro_hero_title,
+			'subtitle' => $erfanpro_hero_subtitle,
+			'badge'    => $erfanpro_hero_badge,
 		)
 	);
 	?>
@@ -73,7 +85,7 @@ get_header();
 			<?php endforeach; ?>
 		</div>
 		<p class="mt-10 text-center">
-			<a class="inline-flex items-center rounded-full bg-emerald-700 px-6 py-3 text-sm font-extrabold text-white transition-colors hover:bg-emerald-800" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'سؤال دیگری دارم — تماس با ما', 'erfanpro' ); ?></a>
+			<a class="inline-flex items-center rounded-full bg-emerald-700 px-6 py-3 text-sm font-extrabold text-white transition-colors hover:bg-emerald-800" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html( $erfanpro_cta ); ?></a>
 		</p>
 	</section>
 	<?php
