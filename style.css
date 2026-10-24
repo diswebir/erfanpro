@@ -1,0 +1,20 @@
+/*
+Theme Name: erfan2027pro
+Theme URI: https://new.erfansanat.com
+Author: DisWeb
+Author URI: https://github.com/diswebir
+Description: قالب کلاسیک PHP عرفان صنعت اصفهان — مستقل از المنتور؛ داده‌ها مستقیم از ووکامرس و متاهای بلوپرینت erfansanat.com خوانده می‌شوند و خروجی برگه‌به‌برگه با رفرنس استاتیک (main-erfansanat-static) یکسان است.
+Version: 0.1.0
+Requires at least: 7.1
+Requires PHP: 8.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: erfanpro
+Tags: rtl, woocommerce, custom-menu, featured-images
+*/
+
+/*
+ * استایل‌های اصلی قالب از سورس Tailwind ساخته و از assets/css لود می‌شوند
+ * (فال‌بک: assets/css/reference-app.css — CSS کامپایل‌شده رفرنس).
+ * این فایل فقط هدر قالب و چند قاعده پایه را نگه می‌دارد.
+ */

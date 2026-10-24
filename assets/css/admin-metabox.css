@@ -1,0 +1,31 @@
+/* erfanpro admin: metabox + options repeaters, media pickers. */
+.erfanpro-repeater-rows { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+.erfanpro-repeater-row {
+	display: flex; gap: 10px; align-items: flex-start;
+	background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 12px;
+}
+.erfanpro-repeater-row .erfanpro-field { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.erfanpro-repeater-row .erfanpro-field > label { font-weight: 600; font-size: 12px; color: #3c434a; }
+.erfanpro-repeater-row .erfanpro-field input[type="text"],
+.erfanpro-repeater-row .erfanpro-field input[type="url"],
+.erfanpro-repeater-row .erfanpro-field input[type="number"],
+.erfanpro-repeater-row .erfanpro-field textarea,
+.erfanpro-repeater-row .erfanpro-field select { width: 100%; }
+.erfanpro-repeater-row .erfanpro-remove { flex: 0 0 auto; margin-top: 22px; }
+.erfanpro-metabox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.erfanpro-metabox-grid .full { grid-column: 1 / -1; }
+.erfanpro-metabox-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; }
+.erfanpro-metabox-field > label { font-weight: 600; }
+.erfanpro-metabox-field .description { color: #646970; font-size: 12px; }
+[data-erfanpro-media-preview] { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+[data-erfanpro-media-preview] img { width: 64px; height: 64px; object-fit: cover; border-radius: 4px; border: 1px solid #dcdcde; }
+.erfanpro-file-name { font-size: 12px; background: #f0f0f1; padding: 4px 8px; border-radius: 4px; }
+.erfanpro-media-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.erfanpro-views-box p { margin: 0 0 8px; }
+.erfanpro-views-box .erfanpro-view-num { font-size: 20px; font-weight: 700; }
+#erfanpro-reset-views-result { margin-inline-start: 8px; }
+@media (max-width: 782px) {
+	.erfanpro-metabox-grid { grid-template-columns: 1fr; }
+	.erfanpro-repeater-row { flex-direction: column; }
+	.erfanpro-repeater-row .erfanpro-remove { margin-top: 0; align-self: flex-end; }
+}

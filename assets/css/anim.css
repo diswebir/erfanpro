@@ -1,0 +1,80 @@
+/* Animation layer for the static mirror — recreates the original site's
+   framer-motion behaviour in plain CSS/JS (no framework).
+   Initial states match Reveal: opacity 0, y 42px, blur 6px. */
+html.anim [data-anim] {
+  opacity: 0;
+  transform: translateY(42px);
+  filter: blur(6px);
+}
+[data-anim].anim-run {
+  transition-property: opacity, transform, filter;
+  transition-duration: 0.9s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--anim-delay, 0s);
+}
+
+/* Header entrance — matches motion.header (y:-80, opacity 0 -> 0/1, .9s, delay .1s) */
+@keyframes hdrIn {
+  from { transform: translateY(-80px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+html.anim header {
+  animation: hdrIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s backwards;
+}
+
+/* Product tab panels — AnimatePresence fade/slide */
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.panel-in {
+  animation: panelIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Listing cards re-entry after filtering */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.card-in {
+  animation: cardIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* Mobile menu (motion.nav: opacity 0, y -14 -> visible, .35s easeOut;
+   links stagger x:20 opacity:0, delay .04*i) */
+.mmenu-panel {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+  pointer-events: none;
+}
+.mmenu-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.mmenu-panel .mmenu-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.mmenu-panel.open .mmenu-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Gallery main image crossfade (AnimatePresence: enter from opacity 0 / scale 1.04, .5s) */
+.gal-fade {
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* FAQ answers animate height via JS; keep the wrapper clipping */
+[data-faq-answer] {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.anim [data-anim] { opacity: 1; transform: none; filter: none; }
+  html.anim header { animation: none; }
+  .panel-in, .card-in { animation: none; }
+}
