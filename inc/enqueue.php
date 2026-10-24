@@ -98,6 +98,24 @@ function erfanpro_enqueue_assets() {
 			)
 		);
 	}
+	/* Phase 6: projects archive — city + type AJAX filter. */
+	if ( is_post_type_archive( 'projects' ) || is_tax( 'city' ) || is_tax( 'project_type' ) ) {
+		wp_enqueue_script(
+			'erfanpro-projects',
+			ERFANPRO_URI . '/assets/js/projects.js',
+			array(),
+			ERFANPRO_VERSION,
+			true
+		);
+		wp_localize_script(
+			'erfanpro-projects',
+			'erfanproProjects',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'erfanpro-projects-filter' ),
+			)
+		);
+	}
 	/* Phase 5: single product — gallery video slide + rating form (D15/D18). */
 	if ( function_exists( 'is_product' ) && is_product() ) {
 		wp_enqueue_script(
