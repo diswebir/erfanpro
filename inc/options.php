@@ -2043,9 +2043,10 @@ function erfanpro_options_groups() {
 			'inner_sidebar' => true,
 		),
 		'home'          => array(
-			'title'    => __( 'خانه', 'erfanpro' ),
-			'desc'     => __( 'هیرو، شمارنده‌ها، سکشن‌ها و نوار شهرهای صفحه خانه.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_home_hero', 'erfanpro_counters', 'erfanpro_home_sections', 'erfanpro_why_us', 'erfanpro_city_marquee' ),
+			'title'         => __( 'خانه', 'erfanpro' ),
+			'desc'          => __( 'هیرو، شمارنده‌ها، سکشن‌ها و نوار شهرهای صفحه خانه.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_home_hero', 'erfanpro_counters', 'erfanpro_home_sections', 'erfanpro_why_us', 'erfanpro_city_marquee' ),
+			'inner_sidebar' => true,
 		),
 		'shop'          => array(
 			'title'         => __( 'فروشگاه و محصول', 'erfanpro' ),
