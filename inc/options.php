@@ -2067,9 +2067,10 @@ function erfanpro_options_groups() {
 			'inner_sidebar' => true,
 		),
 		'pages'         => array(
-			'title'    => __( 'برگه‌ها و پیام‌ها', 'erfanpro' ),
-			'desc'     => __( 'متن‌های درباره، تماس، برگه‌های ساده، جستجو و صفحه ۴۰۴.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_about_contact', 'erfanpro_minor_pages', 'erfanpro_search_texts' ),
+			'title'         => __( 'برگه‌ها و پیام‌ها', 'erfanpro' ),
+			'desc'          => __( 'متن‌های درباره، تماس، برگه‌های ساده، جستجو و صفحه ۴۰۴.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_about_contact', 'erfanpro_minor_pages', 'erfanpro_search_texts' ),
+			'inner_sidebar' => true,
 		),
 		'manager'       => array(
 			'title'    => __( 'مدیر سکشن‌ها', 'erfanpro' ),
