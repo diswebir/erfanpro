@@ -2061,9 +2061,10 @@ function erfanpro_options_groups() {
 			'inner_sidebar' => true,
 		),
 		'blog'          => array(
-			'title'    => __( 'وبلاگ و دیدگاه‌ها', 'erfanpro' ),
-			'desc'     => __( 'متن‌های وبلاگ، تک‌نوشته و فرم دیدگاه‌ها.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_blog_texts', 'erfanpro_post_texts', 'erfanpro_comments_texts' ),
+			'title'         => __( 'وبلاگ و دیدگاه‌ها', 'erfanpro' ),
+			'desc'          => __( 'متن‌های وبلاگ، تک‌نوشته و فرم دیدگاه‌ها.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_blog_texts', 'erfanpro_post_texts', 'erfanpro_comments_texts' ),
+			'inner_sidebar' => true,
 		),
 		'pages'         => array(
 			'title'    => __( 'برگه‌ها و پیام‌ها', 'erfanpro' ),
