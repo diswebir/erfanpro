@@ -2047,9 +2047,10 @@ function erfanpro_options_groups() {
 			'sections' => array( 'erfanpro_home_hero', 'erfanpro_counters', 'erfanpro_home_sections', 'erfanpro_why_us', 'erfanpro_city_marquee' ),
 		),
 		'shop'          => array(
-			'title'    => __( 'فروشگاه و محصول', 'erfanpro' ),
-			'desc'     => __( 'متن‌های فروشگاه و تک‌محصول.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_shop_texts', 'erfanpro_shop_toolbar', 'erfanpro_product_texts' ),
+			'title'         => __( 'فروشگاه و محصول', 'erfanpro' ),
+			'desc'          => __( 'متن‌های فروشگاه و تک‌محصول.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_shop_texts', 'erfanpro_shop_toolbar', 'erfanpro_product_texts' ),
+			'inner_sidebar' => true,
 		),
 		'work'          => array(
 			'title'    => __( 'پروژه‌ها و خدمات', 'erfanpro' ),
@@ -2286,6 +2287,57 @@ function erfanpro_options_render() {
 }
 
 /**
+ * Shared inner-sidebar component (admin-ux2-unit-2): one sidebar +
+ * one panel per settings section of a tab.
+ *
+ * Tabs opt in with 'inner_sidebar' => true in erfanpro_options_groups();
+ * units 3-8 only add that key to their own group — no per-tab markup
+ * or JS is copied. Section labels come from the registered section
+ * titles, so they can never drift from the map.
+ *
+ * Progressive enhancement: without JS every panel is visible and the
+ * sidebar links are real anchors to the panel ids; with JS
+ * (assets/js/admin-tabs.js) only the active panel shows and the active
+ * section persists per tab in localStorage (default: first section).
+ * All panels stay in the same form/DOM, so switching never loses
+ * unsaved input and the floating AJAX save still sends the whole tab.
+ *
+ * @param string $tab_id Tab id.
+ * @param array  $group  Group (title, desc, sections).
+ */
+function erfanpro_options_render_inner_sidebar( $tab_id, $group ) {
+	global $wp_settings_sections;
+	$titles = array();
+	if ( ! empty( $wp_settings_sections['erfanpro-settings'] ) ) {
+		foreach ( $wp_settings_sections['erfanpro-settings'] as $s ) {
+			$titles[ $s['id'] ] = $s['title'];
+		}
+	}
+	$sections = $group['sections'];
+	$first    = reset( $sections );
+	?>
+	<div class="erfanpro-inner" data-erfanpro-inner="<?php echo esc_attr( $tab_id ); ?>">
+		<nav class="erfanpro-inner-sidebar" aria-label="<?php esc_attr_e( 'بخش‌های این تب', 'erfanpro' ); ?>">
+			<ul class="erfanpro-inner-nav">
+				<?php foreach ( $sections as $section_id ) : ?>
+					<li class="erfanpro-inner-nav-item">
+						<a href="#erfanpro-inner-panel-<?php echo esc_attr( $tab_id ); ?>-<?php echo esc_attr( $section_id ); ?>" class="erfanpro-inner-link<?php echo $section_id === $first ? ' is-active' : ''; ?>" data-erfanpro-inner-nav="<?php echo esc_attr( $section_id ); ?>"<?php echo $section_id === $first ? ' aria-current="true"' : ''; ?>><?php echo esc_html( $titles[ $section_id ] ?? $section_id ); ?></a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</nav>
+		<div class="erfanpro-inner-panels">
+			<?php foreach ( $sections as $section_id ) : ?>
+				<section class="erfanpro-inner-panel<?php echo $section_id === $first ? ' is-active' : ''; ?>" id="erfanpro-inner-panel-<?php echo esc_attr( $tab_id ); ?>-<?php echo esc_attr( $section_id ); ?>" data-erfanpro-inner-panel="<?php echo esc_attr( $section_id ); ?>" aria-label="<?php echo esc_attr( $titles[ $section_id ] ?? $section_id ); ?>">
+					<?php erfanpro_options_render_section( $section_id ); ?>
+				</section>
+			<?php endforeach; ?>
+		</div>
+	</div>
+	<?php
+}
+
+/**
  * Render one tab panel: group title + description + its sections.
  *
  * The panel id keeps the old anchor (erfanpro-group-{id}) so existing
@@ -2303,8 +2355,12 @@ function erfanpro_options_render_panel( $tab_id, $group ) {
 			<p class="erfanpro-opt-group-desc"><?php echo esc_html( $group['desc'] ); ?></p>
 		<?php endif; ?>
 		<?php
-		foreach ( $group['sections'] as $section_id ) {
-			erfanpro_options_render_section( $section_id );
+		if ( ! empty( $group['inner_sidebar'] ) && count( $group['sections'] ) > 1 ) {
+			erfanpro_options_render_inner_sidebar( $tab_id, $group );
+		} else {
+			foreach ( $group['sections'] as $section_id ) {
+				erfanpro_options_render_section( $section_id );
+			}
 		}
 		if ( 'fonts' === $tab_id ) {
 			erfanpro_options_guide_card();

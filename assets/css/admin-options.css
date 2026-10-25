@@ -1093,3 +1093,113 @@
 		display: none;
 	}
 }
+
+/* ---- shared inner sidebar (admin-ux2-unit-2): one sidebar + one panel
+ * per settings section of a tab. Generic classes: tabs opt in from
+ * PHP (erfanpro_options_render_inner_sidebar); units 3-8 reuse them
+ * unchanged. Site green/gray, Vazirmatn (inherited). ---- */
+.erfanpro-inner {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+}
+
+.erfanpro-inner-sidebar {
+	flex: 0 0 220px;
+	position: sticky;
+	top: 120px;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 8px;
+}
+
+.erfanpro-inner-nav {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.erfanpro-inner-link {
+	display: block;
+	padding: 9px 12px;
+	color: #0f172a;
+	text-decoration: none;
+	border-radius: 8px;
+	border-inline-start: 3px solid transparent;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.erfanpro-inner-link:hover {
+	background: #f8fafc;
+}
+
+.erfanpro-inner-link:focus-visible {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+}
+
+.erfanpro-inner-link.is-active {
+	background: #ecfdf5;
+	border-inline-start-color: #059669;
+	color: #005028;
+}
+
+.erfanpro-inner-panels {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.erfanpro-inner-panel {
+	scroll-margin-top: 120px;
+}
+
+/* Without JS every panel is visible (sidebar links are real anchors);
+ * with JS only the active panel shows. */
+.erfanpro-inner.erfanpro-inner-js .erfanpro-inner-panel {
+	display: none;
+}
+
+.erfanpro-inner.erfanpro-inner-js .erfanpro-inner-panel.is-active {
+	display: block;
+}
+
+@media (max-width: 640px) {
+	/* Inner sidebar becomes a horizontal scrollable chip row above the panel. */
+	.erfanpro-inner {
+		flex-direction: column;
+	}
+
+	.erfanpro-inner-sidebar {
+		flex: 1 1 auto;
+		position: static;
+		padding: 6px;
+	}
+
+	.erfanpro-inner-nav {
+		display: flex;
+		gap: 6px;
+		overflow-x: auto;
+		padding-bottom: 4px;
+	}
+
+	.erfanpro-inner-nav-item {
+		flex: 0 0 auto;
+	}
+
+	.erfanpro-inner-link {
+		white-space: nowrap;
+		padding: 6px 12px;
+		background: #f1f5f9;
+		border: 1px solid #e2e8f0;
+		border-radius: 999px;
+		border-inline-start: 1px solid #e2e8f0;
+	}
+
+	.erfanpro-inner-link.is-active {
+		background: #005028;
+		border-color: #005028;
+		color: #fff;
+	}
+}

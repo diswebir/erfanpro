@@ -397,11 +397,88 @@
 		});
 	}
 
+	/* ---- shared inner sidebars (admin-ux2-unit-2): one sidebar per
+	 * tab, one panel per settings section. Generic: every
+	 * [data-erfanpro-inner] container on the page gets the same
+	 * behaviour, so later tabs only opt in from PHP (the
+	 * 'inner_sidebar' group key) and no per-tab JS is copied. The
+	 * active section persists per tab in localStorage (default:
+	 * first section); the URL hash is left alone — it belongs to
+	 * the tab rail. Without JS every panel stays visible and the
+	 * sidebar links are real anchors to the panel ids. ---- */
+	function initInnerSidebars() {
+		var inners = Array.prototype.slice.call(document.querySelectorAll('[data-erfanpro-inner]'));
+		inners.forEach(function (root) {
+			var tabId = root.getAttribute('data-erfanpro-inner');
+			var links = Array.prototype.slice.call(root.querySelectorAll('[data-erfanpro-inner-nav]'));
+			var panels = Array.prototype.slice.call(root.querySelectorAll('[data-erfanpro-inner-panel]'));
+			if (!links.length || !panels.length) {
+				return;
+			}
+			root.classList.add('erfanpro-inner-js');
+			var storageKey = 'erfanpro_inner_' + tabId;
+
+			function panelForInner(key) {
+				for (var i = 0; i < panels.length; i++) {
+					if (panels[i].getAttribute('data-erfanpro-inner-panel') === key) {
+						return panels[i];
+					}
+				}
+				return null;
+			}
+
+			function activateInner(key) {
+				var panel = panelForInner(key);
+				if (!panel) {
+					return false;
+				}
+				panels.forEach(function (p) {
+					p.classList.toggle('is-active', p === panel);
+				});
+				links.forEach(function (link) {
+					var on = link.getAttribute('data-erfanpro-inner-nav') === key;
+					link.classList.toggle('is-active', on);
+					if (on) {
+						link.setAttribute('aria-current', 'true');
+					} else {
+						link.removeAttribute('aria-current');
+					}
+				});
+				try {
+					window.localStorage.setItem(storageKey, key);
+				} catch (e) { /* private mode: first section stays */ }
+				return true;
+			}
+
+			links.forEach(function (link) {
+				link.addEventListener('click', function (ev) {
+					ev.preventDefault();
+					activateInner(link.getAttribute('data-erfanpro-inner-nav'));
+				});
+			});
+
+			var initial = null;
+			try {
+				var stored = window.localStorage.getItem(storageKey);
+				if (stored && panelForInner(stored)) {
+					initial = stored;
+				}
+			} catch (e) { /* ignore */ }
+			if (!initial && panels.length) {
+				initial = panels[0].getAttribute('data-erfanpro-inner-panel');
+			}
+			if (initial) {
+				activateInner(initial);
+			}
+		});
+	}
+
 	function init() {
 		var tab = initialTab();
 		if (tab) {
 			activate(tab, true);
 		}
+		initInnerSidebars();
 		bindFontInputs();
 	}
 
