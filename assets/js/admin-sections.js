@@ -1,18 +1,26 @@
 /**
- * erfanpro section manager (manager tab).
+ * erfanpro section manager (manager tab): sidebar + one panel per page.
  *
- * - Collapsible group cards; open/closed state persists in
- *   localStorage (first visit: only the first group is open).
- * - Drag-and-drop reorder inside a group (HTML5 DnD, Vanilla JS):
+ * - Sidebar with 18 page items; clicking one shows only that page's
+ *   panel. The active page persists in the URL hash and in
+ *   localStorage (first visit: «صفحه خانه»), so a plain-submit reload
+ *   (move/reset, classic save) reopens the same page.
+ * - Drag-and-drop reorder inside a panel (HTML5 DnD, Vanilla JS):
  *   dropping renumbers the hidden order inputs and the visible
  *   position badges, so the next save (floating AJAX save or classic
  *   submit) stores the new order. Up/down buttons stay for keyboard.
  * - Toggle switches are real checkboxes: flipping one dims the row,
- *   shows the «غیرفعال» badge, and updates the group/summary counts.
- * - Sticky summary bar: counts, jump links, and a search box that
- *   filters rows by section/page name. Without JS every group is
- *   open and the search box and drag handles are hidden by CSS, so
- *   the manager still works as plain checkboxes + submit buttons.
+ *   shows the «غیرفعال» badge, and updates the panel/sidebar/summary
+ *   counts.
+ * - Search box above the sidebar filters sidebar items by page name
+ *   and section name; clearing it restores the full sidebar and keeps
+ *   the previously active page.
+ * - Reset buttons ask for confirmation (they wipe the page's saved
+ *   layout) and keep the same page active afterwards.
+ * - Without JS every panel is visible and the sidebar links are real
+ *   anchors to the panel ids, so the manager still works as plain
+ *   checkboxes + submit buttons; the search box and drag handles are
+ *   hidden by CSS in that mode.
  * - Vanilla JS, zero external requests.
  */
 (function () {
@@ -24,10 +32,14 @@
 	}
 	root.classList.add('erfanpro-sm-js');
 
-	var STORAGE_KEY = 'erfanpro_sections_open';
-	var groups = Array.prototype.slice.call(root.querySelectorAll('[data-erfanpro-sm-group]'));
+	var STORAGE_KEY = 'erfanpro_sections_page';
+	var panels = Array.prototype.slice.call(root.querySelectorAll('[data-erfanpro-sm-panel]'));
+	var navLinks = Array.prototype.slice.call(root.querySelectorAll('[data-erfanpro-sm-nav]'));
+	var navItems = Array.prototype.slice.call(root.querySelectorAll('[data-erfanpro-sm-nav-item]'));
 	var searchInput = root.querySelector('[data-erfanpro-sm-search]');
+	var emptyMsg = root.querySelector('[data-erfanpro-sm-nav-empty]');
 	var disabledCountEl = root.querySelector('[data-erfanpro-sm-disabled-count]');
+	var activePage = null;
 
 	function faDigits(n) {
 		return String(n).replace(/[0-9]/g, function (d) {
@@ -35,57 +47,69 @@
 		});
 	}
 
-	/* ---- collapsed state (localStorage) ---- */
-	function loadOpenState() {
-		try {
-			var raw = window.localStorage.getItem(STORAGE_KEY);
-			if (raw) {
-				return JSON.parse(raw) || {};
+	/* ---- active panel (hash + localStorage, default: home) ---- */
+	function panelFor(key) {
+		for (var i = 0; i < panels.length; i++) {
+			if (panels[i].getAttribute('data-erfanpro-sm-panel') === key) {
+				return panels[i];
 			}
-		} catch (e) { /* private mode: fall through to defaults */ }
+		}
 		return null;
 	}
 
-	function saveOpenState(state) {
-		try {
-			window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-		} catch (e) { /* ignore */ }
-	}
-
-	function setGroupOpen(group, open, save) {
-		group.classList.toggle('is-collapsed', !open);
-		var btn = group.querySelector('[data-erfanpro-sm-toggle]');
-		if (btn) {
-			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+	function activate(key, updateHash) {
+		var panel = panelFor(key);
+		if (!panel) {
+			return false;
 		}
-		if (save) {
-			var state = loadOpenState() || {};
-			state[group.getAttribute('data-erfanpro-sm-group')] = !!open;
-			saveOpenState(state);
-		}
-	}
-
-	function applyStoredState() {
-		var stored = loadOpenState();
-		groups.forEach(function (group, i) {
-			var key = group.getAttribute('data-erfanpro-sm-group');
-			var open = stored ? !!stored[key] : 0 === i;
-			setGroupOpen(group, open, false);
+		activePage = key;
+		panels.forEach(function (p) {
+			p.classList.toggle('is-active', p === panel);
 		});
+		navLinks.forEach(function (link) {
+			var on = link.getAttribute('data-erfanpro-sm-nav') === key;
+			link.classList.toggle('is-active', on);
+			if (on) {
+				link.setAttribute('aria-current', 'true');
+			} else {
+				link.removeAttribute('aria-current');
+			}
+		});
+		try {
+			window.localStorage.setItem(STORAGE_KEY, key);
+		} catch (e) { /* private mode: hash still works */ }
+		if (updateHash) {
+			try {
+				window.history.replaceState(null, '', '#erfanpro-sm-panel-' + key);
+			} catch (e) { /* file/odd protocol: ignore */ }
+		}
+		return true;
 	}
 
-	groups.forEach(function (group) {
-		var btn = group.querySelector('[data-erfanpro-sm-toggle]');
-		if (btn) {
-			btn.addEventListener('click', function () {
-				setGroupOpen(group, group.classList.contains('is-collapsed'), true);
-			});
+	function initialPage() {
+		var hash = (window.location.hash || '').replace('#erfanpro-sm-panel-', '');
+		if (hash && panelFor(hash)) {
+			return hash;
 		}
+		try {
+			var stored = window.localStorage.getItem(STORAGE_KEY);
+			if (stored && panelFor(stored)) {
+				return stored;
+			}
+		} catch (e) { /* ignore */ }
+		return panels.length ? panels[0].getAttribute('data-erfanpro-sm-panel') : null;
+	}
+
+	navLinks.forEach(function (link) {
+		link.addEventListener('click', function (ev) {
+			ev.preventDefault();
+			activate(link.getAttribute('data-erfanpro-sm-nav'), true);
+		});
 	});
 
 	/* ---- counts ---- */
-	function updateGroupStatus(group) {
-		var rows = group.querySelectorAll('.erfanpro-sm-row');
+	function updatePanelStatus(panel) {
+		var rows = panel.querySelectorAll('.erfanpro-sm-row');
 		var on = 0;
 		rows.forEach(function (row) {
 			var box = row.querySelector('input[type="checkbox"]');
@@ -93,9 +117,15 @@
 				on++;
 			}
 		});
-		var status = group.querySelector('[data-erfanpro-sm-group-status]');
+		var status = panel.querySelector('[data-erfanpro-sm-panel-status]');
 		if (status) {
 			status.textContent = faDigits(on) + ' از ' + faDigits(rows.length) + ' فعال';
+		}
+		var key = panel.getAttribute('data-erfanpro-sm-panel');
+		var item = root.querySelector('[data-erfanpro-sm-nav-item="' + key + '"]');
+		var navStatus = item && item.querySelector('[data-erfanpro-sm-nav-status]');
+		if (navStatus) {
+			navStatus.textContent = faDigits(on) + ' از ' + faDigits(rows.length) + ' فعال';
 		}
 	}
 
@@ -119,9 +149,9 @@
 			if (badge) {
 				badge.hidden = box.checked;
 			}
-			var group = row.closest('[data-erfanpro-sm-group]');
-			if (group) {
-				updateGroupStatus(group);
+			var panel = row.closest('[data-erfanpro-sm-panel]');
+			if (panel) {
+				updatePanelStatus(panel);
 			}
 			updateSummaryDisabled();
 		});
@@ -162,8 +192,8 @@
 		return null;
 	}
 
-	groups.forEach(function (group) {
-		var list = group.querySelector('[data-erfanpro-sm-list]');
+	panels.forEach(function (panel) {
+		var list = panel.querySelector('[data-erfanpro-sm-list]');
 		if (!list) {
 			return;
 		}
@@ -219,7 +249,7 @@
 		});
 	});
 
-	/* ---- search / filter ---- */
+	/* ---- search / filter the sidebar ---- */
 	function norm(s) {
 		return (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
 	}
@@ -229,51 +259,39 @@
 			return;
 		}
 		var q = norm(searchInput.value);
-		if (!q) {
-			groups.forEach(function (group) {
-				group.classList.remove('is-hidden');
-				group.querySelectorAll('.erfanpro-sm-row').forEach(function (row) {
-					row.classList.remove('is-hidden');
-				});
-			});
-			applyStoredState();
-			return;
-		}
-		groups.forEach(function (group) {
-			var label = norm(group.getAttribute('data-page-label'));
-			var anyVisible = false;
-			group.querySelectorAll('.erfanpro-sm-row').forEach(function (row) {
-				var hit = norm(row.textContent).indexOf(q) !== -1 || label.indexOf(q) !== -1;
-				row.classList.toggle('is-hidden', !hit);
-				if (hit) {
-					anyVisible = true;
-				}
-			});
-			group.classList.toggle('is-hidden', !anyVisible);
-			if (anyVisible) {
-				setGroupOpen(group, true, false);
+		var anyVisible = false;
+		navItems.forEach(function (item) {
+			var hay = norm(item.getAttribute('data-page-label') + ' ' + item.getAttribute('data-section-labels'));
+			var hit = !q || hay.indexOf(q) !== -1;
+			item.classList.toggle('is-hidden', !hit);
+			if (hit) {
+				anyVisible = true;
 			}
 		});
+		if (emptyMsg) {
+			emptyMsg.hidden = anyVisible;
+		}
 	}
 
 	if (searchInput) {
 		searchInput.addEventListener('input', applySearch);
 	}
 
-	/* ---- jump links: expand the target group and scroll to it ---- */
-	root.querySelectorAll('[data-erfanpro-sm-jump]').forEach(function (link) {
-		link.addEventListener('click', function (ev) {
-			ev.preventDefault();
-			var key = link.getAttribute('data-erfanpro-sm-jump');
-			var group = root.querySelector('[data-erfanpro-sm-group="' + key + '"]');
-			if (!group) {
-				return;
+	/* ---- reset: confirm first (it wipes the page's saved layout);
+	 * the active page stays active afterwards via localStorage. ---- */
+	root.querySelectorAll('[data-erfanpro-sm-reset]').forEach(function (btn) {
+		btn.addEventListener('click', function (ev) {
+			var label = btn.getAttribute('data-page-label') || '';
+			var msg = 'چیدمان برگهٔ «' + label + '» به حالت پیش‌فرض برمی‌گردد. ادامه می‌دهید؟';
+			if (!window.confirm(msg)) {
+				ev.preventDefault();
 			}
-			setGroupOpen(group, true, true);
-			group.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		});
 	});
 
-	applyStoredState();
+	var first = initialPage();
+	if (first) {
+		activate(first, false);
+	}
 	updateSummaryDisabled();
 })();
