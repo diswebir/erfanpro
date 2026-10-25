@@ -89,6 +89,15 @@
 	color: #fff;
 }
 
+/* Core's generic `a:focus` (0,1,1) paints a blue ring on the rail
+ * links; the rule above sets no box-shadow, so the blue ring still
+ * showed on keyboard focus. */
+.erfanpro-tab-link:focus {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
+}
+
 .erfanpro-tab-link.is-active {
 	background: rgba(255, 255, 255, 0.18);
 	border-inline-start: 3px solid #059669;
@@ -186,6 +195,15 @@
 
 .erfanpro-floating-save:hover {
 	background: #002c22;
+}
+
+/* Core's generic `button:focus` (0,1,1) paints a blue 1.5px ring on
+ * every button, including this one (it carries no `button` class, but
+ * the element selector still matches). Green ring, elevation kept. */
+.erfanpro-floating-save:focus {
+	outline: 2px solid #059669;
+	outline-offset: 2px;
+	box-shadow: 0 14px 34px rgba(15, 23, 42, 0.35), 0 0 0 1px #059669;
 }
 
 .erfanpro-floating-save:disabled {
@@ -372,6 +390,198 @@
 
 .erfanpro-opt-wrap select {
 	max-width: 100%;
+}
+
+/* ---- theme-owned buttons: no WP blue on any settings tab ----
+ * The repeater/media buttons used to carry WordPress core's `button`
+ * / `button-link` classes: core's `.wp-core-ui .button` (0,2,0) sets
+ * color + border-color from --wp-admin-theme-color (#3858e9 blue), and
+ * `.wp-core-ui .button-link` is blue underlined text; core's generic
+ * `button:focus` (0,1,1) paints a blue 1.5px ring on every button.
+ * Like the manager buttons (49b504a), the buttons below carry NO core
+ * class, so no core button rule matches at all and the theme owns the
+ * full box model + every state. The JS hooks are the data-erfanpro-*
+ * attributes, never the class, so dropping the class changes no
+ * behavior. Add/media buttons mirror the manager buttons (34px,
+ * light-gray border, dark-green text, pale-green hover); remove
+ * actions read as remove actions in muted red on gray/green. */
+.erfanpro-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 34px;
+	padding: 0 14px;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	color: #005028;
+	background: #fff;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-btn:hover {
+	background: #ecfdf5;
+	border-color: #059669;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.erfanpro-btn:active {
+	background: #d1fae5;
+	border-color: #005028;
+	box-shadow: none;
+}
+
+.erfanpro-btn:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
+}
+
+.erfanpro-btn:focus-visible {
+	outline: 2px solid #059669;
+	outline-offset: 2px;
+}
+
+.erfanpro-btn:disabled {
+	color: #cbd5e1;
+	background: #f1f5f9;
+	border-color: #e2e8f0;
+	border-style: dashed;
+	cursor: not-allowed;
+	opacity: 1;
+	box-shadow: none;
+}
+
+.erfanpro-btn-remove {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 34px;
+	height: 34px;
+	padding: 0;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 15px;
+	line-height: 1;
+	color: #64748b;
+	background: #fff;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-btn-remove:hover {
+	background: #fef2f2;
+	border-color: #fca5a5;
+	color: #b91c1c;
+}
+
+.erfanpro-btn-remove:active {
+	background: #fee2e2;
+	border-color: #f87171;
+	box-shadow: none;
+}
+
+.erfanpro-btn-remove:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
+}
+
+.erfanpro-btn-remove:focus-visible {
+	outline: 2px solid #059669;
+	outline-offset: 2px;
+}
+
+.erfanpro-btn-remove:disabled {
+	color: #cbd5e1;
+	background: #f1f5f9;
+	border-color: #e2e8f0;
+	border-style: dashed;
+	cursor: not-allowed;
+	opacity: 1;
+	box-shadow: none;
+}
+
+.erfanpro-btn-link {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 6px;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: #64748b;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.7;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-btn-link:hover {
+	background: #fef2f2;
+	color: #991b1b;
+	text-decoration: underline;
+}
+
+.erfanpro-btn-link:focus {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
+}
+
+/* Checkboxes: core's `input[type=checkbox]:checked` (0,2,1) paints a
+ * blue background, and `:focus` a blue 4px ring — visible on the
+ * font-remove checkbox, and the manager switches' invisible input
+ * also showed core's blue focus ring. Scoped under the wrap (0,3,1),
+ * the theme owns all states; core's white checkmark SVG still
+ * renders on the green background. No width/height here: the switch
+ * input stretches over its slider with inset: 0 and must keep it. */
+.erfanpro-opt-wrap input[type="checkbox"] {
+	border-color: #cbd5e1;
+	background: #fff;
+	cursor: pointer;
+}
+
+.erfanpro-opt-wrap input[type="checkbox"]:hover {
+	border-color: #94a3b8;
+}
+
+.erfanpro-opt-wrap input[type="checkbox"]:checked {
+	background: #059669;
+	border-color: #059669;
+}
+
+.erfanpro-opt-wrap input[type="checkbox"]:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
+	outline: 2px solid rgba(5, 150, 105, 0.25);
+	outline-offset: 0;
+}
+
+.erfanpro-opt-wrap input[type="checkbox"]:disabled {
+	background: #f1f5f9;
+	border-color: #e2e8f0;
+	cursor: not-allowed;
+}
+
+/* settings_errors() notices render core's dismiss button, whose
+ * `:focus` ring is blue. Green instead. */
+.erfanpro-opt-wrap .notice-dismiss:focus {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
 }
 
 /* Tidy label/description spacing inside the cards. */
@@ -660,6 +870,26 @@
 .erfanpro-opt-guide li {
 	margin-bottom: 8px;
 	line-height: 1.9;
+}
+
+/* Guide links are plain WP links with no theme rule, so core's `a`
+ * paints them blue with an underline, and core's `a:focus` adds a
+ * blue ring. Theme dark green instead, underline only on hover. */
+.erfanpro-opt-guide a {
+	color: #005028;
+	text-decoration: none;
+}
+
+.erfanpro-opt-guide a:hover {
+	color: #002c22;
+	text-decoration: underline;
+}
+
+.erfanpro-opt-guide a:focus {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
+	border-radius: 2px;
 }
 
 @media screen and (max-width: 900px) {
@@ -1281,9 +1511,15 @@
 	background: #f8fafc;
 }
 
-.erfanpro-inner-link:focus-visible {
+/* Core's `a:focus` (0,1,1) paints a blue box-shadow ring; this rule
+ * (0,2,0) wins for both outline and box-shadow. It covers `:focus`
+ * as well as `:focus-visible`, so a mouse-click focus never shows
+ * core blue either. */
+.erfanpro-inner-link:focus-visible,
+.erfanpro-inner-link:focus {
 	outline: 2px solid #059669;
 	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
 }
 
 .erfanpro-inner-link.is-active {

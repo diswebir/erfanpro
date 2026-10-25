@@ -434,7 +434,7 @@ function erfanpro_options_trust_badges_field() {
 			<?php endforeach; ?>
 		</div>
 		<script type="text/html" data-erfanpro-template><?php erfanpro_options_badge_row( '__i__', array() ); ?></script>
-		<button type="button" class="button" data-erfanpro-add><?php esc_html_e( 'افزودن نماد', 'erfanpro' ); ?></button>
+		<button type="button" class="erfanpro-btn" data-erfanpro-add><?php esc_html_e( 'افزودن نماد', 'erfanpro' ); ?></button>
 	</div>
 	<?php
 }
@@ -458,8 +458,8 @@ function erfanpro_options_badge_row( $i, $badge ) {
 			<label><?php esc_html_e( 'تصویر/آیکون', 'erfanpro' ); ?></label>
 			<input type="hidden" data-erfanpro-media-id name="erfanpro_options[trust_badges][<?php echo esc_attr( (string) $i ); ?>][image]" value="<?php echo esc_attr( $image ? (string) $image : '' ); ?>" />
 			<div class="erfanpro-media-row">
-				<button type="button" class="button" data-erfanpro-media-select><?php esc_html_e( 'انتخاب', 'erfanpro' ); ?></button>
-				<button type="button" class="button-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
+				<button type="button" class="erfanpro-btn" data-erfanpro-media-select><?php esc_html_e( 'انتخاب', 'erfanpro' ); ?></button>
+				<button type="button" class="erfanpro-btn-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
 			</div>
 			<div data-erfanpro-media-preview style="<?php echo $preview ? '' : 'display:none'; ?>"><?php echo $preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 		</div>
@@ -467,7 +467,7 @@ function erfanpro_options_badge_row( $i, $badge ) {
 			<label><?php esc_html_e( 'لینک', 'erfanpro' ); ?></label>
 			<input type="url" name="erfanpro_options[trust_badges][<?php echo esc_attr( (string) $i ); ?>][url]" value="<?php echo esc_attr( (string) ( $badge['url'] ?? '' ) ); ?>" dir="ltr" placeholder="https://" />
 		</div>
-		<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+		<button type="button" class="erfanpro-btn-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
 	</div>
 	<?php
 }
@@ -494,7 +494,7 @@ function erfanpro_options_home_counters_field() {
 			<?php endforeach; ?>
 		</div>
 		<script type="text/html" data-erfanpro-template><?php erfanpro_options_counter_row( '__i__', array(), $sources ); ?></script>
-		<button type="button" class="button" data-erfanpro-add><?php esc_html_e( 'افزودن شمارنده', 'erfanpro' ); ?></button>
+		<button type="button" class="erfanpro-btn" data-erfanpro-add><?php esc_html_e( 'افزودن شمارنده', 'erfanpro' ); ?></button>
 	</div>
 	<p class="description"><?php esc_html_e( 'عدد نهایی = عدد واقعی منبع + آفست (آفست می‌تواند منفی باشد).', 'erfanpro' ); ?></p>
 	<?php
@@ -531,7 +531,7 @@ function erfanpro_options_counter_row( $i, $counter, $sources ) {
 			<label><?php esc_html_e( 'آفست (+/-)', 'erfanpro' ); ?></label>
 			<input type="number" name="<?php echo esc_attr( $base ); ?>[offset]" value="<?php echo esc_attr( (string) (int) ( $counter['offset'] ?? 0 ) ); ?>" />
 		</div>
-		<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+		<button type="button" class="erfanpro-btn-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
 	</div>
 	<?php
 }
@@ -716,8 +716,8 @@ function erfanpro_options_home_hero_field() {
 			<label><?php esc_html_e( 'پس‌زمینه هیرو (تصویر)', 'erfanpro' ); ?></label>
 			<input type="hidden" data-erfanpro-media-id name="<?php echo esc_attr( $base ); ?>[hero_bg]" value="<?php echo esc_attr( $bg_id ? (string) $bg_id : '' ); ?>" />
 			<div class="erfanpro-media-row">
-				<button type="button" class="button" data-erfanpro-media-select><?php esc_html_e( 'انتخاب تصویر', 'erfanpro' ); ?></button>
-				<button type="button" class="button-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
+				<button type="button" class="erfanpro-btn" data-erfanpro-media-select><?php esc_html_e( 'انتخاب تصویر', 'erfanpro' ); ?></button>
+				<button type="button" class="erfanpro-btn-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
 			</div>
 			<div data-erfanpro-media-preview style="<?php echo $bg_preview ? '' : 'display:none'; ?>"><?php echo $bg_preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 		</div>
@@ -772,7 +772,7 @@ function erfanpro_options_why_us_field() {
 					<label><?php esc_html_e( 'توضیح', 'erfanpro' ); ?></label>
 					<input type="text" name="<?php echo esc_attr( $base ); ?>[features][<?php echo esc_attr( (string) $i ); ?>][desc]" value="<?php echo esc_attr( (string) ( $feat['desc'] ?? '' ) ); ?>" />
 				</div>
-				<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+				<button type="button" class="erfanpro-btn-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
 			</div>
 			<?php endforeach; ?>
 		</div>
@@ -786,10 +786,10 @@ function erfanpro_options_why_us_field() {
 					<label><?php esc_html_e( 'توضیح', 'erfanpro' ); ?></label>
 					<input type="text" name="<?php echo esc_attr( $base ); ?>[features][__i__][desc]" value="" />
 				</div>
-				<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+				<button type="button" class="erfanpro-btn-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
 			</div>
 		</script>
-		<button type="button" class="button" data-erfanpro-add><?php esc_html_e( 'افزودن کارت', 'erfanpro' ); ?></button>
+		<button type="button" class="erfanpro-btn" data-erfanpro-add><?php esc_html_e( 'افزودن کارت', 'erfanpro' ); ?></button>
 	</div>
 	<?php
 }
@@ -1579,7 +1579,7 @@ function erfanpro_options_repeater_block( $base, $rows, $repeater ) {
 			<?php endforeach; ?>
 		</div>
 		<script type="text/html" data-erfanpro-template><?php erfanpro_options_repeater_row( $base, '__i__', array(), $repeater['fields'] ); ?></script>
-		<button type="button" class="button" data-erfanpro-add><?php echo esc_html( $repeater['add'] ); ?></button>
+		<button type="button" class="erfanpro-btn" data-erfanpro-add><?php echo esc_html( $repeater['add'] ); ?></button>
 	</div>
 	<?php
 }
@@ -1601,7 +1601,7 @@ function erfanpro_options_repeater_row( $base, $i, $row, $fields ) {
 				<input type="text" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( (string) $i ); ?>][<?php echo esc_attr( $fkey ); ?>]" value="<?php echo esc_attr( (string) ( $row[ $fkey ] ?? '' ) ); ?>" />
 			</div>
 		<?php endforeach; ?>
-		<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
+		<button type="button" class="erfanpro-btn-remove" data-erfanpro-remove aria-label="<?php esc_attr_e( 'حذف ردیف', 'erfanpro' ); ?>">✕</button>
 	</div>
 	<?php
 }
