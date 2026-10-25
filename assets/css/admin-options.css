@@ -359,6 +359,7 @@
 .erfanpro-opt-wrap textarea:focus,
 .erfanpro-opt-wrap select:focus {
 	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
 	outline: 2px solid rgba(5, 150, 105, 0.25);
 	outline-offset: 0;
 	background: #fff;
