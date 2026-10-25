@@ -2055,9 +2055,10 @@ function erfanpro_options_groups() {
 			'inner_sidebar' => true,
 		),
 		'work'          => array(
-			'title'    => __( 'پروژه‌ها و خدمات', 'erfanpro' ),
-			'desc'     => __( 'متن‌های آرشیو و تک‌پروژه، آرشیو و تک‌خدمت.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_projects_texts', 'erfanpro_project_texts', 'erfanpro_services_texts', 'erfanpro_service_texts' ),
+			'title'         => __( 'پروژه‌ها و خدمات', 'erfanpro' ),
+			'desc'          => __( 'متن‌های آرشیو و تک‌پروژه، آرشیو و تک‌خدمت.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_projects_texts', 'erfanpro_project_texts', 'erfanpro_services_texts', 'erfanpro_service_texts' ),
+			'inner_sidebar' => true,
 		),
 		'blog'          => array(
 			'title'    => __( 'وبلاگ و دیدگاه‌ها', 'erfanpro' ),
