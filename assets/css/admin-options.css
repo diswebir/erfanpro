@@ -433,6 +433,26 @@
 	font-family: 'Lalezar', 'Vazirmatn', Tahoma, sans-serif;
 }
 
+/* Each font card renders its own title and family name in that font. */
+.erfanpro-font-card[data-erfanpro-font-card="primary"] .erfanpro-font-card-head h4,
+.erfanpro-font-card[data-erfanpro-font-card="primary"] .erfanpro-font-family {
+	font-family: 'Vazirmatn', Tahoma, sans-serif;
+}
+
+.erfanpro-font-card[data-erfanpro-font-card="display"] .erfanpro-font-card-head h4,
+.erfanpro-font-card[data-erfanpro-font-card="display"] .erfanpro-font-family {
+	font-family: 'Lalezar', 'Vazirmatn', Tahoma, sans-serif;
+}
+
+/* Font family names in the overview render in their own font. */
+[data-erfanpro-font-name="primary"] {
+	font-family: 'Vazirmatn', Tahoma, sans-serif;
+}
+
+[data-erfanpro-font-name="display"] {
+	font-family: 'Lalezar', 'Vazirmatn', Tahoma, sans-serif;
+}
+
 .erfanpro-font-meta {
 	display: flex;
 	flex-wrap: wrap;

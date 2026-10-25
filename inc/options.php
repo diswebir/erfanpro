@@ -613,11 +613,11 @@ function erfanpro_options_fonts_field() {
 			<dl class="erfanpro-font-overview-list">
 				<div>
 					<dt><?php esc_html_e( 'فونت اصلی متن', 'erfanpro' ); ?></dt>
-					<dd><strong>Vazirmatn</strong> — <?php esc_html_e( 'وزن متغیر ۱۰۰ تا ۹۰۰؛ متن اصلی همه‌ی سایت (‎--font-sans).', 'erfanpro' ); ?></dd>
+					<dd><strong data-erfanpro-font-name="primary">Vazirmatn</strong> — <?php esc_html_e( 'وزن متغیر ۱۰۰ تا ۹۰۰؛ متن اصلی همه‌ی سایت (‎--font-sans).', 'erfanpro' ); ?></dd>
 				</div>
 				<div>
 					<dt><?php esc_html_e( 'فونت نمایشی', 'erfanpro' ); ?></dt>
-					<dd><strong>Lalezar</strong> — <?php esc_html_e( 'وزن ۴۰۰؛ در قالب تعریف شده و از اینجا قابل جایگزینی است. در حال حاضر هیچ بخشی از قالب مستقیماً از آن استفاده نمی‌کند و تیترها با فونت اصلی رندر می‌شوند.', 'erfanpro' ); ?></dd>
+					<dd><strong data-erfanpro-font-name="display">Lalezar</strong> — <?php esc_html_e( 'وزن ۴۰۰؛ در قالب تعریف شده و از اینجا قابل جایگزینی است. در حال حاضر هیچ بخشی از قالب مستقیماً از آن استفاده نمی‌کند و تیترها با فونت اصلی رندر می‌شوند.', 'erfanpro' ); ?></dd>
 				</div>
 			</dl>
 			<p class="description"><?php esc_html_e( 'فونت سفارشی با همان نام خانواده جایگزین می‌شود و همه‌جای سایت اعمال می‌شود؛ فونت‌های پیش‌فرض داخل خود قالب هستند و هیچ درخواستی به بیرون نمی‌رود.', 'erfanpro' ); ?></p>
@@ -634,8 +634,8 @@ function erfanpro_options_fonts_field() {
 				<p class="erfanpro-font-use"><?php echo esc_html( $font['use'] ); ?></p>
 				<div class="erfanpro-font-preview">
 					<p class="erfanpro-font-preview-title" data-erfanpro-font-preview="<?php echo esc_attr( $slot ); ?>"><?php esc_html_e( 'عرفان صنعت اصفهان', 'erfanpro' ); ?></p>
-					<p class="erfanpro-font-preview-body" data-erfanpro-font-preview="primary"><?php esc_html_e( 'این متن نمونه است؛ با این فونت می‌توانید شکل حروف، فاصله‌ها و خوانایی متن‌های سایت را در اندازه‌های مختلف بررسی کنید. ۱۲۳۴۵۶۷۸۹۰', 'erfanpro' ); ?></p>
-					<p class="erfanpro-font-preview-small" data-erfanpro-font-preview="primary"><span dir="ltr">Erfan Sanat 2026</span> — <?php esc_html_e( 'متن کوچک در اندازه‌ی ۱۳ پیکسل', 'erfanpro' ); ?></p>
+					<p class="erfanpro-font-preview-body" data-erfanpro-font-preview="<?php echo esc_attr( $slot ); ?>"><?php esc_html_e( 'این متن نمونه است؛ با این فونت می‌توانید شکل حروف، فاصله‌ها و خوانایی متن‌های سایت را در اندازه‌های مختلف بررسی کنید. ۱۲۳۴۵۶۷۸۹۰', 'erfanpro' ); ?></p>
+					<p class="erfanpro-font-preview-small" data-erfanpro-font-preview="<?php echo esc_attr( $slot ); ?>"><span dir="ltr">Erfan Sanat 2026</span> — <?php esc_html_e( 'متن کوچک در اندازه‌ی ۱۳ پیکسل', 'erfanpro' ); ?></p>
 				</div>
 				<dl class="erfanpro-font-meta">
 					<div>
