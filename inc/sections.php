@@ -524,7 +524,7 @@ function erfanpro_options_sections_field() {
 							<h3 class="erfanpro-sm-panel-title"><?php echo esc_html( $page['label'] ); ?></h3>
 							<span class="erfanpro-sm-panel-meta"><?php echo esc_html( erfanpro_fa_digits( $count ) ); ?> <?php esc_html_e( 'سکشن', 'erfanpro' ); ?> · <span data-erfanpro-sm-panel-status><?php echo esc_html( erfanpro_fa_digits( $on ) ); ?> <?php esc_html_e( 'از', 'erfanpro' ); ?> <?php echo esc_html( erfanpro_fa_digits( $count ) ); ?> <?php esc_html_e( 'فعال', 'erfanpro' ); ?></span></span>
 							<button type="submit" class="button erfanpro-sm-reset" name="erfanpro_section_reset" value="<?php echo esc_attr( $page_key ); ?>" data-erfanpro-sm-reset="<?php echo esc_attr( $page_key ); ?>" data-page-label="<?php echo esc_attr( $page['label'] ); ?>">
-								<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10" /><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" /></svg>
+								<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10" /><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" /></svg>
 								<span><?php esc_html_e( 'بازنشانی', 'erfanpro' ); ?></span>
 							</button>
 						</div>
@@ -552,8 +552,8 @@ function erfanpro_options_sections_field() {
 							</label>
 							<input type="hidden" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $id ); ?>][order]" value="<?php echo esc_attr( (string) (int) $row['order'] ); ?>" data-erfanpro-sm-order>
 							<span class="erfanpro-sm-moves">
-								<button type="submit" class="button erfanpro-sm-move" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':up' ); ?>" title="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>"<?php echo 1 === $pos ? ' disabled' : ''; ?>><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z" /></svg></button>
-								<button type="submit" class="button erfanpro-sm-move" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':down' ); ?>" title="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>"<?php echo $pos === $count ? ' disabled' : ''; ?>><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z" /></svg></button>
+								<button type="submit" class="button erfanpro-sm-move" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':up' ); ?>" title="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>"<?php echo 1 === $pos ? ' disabled' : ''; ?>><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 16 L12 8 L20 16 L16.82 19.18 L12 14.36 L7.18 19.18 Z" /></svg></button>
+								<button type="submit" class="button erfanpro-sm-move" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':down' ); ?>" title="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>"<?php echo $pos === $count ? ' disabled' : ''; ?>><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 8 L12 16 L20 8 L16.82 4.82 L12 9.64 L7.18 4.82 Z" /></svg></button>
 							</span>
 						</li>
 					<?php endforeach; ?>
