@@ -331,6 +331,13 @@ function erfanpro_admin_assets( $hook ) {
 			filemtime( ERFANPRO_DIR . '/assets/js/admin-tabs.js' ),
 			true
 		);
+		wp_enqueue_script(
+			'erfanpro-admin-sections',
+			ERFANPRO_URI . '/assets/js/admin-sections.js',
+			array(),
+			filemtime( ERFANPRO_DIR . '/assets/js/admin-sections.js' ),
+			true
+		);
 		wp_localize_script(
 			'erfanpro-admin-tabs',
 			'erfanproTabs',

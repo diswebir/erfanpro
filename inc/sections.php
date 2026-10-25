@@ -17,7 +17,11 @@
  *   output is byte-identical to the pre-manager templates.
  * - Up/down + reset are plain form submits (no JS dependency): the
  *   buttons submit the options form and the move/reset is applied in
- *   the sanitize step. Drag-and-drop is deliberately NOT included.
+ *   the sanitize step. Drag-and-drop (assets/js/admin-sections.js)
+ *   reorders the rows in the DOM and renumbers the hidden order
+ *   inputs, so the saved shape is unchanged and the same sanitize
+ *   step stores the new order; without JS the up/down buttons and
+ *   the toggle checkboxes keep working exactly as before.
  * - Section texts for page families without a BO text group live in
  *   `section_texts` (same spec shape as BO-013/014, rendered by the
  *   generic text-groups field, sanitized by the same spec sanitizer).
@@ -261,6 +265,43 @@ function erfanpro_sections_layout( $page_key ) {
 }
 
 /**
+ * Short admin-only description of one section, to tell same-named
+ * sections apart (e.g. the sixteen «هیرو» rows). Labels that are
+ * already specific get no description (empty string = render none).
+ *
+ * @param string $page_key Registry page key.
+ * @param string $id       Section id.
+ * @return string
+ */
+function erfanpro_section_desc( $page_key, $id ) {
+	$overrides = array(
+		'home:hero'           => __( 'بنر اصلی و محصول ویژه‌ی صفحه‌ی خانه', 'erfanpro' ),
+		'product:hero'        => __( 'بنر بالای تک‌محصول', 'erfanpro' ),
+		'product:related'     => __( 'دیگر تولیدات شرکت', 'erfanpro' ),
+		'service:related'     => __( 'پروژه‌های مرتبط با این خدمت', 'erfanpro' ),
+		'project:related'     => __( 'پروژه‌های مرتبط', 'erfanpro' ),
+		'post:related'        => __( 'مقالات مرتبط', 'erfanpro' ),
+		'shop:toolbar'        => __( 'فیلتر، مرتب‌سازی و شبکه‌ی محصولات', 'erfanpro' ),
+		'projects:toolbar'    => __( 'فیلتر و شبکه‌ی پروژه‌ها', 'erfanpro' ),
+		'projects_city:toolbar' => __( 'فیلتر و شبکه‌ی پروژه‌های این شهر', 'erfanpro' ),
+		'projects_type:toolbar' => __( 'فیلتر و شبکه‌ی پروژه‌های این نوع', 'erfanpro' ),
+	);
+	$key = $page_key . ':' . $id;
+	if ( isset( $overrides[ $key ] ) ) {
+		return $overrides[ $key ];
+	}
+	$generic = array(
+		'hero'    => __( 'بنر و تیتر بالای برگه', 'erfanpro' ),
+		'cta'     => __( 'دعوت به اقدام و تماس', 'erfanpro' ),
+		'content' => __( 'متن و محتوای ادیتور برگه', 'erfanpro' ),
+		'toolbar' => __( 'نوار فیلتر و شبکه‌ی موارد', 'erfanpro' ),
+		'related' => __( 'موارد مرتبط', 'erfanpro' ),
+		'body'    => __( 'بدنه‌ی اصلی برگه', 'erfanpro' ),
+	);
+	return $generic[ $id ] ?? '';
+}
+
+/**
  * Render one page's sections in saved order, skipping disabled ones.
  *
  * Section definitions:
@@ -398,43 +439,108 @@ function erfanpro_sections_sanitize( $input, $prev ) {
 }
 
 /**
- * Admin field: the section manager table (one group per page type).
+ * Admin field: the section manager (one collapsible card per page type).
  *
  * Rendered inside the main options form: enabled checkboxes + hidden
  * order inputs submit with it; up/down + reset are plain submit
- * buttons whose values the sanitizer applies. No JS required.
+ * buttons whose values the sanitizer applies. The row markup keeps
+ * the exact same field names as before, so the sanitize/move/reset
+ * logic and the AJAX tab save are untouched.
+ *
+ * The sticky summary bar (counts, jump links, search) and the
+ * collapsible cards are progressive enhancement: without JS every
+ * group is open, the search box and drag handles are hidden by CSS,
+ * and the toggle switches still work as plain checkboxes.
  */
 function erfanpro_options_sections_field() {
-	$registry = erfanpro_sections_registry();
+	$registry       = erfanpro_sections_registry();
+	$total_pages    = count( $registry );
+	$total_sections = 0;
+	$disabled       = 0;
+	$layouts        = array();
+	foreach ( $registry as $page_key => $page ) {
+		$layouts[ $page_key ] = erfanpro_sections_layout( $page_key );
+		$total_sections      += count( $page['sections'] );
+		foreach ( $layouts[ $page_key ] as $row ) {
+			if ( empty( $row['enabled'] ) ) {
+				$disabled++;
+			}
+		}
+	}
 	?>
-	<input type="hidden" name="erfanpro_sections_present" value="1">
-	<p class="description"><?php esc_html_e( 'تیک هر سکشن یعنی نمایش آن؛ با دکمه‌های بالا/پایین جای سکشن‌ها را عوض کنید؛ «بازنشانی» چیدمان همان برگه را به حالت پیش‌فرض برمی‌گرداند. تا وقتی چیزی ذخیره نشده باشد، همه سکشن‌ها فعال و به ترتیب فعلی نمایش داده می‌شوند.', 'erfanpro' ); ?></p>
-	<?php
-	foreach ( $registry as $page_key => $page ) :
-		$layout = erfanpro_sections_layout( $page_key );
-		$base   = 'erfanpro_options[page_sections][' . $page_key . ']';
-		?>
-		<div style="border:1px solid #dcdcde;border-radius:6px;padding:12px;margin-bottom:12px;background:#fff;">
-			<h3 style="margin:0 0 10px;"><?php echo esc_html( $page['label'] ); ?></h3>
-			<table class="widefat fixed striped" style="margin-bottom:8px;">
-				<tbody>
-					<?php foreach ( $layout as $id => $row ) : ?>
-						<tr>
-							<td style="width:36px;">
-								<input type="checkbox" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $id ); ?>][enabled]" value="1" <?php checked( $row['enabled'] ); ?>>
-							</td>
-							<td><?php echo esc_html( $page['sections'][ $id ] ); ?></td>
-							<td style="width:180px;text-align:left;">
-								<input type="hidden" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $id ); ?>][order]" value="<?php echo esc_attr( (string) (int) $row['order'] ); ?>">
-								<button type="submit" class="button button-small" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':up' ); ?>" title="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>">↑</button>
-								<button type="submit" class="button button-small" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':down' ); ?>" title="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>">↓</button>
-							</td>
-						</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>
-			<button type="submit" class="button" name="erfanpro_section_reset" value="<?php echo esc_attr( $page_key ); ?>"><?php esc_html_e( 'بازنشانی به پیش‌فرض', 'erfanpro' ); ?></button>
+	<div class="erfanpro-sm-manager" data-erfanpro-sm-manager>
+		<input type="hidden" name="erfanpro_sections_present" value="1">
+		<div class="erfanpro-sm-summary" data-erfanpro-sm-summary>
+			<p class="erfanpro-sm-summary-counts">
+				<span><?php echo esc_html( erfanpro_fa_digits( $total_pages ) ); ?> <?php esc_html_e( 'برگه', 'erfanpro' ); ?></span>
+				<span aria-hidden="true"> · </span>
+				<span><?php echo esc_html( erfanpro_fa_digits( $total_sections ) ); ?> <?php esc_html_e( 'سکشن', 'erfanpro' ); ?></span>
+				<span aria-hidden="true"> · </span>
+				<span><span data-erfanpro-sm-disabled-count><?php echo esc_html( erfanpro_fa_digits( $disabled ) ); ?></span> <?php esc_html_e( 'غیرفعال', 'erfanpro' ); ?></span>
+			</p>
+			<nav class="erfanpro-sm-jumps" aria-label="<?php esc_attr_e( 'پرش به برگه', 'erfanpro' ); ?>">
+				<?php foreach ( $registry as $page_key => $page ) : ?>
+					<a href="#erfanpro-sm-group-<?php echo esc_attr( $page_key ); ?>" data-erfanpro-sm-jump="<?php echo esc_attr( $page_key ); ?>"><?php echo esc_html( $page['label'] ); ?></a>
+				<?php endforeach; ?>
+			</nav>
+			<input type="search" class="erfanpro-sm-search" data-erfanpro-sm-search placeholder="<?php esc_attr_e( 'جستجوی سکشن یا برگه…', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'جستجوی سکشن یا برگه', 'erfanpro' ); ?>">
 		</div>
+		<p class="description"><?php esc_html_e( 'هر سکشن را با کشیدن دستگیره جابه‌جا کنید یا با دکمه‌های بالا/پایین؛ سوییچ هر ردیف یعنی نمایش آن سکشن. «بازنشانی» چیدمان همان برگه را به حالت پیش‌فرض برمی‌گرداند. تا وقتی چیزی ذخیره نشده باشد، همه سکشن‌ها فعال و به ترتیب فعلی نمایش داده می‌شوند.', 'erfanpro' ); ?></p>
 		<?php
-	endforeach;
+		foreach ( $registry as $page_key => $page ) :
+			$layout = $layouts[ $page_key ];
+			$base   = 'erfanpro_options[page_sections][' . $page_key . ']';
+			$count  = count( $page['sections'] );
+			$on     = 0;
+			foreach ( $layout as $row ) {
+				if ( ! empty( $row['enabled'] ) ) {
+					$on++;
+				}
+			}
+			?>
+			<div class="erfanpro-sm-group" id="erfanpro-sm-group-<?php echo esc_attr( $page_key ); ?>" data-erfanpro-sm-group="<?php echo esc_attr( $page_key ); ?>" data-page-label="<?php echo esc_attr( $page['label'] ); ?>">
+				<div class="erfanpro-sm-group-head">
+					<button type="button" class="erfanpro-sm-group-toggle" data-erfanpro-sm-toggle aria-expanded="true">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+						<span class="erfanpro-sm-group-title"><?php echo esc_html( $page['label'] ); ?></span>
+						<span class="erfanpro-sm-group-meta"><?php echo esc_html( erfanpro_fa_digits( $count ) ); ?> <?php esc_html_e( 'سکشن', 'erfanpro' ); ?> · <span data-erfanpro-sm-group-status><?php echo esc_html( erfanpro_fa_digits( $on ) ); ?> <?php esc_html_e( 'از', 'erfanpro' ); ?> <?php echo esc_html( erfanpro_fa_digits( $count ) ); ?> <?php esc_html_e( 'فعال', 'erfanpro' ); ?></span></span>
+					</button>
+					<button type="submit" class="button erfanpro-sm-reset" name="erfanpro_section_reset" value="<?php echo esc_attr( $page_key ); ?>"><?php esc_html_e( 'بازنشانی', 'erfanpro' ); ?></button>
+				</div>
+				<ul class="erfanpro-sm-list" data-erfanpro-sm-list>
+					<?php
+					$pos = 0;
+					foreach ( $layout as $id => $row ) :
+						$pos++;
+						$desc = erfanpro_section_desc( $page_key, $id );
+						?>
+						<li class="erfanpro-sm-row<?php echo $row['enabled'] ? '' : ' is-disabled'; ?>" draggable="true" data-section-id="<?php echo esc_attr( $id ); ?>">
+							<span class="erfanpro-sm-handle" title="<?php esc_attr_e( 'بکشید تا جابه‌جا شود', 'erfanpro' ); ?>" aria-hidden="true"><svg width="10" height="16" viewBox="0 0 10 16" fill="currentColor" aria-hidden="true"><circle cx="2.5" cy="2.5" r="1.5" /><circle cx="7.5" cy="2.5" r="1.5" /><circle cx="2.5" cy="8" r="1.5" /><circle cx="7.5" cy="8" r="1.5" /><circle cx="2.5" cy="13.5" r="1.5" /><circle cx="7.5" cy="13.5" r="1.5" /></svg></span>
+							<span class="erfanpro-sm-num" data-erfanpro-sm-num><?php echo esc_html( erfanpro_fa_digits( $pos ) ); ?></span>
+							<span class="erfanpro-sm-text">
+								<span class="erfanpro-sm-name"><?php echo esc_html( $page['sections'][ $id ] ); ?></span>
+								<?php if ( '' !== $desc ) : ?>
+									<span class="erfanpro-sm-desc"><?php echo esc_html( $desc ); ?></span>
+								<?php endif; ?>
+							</span>
+							<span class="erfanpro-sm-badge"<?php echo $row['enabled'] ? ' hidden' : ''; ?>><?php esc_html_e( 'غیرفعال', 'erfanpro' ); ?></span>
+							<label class="erfanpro-sm-switch" title="<?php esc_attr_e( 'فعال / غیرفعال', 'erfanpro' ); ?>">
+								<input type="checkbox" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $id ); ?>][enabled]" value="1" <?php checked( $row['enabled'] ); ?>>
+								<span class="erfanpro-sm-slider" aria-hidden="true"></span>
+								<span class="screen-reader-text"><?php echo esc_html( sprintf( __( 'نمایش سکشن «%s»', 'erfanpro' ), $page['sections'][ $id ] ) ); ?></span>
+							</label>
+							<input type="hidden" name="<?php echo esc_attr( $base ); ?>[<?php echo esc_attr( $id ); ?>][order]" value="<?php echo esc_attr( (string) (int) $row['order'] ); ?>" data-erfanpro-sm-order>
+							<span class="erfanpro-sm-moves">
+								<button type="submit" class="button erfanpro-sm-move" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':up' ); ?>" title="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'یک ردیف بالاتر', 'erfanpro' ); ?>"<?php echo 1 === $pos ? ' disabled' : ''; ?>>↑</button>
+								<button type="submit" class="button erfanpro-sm-move" name="erfanpro_section_move" value="<?php echo esc_attr( $page_key . ':' . $id . ':down' ); ?>" title="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>" aria-label="<?php esc_attr_e( 'یک ردیف پایین‌تر', 'erfanpro' ); ?>"<?php echo $pos === $count ? ' disabled' : ''; ?>>↓</button>
+							</span>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+		endforeach;
+		?>
+	</div>
+	<?php
 }

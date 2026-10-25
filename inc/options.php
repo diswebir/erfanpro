@@ -2068,7 +2068,7 @@ function erfanpro_options_groups() {
 		),
 		'manager'       => array(
 			'title'    => __( 'مدیر سکشن‌ها', 'erfanpro' ),
-			'desc'     => __( 'نمایش، ترتیب و فعال/غیرفعال بودن سکشن‌های هر نوع برگه؛ با دکمه‌های بالا/پایین و بازنشانی.', 'erfanpro' ),
+			'desc'     => __( 'نمایش، ترتیب و فعال/غیرفعال بودن سکشن‌های هر نوع برگه؛ با کشیدن و رها کردن، دکمه‌های بالا/پایین و بازنشانی.', 'erfanpro' ),
 			'sections' => array( 'erfanpro_page_sections' ),
 		),
 		'fonts'         => array(
