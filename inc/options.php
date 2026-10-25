@@ -2032,9 +2032,10 @@ function erfanpro_delete_custom_font( $url ) {
 function erfanpro_options_groups() {
 	return array(
 		'general'       => array(
-			'title'    => __( 'عمومی و تماس', 'erfanpro' ),
-			'desc'     => __( 'اطلاعات تماس و لینک کاتالوگ کامل سایت.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_contact_info', 'erfanpro_catalog' ),
+			'title'         => __( 'عمومی و تماس', 'erfanpro' ),
+			'desc'          => __( 'اطلاعات تماس و لینک کاتالوگ کامل سایت.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_contact_info', 'erfanpro_catalog' ),
+			'inner_sidebar' => true,
 		),
 		'header-footer' => array(
 			'title'         => __( 'سربرگ و پاصفحه', 'erfanpro' ),
