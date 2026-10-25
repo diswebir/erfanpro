@@ -19,6 +19,9 @@
  * - Checkboxes inside the saved tab that arrive unchecked are sent by
  *   the JS as '0', which the sanitizers read as off (via ! empty()).
  *   Fields from other tabs are never sent, so they are never offed.
+ * - The fonts tab's success payload also carries the saved fonts'
+ *   status (name/format/size/custom-or-default) plus any font-upload
+ *   rejection messages, so its cards refresh without a reload.
  *
  * @package Erfanpro
  */
@@ -120,8 +123,20 @@ function erfanpro_ajax_save_tab() {
 			400
 		);
 	}
-	return wp_send_json_success(
-		array( 'message' => $result['message'] )
-	);
+	$data = array( 'message' => $result['message'] );
+	if ( 'fonts' === $tab ) {
+		/* The fonts tab's cards refresh from this without a reload:
+		 * new file name/format/size, custom/default badge, and the
+		 * URL the live preview's @font-face points at. */
+		$data['fonts'] = erfanpro_fonts_status();
+	}
+	/* A rejected font upload keeps the previous font (see the
+	 * sanitizer); the tab itself still saved, so report the reason
+	 * alongside the success instead of failing silently. */
+	$font_errors = $GLOBALS['erfanpro_font_errors'] ?? array();
+	if ( $font_errors ) {
+		$data['font_errors'] = array_values( array_unique( (array) $font_errors ) );
+	}
+	return wp_send_json_success( $data );
 }
 add_action( 'wp_ajax_erfanpro_save_tab', 'erfanpro_ajax_save_tab' );

@@ -240,8 +240,10 @@ add_action( 'wp_enqueue_scripts', 'erfanpro_enqueue_assets' );
  * Phase 1: custom uploaded fonts (decision 34 / BO-004) override the
  * bundled Vazirmatn / Lalezar. The @font-face rules print after
  * fonts.css via the same handle, so they win the cascade.
+ *
+ * @return string @font-face rules for the active custom fonts ('' if none).
  */
-function erfanpro_custom_fonts_css() {
+function erfanpro_custom_fonts_css_string() {
 	$map = array(
 		'font_primary_file' => 'Vazirmatn',
 		'font_display_file' => 'Lalezar',
@@ -266,6 +268,11 @@ function erfanpro_custom_fonts_css() {
 			$format
 		);
 	}
+	return $css;
+}
+
+function erfanpro_custom_fonts_css() {
+	$css = erfanpro_custom_fonts_css_string();
 	if ( $css ) {
 		wp_add_inline_style( 'erfanpro-fonts', $css );
 	}
@@ -305,6 +312,12 @@ function erfanpro_admin_assets( $hook ) {
 			array(),
 			filemtime( ERFANPRO_DIR . '/assets/css/fonts.css' )
 		);
+		// Custom uploaded fonts also override the bundled ones here, so
+		// the fonts tab's live previews render in the active font.
+		$custom_fonts_css = erfanpro_custom_fonts_css_string();
+		if ( $custom_fonts_css ) {
+			wp_add_inline_style( 'erfanpro-admin-fonts', $custom_fonts_css );
+		}
 		wp_enqueue_style(
 			'erfanpro-admin-options',
 			ERFANPRO_URI . '/assets/css/admin-options.css',
@@ -322,12 +335,17 @@ function erfanpro_admin_assets( $hook ) {
 			'erfanpro-admin-tabs',
 			'erfanproTabs',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'erfanpro_tab_save' ),
-				'save'    => __( 'ذخیرهٔ تب فعال', 'erfanpro' ),
-				'saving'  => __( 'در حال ذخیره…', 'erfanpro' ),
-				'saved'   => __( 'ذخیره شد ✓', 'erfanpro' ),
-				'error'   => __( 'خطا در ذخیره. دوباره تلاش کنید.', 'erfanpro' ),
+				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+				'nonce'         => wp_create_nonce( 'erfanpro_tab_save' ),
+				'save'          => __( 'ذخیرهٔ تب فعال', 'erfanpro' ),
+				'saving'        => __( 'در حال ذخیره…', 'erfanpro' ),
+				'saved'         => __( 'ذخیره شد ✓', 'erfanpro' ),
+				'error'         => __( 'خطا در ذخیره. دوباره تلاش کنید.', 'erfanpro' ),
+				'fontInvalid'   => __( 'فقط فایل‌های woff2، woff، ttf یا otf مجاز‌اند.', 'erfanpro' ),
+				'fontSelected'  => __( 'فایل انتخاب‌شده: %s — هنوز ذخیره نشده است.', 'erfanpro' ),
+				'fontCustom'    => __( 'سفارشی', 'erfanpro' ),
+				'fontDefault'   => __( 'پیش‌فرض', 'erfanpro' ),
+				'fontNotSaved'  => __( 'تب ذخیره شد، اما فونت ذخیره نشد:', 'erfanpro' ),
 			)
 		);
 	}

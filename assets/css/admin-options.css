@@ -302,26 +302,259 @@
 	max-width: 100%;
 }
 
-/* ---- help card (outside the form) ---- */
-.erfanpro-opt-help {
-	margin: 0 0 24px;
-	padding: 20px 24px;
-	background: #f6f7f7;
-	border: 1px solid #dcdcde;
-	border-radius: 8px;
+/* ---- fonts tab: overview, font cards, live preview ---- */
+.erfanpro-fonts {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
-.erfanpro-opt-help h2 {
+.erfanpro-font-overview {
+	padding: 16px 18px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+}
+
+.erfanpro-font-overview h4 {
+	margin: 0 0 10px;
+	font-size: 14px;
+}
+
+.erfanpro-font-overview-list {
+	margin: 0;
+}
+
+.erfanpro-font-overview-list > div {
+	display: flex;
+	gap: 10px;
+	padding: 6px 0;
+	border-top: 1px solid #e2e8f0;
+	line-height: 1.8;
+}
+
+.erfanpro-font-overview-list > div:first-child {
+	border-top: 0;
+}
+
+.erfanpro-font-overview-list dt {
+	flex: 0 0 130px;
+	font-weight: 700;
+}
+
+.erfanpro-font-overview-list dd {
+	margin: 0;
+	color: #334155;
+}
+
+.erfanpro-font-card {
+	padding: 18px;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 14px;
+	box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+.erfanpro-font-card-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.erfanpro-font-card-head h4 {
+	margin: 0;
+	font-size: 15px;
+}
+
+.erfanpro-font-family {
+	color: #005028;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.erfanpro-font-badge {
+	padding: 3px 12px;
+	background: #f1f5f9;
+	border: 1px solid #e2e8f0;
+	border-radius: 999px;
+	color: #475569;
+	font-size: 12px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.erfanpro-font-badge.is-custom {
+	background: #ecfdf5;
+	border-color: #a7f3d0;
+	color: #005028;
+}
+
+.erfanpro-font-use {
+	margin: 8px 0 0;
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.erfanpro-font-preview {
+	margin: 14px 0;
+	padding: 16px 18px;
+	background: #f8fafc;
+	border: 1px dashed #cbd5e1;
+	border-radius: 10px;
+}
+
+.erfanpro-font-preview-title {
+	margin: 0 0 8px;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 1.5;
+}
+
+.erfanpro-font-preview-body {
+	margin: 0 0 8px;
+	font-size: 16px;
+	line-height: 2;
+}
+
+.erfanpro-font-preview-small {
+	margin: 0;
+	color: #475569;
+	font-size: 13px;
+	line-height: 1.9;
+}
+
+.erfanpro-font-preview [data-erfanpro-font-preview="primary"] {
+	font-family: 'Vazirmatn', Tahoma, sans-serif;
+}
+
+.erfanpro-font-preview [data-erfanpro-font-preview="display"] {
+	font-family: 'Lalezar', 'Vazirmatn', Tahoma, sans-serif;
+}
+
+.erfanpro-font-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 24px;
+	margin: 0 0 14px;
+}
+
+.erfanpro-font-meta > div {
+	display: flex;
+	gap: 6px;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.erfanpro-font-meta dt {
+	color: #64748b;
+	font-weight: 700;
+}
+
+.erfanpro-font-meta dd {
+	margin: 0;
+	color: #0f172a;
+}
+
+.erfanpro-font-drop {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 18px 12px;
+	background: #f8fafc;
+	border: 2px dashed #94a3b8;
+	border-radius: 12px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.erfanpro-font-drop:hover,
+.erfanpro-font-drop:focus-within {
+	border-color: #059669;
+	background: #ecfdf5;
+}
+
+.erfanpro-font-drop:focus-within {
+	outline: 2px solid #059669;
+	outline-offset: 2px;
+}
+
+.erfanpro-font-drop-text {
+	color: #005028;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.erfanpro-font-drop-hint {
+	color: #64748b;
+	font-size: 12px;
+	line-height: 1.8;
+}
+
+.erfanpro-font-drop input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	overflow: hidden;
+}
+
+.erfanpro-font-selected {
+	margin: 10px 0 0;
+	color: #005028;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.erfanpro-font-error {
+	margin: 10px 0 0;
+	padding: 8px 12px;
+	background: #fef2f2;
+	border: 1px solid #fecaca;
+	border-inline-start: 4px solid #d63638;
+	border-radius: 8px;
+	color: #991b1b;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.erfanpro-font-remove {
+	display: block;
+	margin-top: 12px;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+/* ---- guide card (inside the fonts tab) ---- */
+.erfanpro-opt-guide {
+	margin: 0 0 20px;
+	padding: 18px 20px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+}
+
+.erfanpro-opt-guide-title {
 	margin: 0 0 12px;
 	padding: 0;
 	font-size: 16px;
 }
 
-.erfanpro-opt-help ul {
+.erfanpro-opt-guide-group {
+	margin: 14px 0 6px;
+	padding: 0;
+	color: #005028;
+	font-size: 14px;
+}
+
+.erfanpro-opt-guide ul {
 	margin: 0;
 }
 
-.erfanpro-opt-help li {
+.erfanpro-opt-guide li {
 	margin-bottom: 8px;
 	line-height: 1.9;
 }

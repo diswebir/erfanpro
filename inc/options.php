@@ -206,7 +206,7 @@ function erfanpro_options_init() {
 	);
 	add_settings_field(
 		'erfanpro_font_files',
-		__( 'آپلود فونت', 'erfanpro' ),
+		__( 'فونت‌های قالب', 'erfanpro' ),
 		'erfanpro_options_fonts_field',
 		'erfanpro-settings',
 		'erfanpro_fonts'
@@ -582,34 +582,91 @@ function erfanpro_options_home_sections_field() {
 }
 
 /**
- * BO-004: custom font uploads (woff2/woff/ttf/otf).
+ * BO-004: professional font cards (primary + display).
+ *
+ * Each card shows the current state (bundled default or custom upload),
+ * the custom file's name/format/size, a live preview in the active
+ * font at three sizes, a file picker, and remove/restore-to-default.
+ * The file inputs keep their historic names (erfanpro_font_*_file)
+ * so the sanitizer's $_FILES handling is untouched, and the remove
+ * checkboxes keep their historic names too.
  */
 function erfanpro_options_fonts_field() {
-	foreach ( array(
-		'font_primary_file' => __( 'فونت اصلی (جایگزین وزیرمتن)', 'erfanpro' ),
-		'font_display_file' => __( 'فونت نمایشی (جایگزین لاله‌زار)', 'erfanpro' ),
-	) as $key => $label ) {
-		$current = erfanpro_option( $key, '' );
-		?>
-		<div class="erfanpro-metabox-field" style="margin-bottom:16px;">
-			<label><strong><?php echo esc_html( $label ); ?></strong></label>
-			<?php if ( $current ) : ?>
-				<span class="description">
-					<?php esc_html_e( 'فعلی:', 'erfanpro' ); ?>
-					<code dir="ltr"><?php echo esc_html( wp_basename( (string) $current ) ); ?></code>
-				</span><br />
-			<?php endif; ?>
-			<input type="file" name="erfanpro_<?php echo esc_attr( $key ); ?>" accept=".woff2,.woff,.ttf,.otf" />
-			<?php if ( $current ) : ?>
-				<label style="font-weight:400;">
-					<input type="checkbox" name="erfanpro_options[<?php echo esc_attr( $key ); ?>_remove]" value="1" />
-					<?php esc_html_e( 'حذف فونت سفارشی و بازگشت به پیش‌فرض', 'erfanpro' ); ?>
-				</label>
-			<?php endif; ?>
+	$fonts = array(
+		'primary' => array(
+			'key'    => 'font_primary_file',
+			'family' => 'Vazirmatn',
+			'title'  => __( 'فونت اصلی متن', 'erfanpro' ),
+			'use'    => __( 'متن اصلی سایت — بدنه، دکمه‌ها و تیترها.', 'erfanpro' ),
+		),
+		'display' => array(
+			'key'    => 'font_display_file',
+			'family' => 'Lalezar',
+			'title'  => __( 'فونت نمایشی تیترها', 'erfanpro' ),
+			'use'    => __( 'فونت نمایشی — برای تیترهای بزرگ.', 'erfanpro' ),
+		),
+	);
+	?>
+	<div class="erfanpro-fonts">
+		<div class="erfanpro-font-overview">
+			<h4><?php esc_html_e( 'نمای کلی فونت‌های فعال', 'erfanpro' ); ?></h4>
+			<dl class="erfanpro-font-overview-list">
+				<div>
+					<dt><?php esc_html_e( 'فونت اصلی متن', 'erfanpro' ); ?></dt>
+					<dd><strong>Vazirmatn</strong> — <?php esc_html_e( 'وزن متغیر ۱۰۰ تا ۹۰۰؛ متن اصلی همه‌ی سایت (‎--font-sans).', 'erfanpro' ); ?></dd>
+				</div>
+				<div>
+					<dt><?php esc_html_e( 'فونت نمایشی', 'erfanpro' ); ?></dt>
+					<dd><strong>Lalezar</strong> — <?php esc_html_e( 'وزن ۴۰۰؛ در قالب تعریف شده و از اینجا قابل جایگزینی است. در حال حاضر هیچ بخشی از قالب مستقیماً از آن استفاده نمی‌کند و تیترها با فونت اصلی رندر می‌شوند.', 'erfanpro' ); ?></dd>
+				</div>
+			</dl>
+			<p class="description"><?php esc_html_e( 'فونت سفارشی با همان نام خانواده جایگزین می‌شود و همه‌جای سایت اعمال می‌شود؛ فونت‌های پیش‌فرض داخل خود قالب هستند و هیچ درخواستی به بیرون نمی‌رود.', 'erfanpro' ); ?></p>
 		</div>
 		<?php
-	}
-	echo '<p class="description">' . esc_html__( 'فونت‌ها در پوشه uploads/erfanpro-fonts ذخیره می‌شوند و فقط همان فونت جایگزین را بازنویسی می‌کنند.', 'erfanpro' ) . '</p>';
+		foreach ( $fonts as $slot => $font ) :
+			$status = erfanpro_font_status( $font['key'] );
+			?>
+			<div class="erfanpro-font-card" data-erfanpro-font-card="<?php echo esc_attr( $slot ); ?>">
+				<div class="erfanpro-font-card-head">
+					<h4><?php echo esc_html( $font['title'] ); ?> <span class="erfanpro-font-family" dir="ltr"><?php echo esc_html( $font['family'] ); ?></span></h4>
+					<span class="erfanpro-font-badge <?php echo $status['custom'] ? 'is-custom' : 'is-default'; ?>" data-erfanpro-font-meta="badge"><?php echo $status['custom'] ? esc_html__( 'سفارشی', 'erfanpro' ) : esc_html__( 'پیش‌فرض', 'erfanpro' ); ?></span>
+				</div>
+				<p class="erfanpro-font-use"><?php echo esc_html( $font['use'] ); ?></p>
+				<div class="erfanpro-font-preview">
+					<p class="erfanpro-font-preview-title" data-erfanpro-font-preview="<?php echo esc_attr( $slot ); ?>"><?php esc_html_e( 'عرفان صنعت اصفهان', 'erfanpro' ); ?></p>
+					<p class="erfanpro-font-preview-body" data-erfanpro-font-preview="primary"><?php esc_html_e( 'این متن نمونه است؛ با این فونت می‌توانید شکل حروف، فاصله‌ها و خوانایی متن‌های سایت را در اندازه‌های مختلف بررسی کنید. ۱۲۳۴۵۶۷۸۹۰', 'erfanpro' ); ?></p>
+					<p class="erfanpro-font-preview-small" data-erfanpro-font-preview="primary"><span dir="ltr">Erfan Sanat 2026</span> — <?php esc_html_e( 'متن کوچک در اندازه‌ی ۱۳ پیکسل', 'erfanpro' ); ?></p>
+				</div>
+				<dl class="erfanpro-font-meta">
+					<div>
+						<dt><?php esc_html_e( 'نام فایل', 'erfanpro' ); ?></dt>
+						<dd dir="ltr" data-erfanpro-font-meta="file"><?php echo $status['custom'] ? esc_html( $status['file'] ) : esc_html__( '—', 'erfanpro' ); ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'فرمت', 'erfanpro' ); ?></dt>
+						<dd dir="ltr" data-erfanpro-font-meta="format"><?php echo $status['custom'] ? esc_html( strtoupper( $status['format'] ) ) : 'WOFF2'; ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'حجم', 'erfanpro' ); ?></dt>
+						<dd data-erfanpro-font-meta="size"><?php echo $status['custom'] && $status['size_human'] ? esc_html( $status['size_human'] ) : esc_html__( '—', 'erfanpro' ); ?></dd>
+					</div>
+				</dl>
+				<label class="erfanpro-font-drop">
+					<span class="erfanpro-font-drop-text"><?php esc_html_e( 'انتخاب فایل فونت…', 'erfanpro' ); ?></span>
+					<span class="erfanpro-font-drop-hint"><?php esc_html_e( 'فرمت‌های مجاز: woff2، woff، ttf، otf — پیشنهاد: woff2 (کم‌حجم‌ترین).', 'erfanpro' ); ?></span>
+					<input type="file" name="erfanpro_<?php echo esc_attr( $font['key'] ); ?>" accept=".woff2,.woff,.ttf,.otf" data-erfanpro-font-file="<?php echo esc_attr( $slot ); ?>" />
+				</label>
+				<p class="erfanpro-font-selected" data-erfanpro-font-selected hidden></p>
+				<p class="erfanpro-font-error" data-erfanpro-font-error role="alert" hidden></p>
+				<label class="erfanpro-font-remove" data-erfanpro-font-remove <?php echo $status['custom'] ? '' : 'hidden'; ?>>
+					<input type="checkbox" name="erfanpro_options[<?php echo esc_attr( $font['key'] ); ?>_remove]" value="1" />
+					<?php esc_html_e( 'حذف فونت سفارشی و بازگشت به پیش‌فرض', 'erfanpro' ); ?>
+				</label>
+			</div>
+		<?php endforeach; ?>
+		<p class="description"><?php esc_html_e( 'فونت‌ها در پوشه uploads/erfanpro-fonts ذخیره می‌شوند و فقط همان فونت جایگزین را بازنویسی می‌کنند؛ فونت قبلی همان فونت حذف می‌شود.', 'erfanpro' ); ?></p>
+	</div>
+	<?php
 }
 
 /**
@@ -1764,6 +1821,10 @@ function erfanpro_options_sanitize( $input ) {
 	$clean['page_sections'] = erfanpro_sections_sanitize( $input, $prev );
 
 	/* BO-004 font uploads */
+	$font_labels = array(
+		'font_primary_file' => __( 'فونت اصلی', 'erfanpro' ),
+		'font_display_file' => __( 'فونت نمایشی', 'erfanpro' ),
+	);
 	foreach ( array( 'font_primary_file', 'font_display_file' ) as $fkey ) {
 		if ( ! empty( $input[ $fkey . '_remove' ] ) ) {
 			erfanpro_delete_custom_font( (string) ( $prev[ $fkey ] ?? '' ) );
@@ -1777,6 +1838,20 @@ function erfanpro_options_sanitize( $input ) {
 				erfanpro_delete_custom_font( (string) ( $prev[ $fkey ] ?? '' ) );
 				$clean[ $fkey ] = $url;
 				continue;
+			}
+			/* Upload rejected (bad type, unwritable dir, …): keep the
+			 * previous font, but surface the reason instead of failing
+			 * silently. The AJAX endpoint returns these in the JSON
+			 * payload; the classic save shows them via settings_errors. */
+			$message = sprintf(
+				/* translators: %1$s font label, %2$s rejection reason. */
+				__( '%1$s ذخیره نشد: %2$s', 'erfanpro' ),
+				$font_labels[ $fkey ],
+				$url->get_error_message()
+			);
+			$GLOBALS['erfanpro_font_errors'][] = $message;
+			if ( function_exists( 'add_settings_error' ) ) {
+				add_settings_error( 'erfanpro_options', 'erfanpro_font_' . $fkey, $message, 'error' );
 			}
 		}
 		$clean[ $fkey ] = isset( $prev[ $fkey ] ) ? esc_url_raw( (string) $prev[ $fkey ] ) : '';
@@ -1829,6 +1904,52 @@ function erfanpro_sanitize_text_groups( $input, $spec ) {
 		$clean[ $group_key ] = $clean_group;
 	}
 	return $clean;
+}
+
+/**
+ * Current state of one custom font (BO-004), for the admin cards and
+ * the AJAX save response.
+ *
+ * @param string $key Option key: font_primary_file | font_display_file.
+ * @return array { custom: bool, url, file, format, size, size_human }.
+ */
+function erfanpro_font_status( $key ) {
+	$info = array(
+		'custom'     => false,
+		'url'        => '',
+		'file'       => '',
+		'format'     => '',
+		'size'       => 0,
+		'size_human' => '',
+	);
+	$url = erfanpro_option( $key, '' );
+	if ( ! $url ) {
+		return $info;
+	}
+	$info['custom'] = true;
+	$info['url']    = (string) $url;
+	$path           = (string) wp_parse_url( (string) $url, PHP_URL_PATH );
+	$info['file']   = wp_basename( $path );
+	$info['format'] = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+	$uploads        = wp_upload_dir();
+	$file_path      = trailingslashit( $uploads['basedir'] ) . 'erfanpro-fonts/' . $info['file'];
+	if ( file_exists( $file_path ) ) {
+		$info['size']       = filesize( $file_path );
+		$info['size_human'] = size_format( $info['size'] );
+	}
+	return $info;
+}
+
+/**
+ * Current state of both custom fonts, keyed primary/display.
+ *
+ * @return array
+ */
+function erfanpro_fonts_status() {
+	return array(
+		'primary' => erfanpro_font_status( 'font_primary_file' ),
+		'display' => erfanpro_font_status( 'font_display_file' ),
+	);
 }
 
 /**
@@ -1952,7 +2073,7 @@ function erfanpro_options_groups() {
 		),
 		'fonts'         => array(
 			'title'    => __( 'فونت و راهنما', 'erfanpro' ),
-			'desc'     => __( 'فونت‌های سفارشی و نشانی ویرایش مواردی که در این صفحه نیستند.', 'erfanpro' ),
+			'desc'     => __( 'فونت‌های قالب با پیش‌نمایش زنده، و راهنمای ویرایش مواردی که در این صفحه نیستند.', 'erfanpro' ),
 			'sections' => array( 'erfanpro_fonts' ),
 		),
 	);
@@ -2018,9 +2139,102 @@ function erfanpro_options_tab_groups() {
 }
 
 /**
+ * Guide card: where to edit the things that are not on this page.
+ *
+ * Lives inside the fonts tab (the «فونت و راهنما» tab) only — the old
+ * below-the-form card is gone, so the guide exists exactly once.
+ * Same destinations as before, grouped so each link is one click away.
+ */
+function erfanpro_options_guide_card() {
+	$groups = array(
+		array(
+			'title' => __( 'نمایش و هویت', 'erfanpro' ),
+			'items' => array(
+				array(
+					'text' => __( 'فهرست‌ها (مگامنو، موبایل، لندینگ): ', 'erfanpro' ),
+					'url'  => admin_url( 'nav-menus.php' ),
+					'link' => __( 'نمایش ← فهرست‌ها', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'لوگو: ', 'erfanpro' ),
+					'url'  => admin_url( 'customize.php' ),
+					'link' => __( 'نمایش ← سفارشی‌سازی', 'erfanpro' ),
+				),
+			),
+		),
+		array(
+			'title' => __( 'فروشگاه و مشتریان', 'erfanpro' ),
+			'items' => array(
+				array(
+					'text' => __( 'سبد، تسویه و حساب کاربری: ', 'erfanpro' ),
+					'url'  => admin_url( 'admin.php?page=wc-settings' ),
+					'link' => __( 'ووکامرس ← تنظیمات', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'لیدهای فرم تماس: ', 'erfanpro' ),
+					'url'  => admin_url( 'edit.php?post_type=erfanpro_lead' ),
+					'link' => __( 'لیدهای تماس', 'erfanpro' ),
+				),
+			),
+		),
+		array(
+			'title' => __( 'نوشته‌ها و برگه‌ها', 'erfanpro' ),
+			'items' => array(
+				array(
+					'text' => __( 'شمارنده بازدید هر نوشته: دکمه بازنشانی در جعبه «بازدیدها» در صفحه ویرایش همان نوشته.', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'لینک‌های دستی نسخه انگلیسی/عربی: جعبه «نسخه‌های زبانی» در صفحه ویرایش همان نوشته یا برگه.', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'محتوای ادیتور برگه‌ها (از جمله بخش نیروهای فروش در تماس با ما): ', 'erfanpro' ),
+					'url'  => admin_url( 'edit.php?post_type=page' ),
+					'link' => __( 'برگه‌ها', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'مشخصات محصول (متا): صفحه ویرایش همان محصول — ', 'erfanpro' ),
+					'url'  => admin_url( 'edit.php?post_type=product' ),
+					'link' => __( 'محصولات', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'مشخصات پروژه (متا): صفحه ویرایش همان پروژه — ', 'erfanpro' ),
+					'url'  => admin_url( 'edit.php?post_type=projects' ),
+					'link' => __( 'پروژه‌ها', 'erfanpro' ),
+				),
+				array(
+					'text' => __( 'مشخصات خدمت (متا): صفحه ویرایش همان خدمت — ', 'erfanpro' ),
+					'url'  => admin_url( 'edit.php?post_type=services' ),
+					'link' => __( 'خدمات', 'erfanpro' ),
+				),
+			),
+		),
+	);
+	?>
+	<div class="erfanpro-opt-guide">
+		<h3 class="erfanpro-opt-guide-title"><?php esc_html_e( 'مواردی که در این صفحه نیستند، کجا ویرایش می‌شوند؟', 'erfanpro' ); ?></h3>
+		<?php foreach ( $groups as $group ) : ?>
+			<h4 class="erfanpro-opt-guide-group"><?php echo esc_html( $group['title'] ); ?></h4>
+			<ul>
+				<?php foreach ( $group['items'] as $item ) : ?>
+					<li>
+						<?php echo esc_html( $item['text'] ); ?>
+						<?php if ( ! empty( $item['url'] ) ) : ?>
+							<a href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['link'] ); ?></a>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endforeach; ?>
+	</div>
+	<?php
+}
+
+/**
  * Render the options page as a tabbed dashboard: header card, vertical
- * icon rail, one tab panel per group, floating save button, then the
- * help card (outside the form).
+ * icon rail, one tab panel per group, floating save button. The guide
+ * card lives inside the fonts tab («فونت و راهنما»); see
+ * erfanpro_options_render_panel(). Classic (no-JS) saves show their
+ * result through settings_errors() at the top of the page.
  *
  * All tabs stay in ONE form and one DOM: tab switching never loses
  * unsaved input in other tabs, and without JS the rail links are
@@ -2036,6 +2250,7 @@ function erfanpro_options_render() {
 	$icons = erfanpro_options_tab_icons();
 	?>
 	<div class="wrap erfanpro-opt-wrap erfanpro-tabs">
+		<?php settings_errors( 'erfanpro_options' ); ?>
 		<div class="erfanpro-opt-header">
 			<div class="erfanpro-opt-header-main">
 				<h1><?php echo esc_html__( 'تنظیمات قالب erfanpro', 'erfanpro' ); ?></h1>
@@ -2066,19 +2281,6 @@ function erfanpro_options_render() {
 			<div class="erfanpro-save-notice" id="erfanpro-save-notice" role="alert" aria-live="polite" hidden></div>
 			<?php submit_button(); ?>
 		</form>
-		<div class="erfanpro-opt-help">
-			<h2><?php esc_html_e( 'مواردی که در این صفحه نیستند، کجا ویرایش می‌شوند؟', 'erfanpro' ); ?></h2>
-			<ul>
-				<li><?php esc_html_e( 'فهرست‌ها (مگامنو، موبایل، لندینگ): ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>"><?php esc_html_e( 'نمایش ← فهرست‌ها', 'erfanpro' ); ?></a></li>
-				<li><?php esc_html_e( 'لوگو: ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>"><?php esc_html_e( 'نمایش ← سفارشی‌سازی', 'erfanpro' ); ?></a></li>
-				<li><?php esc_html_e( 'سبد، تسویه و حساب کاربری: ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings' ) ); ?>"><?php esc_html_e( 'ووکامرس ← تنظیمات', 'erfanpro' ); ?></a></li>
-				<li><?php esc_html_e( 'لیدهای فرم تماس: ', 'erfanpro' ); ?><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=erfanpro_lead' ) ); ?>"><?php esc_html_e( 'لیدهای تماس', 'erfanpro' ); ?></a></li>
-				<li><?php esc_html_e( 'شمارنده بازدید هر نوشته: دکمه بازنشانی در جعبه «بازدیدها» در صفحه ویرایش همان نوشته.', 'erfanpro' ); ?></li>
-				<li><?php esc_html_e( 'لینک‌های دستی نسخه انگلیسی/عربی: جعبه «نسخه‌های زبانی» در صفحه ویرایش همان نوشته یا برگه.', 'erfanpro' ); ?></li>
-				<li><?php esc_html_e( 'محتوای ادیتور برگه‌ها (از جمله بخش نیروهای فروش در تماس با ما): برگه‌ها ← ویرایش برگه مربوط.', 'erfanpro' ); ?></li>
-				<li><?php esc_html_e( 'مشخصات محصول، پروژه و خدمت (متا): صفحه ویرایش همان محصول، پروژه یا خدمت.', 'erfanpro' ); ?></li>
-			</ul>
-		</div>
 	</div>
 	<?php
 }
@@ -2103,6 +2305,9 @@ function erfanpro_options_render_panel( $tab_id, $group ) {
 		<?php
 		foreach ( $group['sections'] as $section_id ) {
 			erfanpro_options_render_section( $section_id );
+		}
+		if ( 'fonts' === $tab_id ) {
+			erfanpro_options_guide_card();
 		}
 		?>
 	</section>

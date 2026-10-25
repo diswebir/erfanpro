@@ -11,6 +11,11 @@
  * - Unchecked checkboxes inside the active tab are sent as '0' so the
  *   sanitizers read them as off; fields from other tabs are never
  *   sent, so they are never offed.
+ * - Fonts tab: picking a file validates its extension and previews it
+ *   live (FontFace from the chosen file); after a successful save the
+ *   server returns the saved fonts' status and the cards refresh
+ *   (name/format/size, badge, preview) without a reload, and any
+ *   font-upload rejection is shown in the notice.
  * - Vanilla JS, zero external requests.
  */
 (function () {
@@ -111,6 +116,190 @@
 		saveBtn.textContent = data.save;
 	}
 
+	/* ---- fonts tab: live preview + no-reload refresh ---- */
+	var FONT_EXTS = ['woff2', 'woff', 'ttf', 'otf'];
+	var FONT_CSS_FORMATS = { woff2: 'woff2', woff: 'woff', ttf: 'truetype', otf: 'opentype' };
+
+	function fontPreviewFamily(slot) {
+		return 'ErfanproPreview' + ('display' === slot ? 'Display' : 'Primary');
+	}
+
+	function fontFallback(slot) {
+		return 'display' === slot
+			? "'ErfanproPreviewDisplay', 'Lalezar', 'Vazirmatn', Tahoma, sans-serif"
+			: "'ErfanproPreviewPrimary', 'Vazirmatn', Tahoma, sans-serif";
+	}
+
+	function fontCard(slot) {
+		return wrap.querySelector('[data-erfanpro-font-card="' + slot + '"]');
+	}
+
+	function fontExt(fileName) {
+		var parts = (fileName || '').split('.');
+		return parts.length > 1 ? parts.pop().toLowerCase() : '';
+	}
+
+	function showFontError(card, message) {
+		if (!card) {
+			return;
+		}
+		var el = card.querySelector('[data-erfanpro-font-error]');
+		if (el) {
+			el.textContent = message;
+			el.hidden = false;
+		}
+	}
+
+	function hideFontError(card) {
+		if (!card) {
+			return;
+		}
+		var el = card.querySelector('[data-erfanpro-font-error]');
+		if (el) {
+			el.textContent = '';
+			el.hidden = true;
+		}
+	}
+
+	function showFontSelected(card, message) {
+		if (!card) {
+			return;
+		}
+		var el = card.querySelector('[data-erfanpro-font-selected]');
+		if (el) {
+			el.textContent = message;
+			el.hidden = !message;
+		}
+	}
+
+	/* Load a font file (File object or saved URL) under the preview
+	 * family name and apply it to that slot's preview lines. The
+	 * preview family is separate from Vazirmatn/Lalezar, so the swap
+	 * is deterministic and never touches the page's real fonts. */
+	function applyPreviewFont(slot, src, ext) {
+		var card = fontCard(slot);
+		if (!card || !window.FontFace || !document.fonts) {
+			return;
+		}
+		var family = fontPreviewFamily(slot);
+		var format = FONT_CSS_FORMATS[ext] || 'woff2';
+		var face;
+		try {
+			face = new FontFace(family, "url('" + src + "') format('" + format + "')");
+		} catch (e) {
+			return;
+		}
+		face.load().then(function (loaded) {
+			try {
+				document.fonts.add(loaded);
+			} catch (e) { /* already added: keep going */ }
+			var els = card.querySelectorAll('[data-erfanpro-font-preview="' + slot + '"]');
+			els.forEach(function (el) {
+				el.style.fontFamily = fontFallback(slot);
+			});
+		}).catch(function () {
+			showFontError(card, data.fontInvalid);
+		});
+	}
+
+	function clearPreviewFont(slot) {
+		var card = fontCard(slot);
+		if (!card) {
+			return;
+		}
+		var els = card.querySelectorAll('[data-erfanpro-font-preview="' + slot + '"]');
+		els.forEach(function (el) {
+			el.style.fontFamily = '';
+		});
+	}
+
+	/* Refresh one font card from the AJAX response (no reload):
+	 * badge, file/format/size, remove row, preview font, and the
+	 * file input is cleared so the same file can be picked again. */
+	function refreshFontCard(slot, info) {
+		var card = fontCard(slot);
+		if (!card || !info) {
+			return;
+		}
+		var badge = card.querySelector('[data-erfanpro-font-meta="badge"]');
+		if (badge) {
+			badge.textContent = info.custom ? (data.fontCustom || 'سفارشی') : (data.fontDefault || 'پیش‌فرض');
+			badge.classList.toggle('is-custom', !!info.custom);
+			badge.classList.toggle('is-default', !info.custom);
+		}
+		var fileEl = card.querySelector('[data-erfanpro-font-meta="file"]');
+		if (fileEl) {
+			fileEl.textContent = info.custom && info.file ? info.file : '—';
+		}
+		var formatEl = card.querySelector('[data-erfanpro-font-meta="format"]');
+		if (formatEl) {
+			formatEl.textContent = info.custom && info.format ? info.format.toUpperCase() : 'WOFF2';
+		}
+		var sizeEl = card.querySelector('[data-erfanpro-font-meta="size"]');
+		if (sizeEl) {
+			sizeEl.textContent = info.custom && info.size_human ? info.size_human : '—';
+		}
+		var removeRow = card.querySelector('[data-erfanpro-font-remove]');
+		if (removeRow) {
+			removeRow.hidden = !info.custom;
+			var box = removeRow.querySelector('input[type="checkbox"]');
+			if (box) {
+				box.checked = false;
+			}
+		}
+		var fileInput = card.querySelector('input[type="file"]');
+		if (fileInput) {
+			fileInput.value = '';
+		}
+		showFontSelected(card, '');
+		hideFontError(card);
+		clearPreviewFont(slot);
+		if (info.custom && info.url) {
+			applyPreviewFont(slot, info.url, fontExt(info.file));
+		}
+	}
+
+	function refreshFontCards(fonts) {
+		if (!fonts) {
+			return;
+		}
+		if (fonts.primary) {
+			refreshFontCard('primary', fonts.primary);
+		}
+		if (fonts.display) {
+			refreshFontCard('display', fonts.display);
+		}
+	}
+
+	/* File picked but not saved yet: validate the extension and show
+	 * a live preview of the chosen file right away. */
+	function bindFontInputs() {
+		var inputs = wrap.querySelectorAll('input[type="file"][data-erfanpro-font-file]');
+		inputs.forEach(function (input) {
+			input.addEventListener('change', function () {
+				var slot = input.getAttribute('data-erfanpro-font-file');
+				var card = fontCard(slot);
+				var file = input.files && input.files[0];
+				if (!file) {
+					showFontSelected(card, '');
+					return;
+				}
+				if (FONT_EXTS.indexOf(fontExt(file.name)) === -1) {
+					showFontError(card, data.fontInvalid);
+					showFontSelected(card, '');
+					input.value = '';
+					return;
+				}
+				hideFontError(card);
+				var label = (data.fontSelected || 'فایل انتخاب‌شده: %s — هنوز ذخیره نشده است.').replace('%s', file.name);
+				showFontSelected(card, label);
+				if (window.URL && URL.createObjectURL) {
+					applyPreviewFont(slot, URL.createObjectURL(file), fontExt(file.name));
+				}
+			});
+		});
+	}
+
 	function collectFields(panel) {
 		var fd = new FormData();
 		fd.append('action', 'erfanpro_save_tab');
@@ -179,6 +368,14 @@
 					if (json && json.success) {
 						saveBtn.textContent = data.saved;
 						saveBtn.classList.add('is-saved');
+						if (json.data) {
+							refreshFontCards(json.data.fonts);
+							if (json.data.font_errors && json.data.font_errors.length) {
+								showNotice((data.fontNotSaved || 'تب ذخیره شد، اما فونت ذخیره نشد:') + ' ' + json.data.font_errors.join(' '), true);
+								revertTimer = window.setTimeout(restoreButton, 5000);
+								return;
+							}
+						}
 						revertTimer = window.setTimeout(restoreButton, 3000);
 					} else {
 						var msg = (json && json.data && json.data.message) ? json.data.message : data.error;
@@ -205,6 +402,7 @@
 		if (tab) {
 			activate(tab, true);
 		}
+		bindFontInputs();
 	}
 
 	if ('loading' === document.readyState) {
