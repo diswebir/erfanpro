@@ -4,11 +4,14 @@
  * - Sidebar with 18 page items; clicking one shows only that page's
  *   panel. The active page persists in the URL hash and in
  *   localStorage (first visit: «صفحه خانه»), so a plain-submit reload
- *   (move/reset, classic save) reopens the same page.
+ *   (reset, classic save) reopens the same page.
  * - Drag-and-drop reorder inside a panel (HTML5 DnD, Vanilla JS):
  *   dropping renumbers the hidden order inputs and the visible
  *   position badges, so the next save (floating AJAX save or classic
- *   submit) stores the new order. Up/down buttons stay for keyboard.
+ *   submit) stores the new order. Up/down buttons reorder in place
+ *   with a click (no reload); without JS they stay plain submits
+ *   and the server-side move handles them. They also stay for
+ *   keyboard users, who cannot drag.
  * - Toggle switches are real checkboxes: flipping one dims the row,
  *   shows the «غیرفعال» badge, and updates the panel/sidebar/summary
  *   counts.
@@ -245,6 +248,50 @@
 				return;
 			}
 			ev.preventDefault();
+			renumber(list);
+		});
+	});
+
+	/* ---- move buttons: reorder in place, no reload ----
+	 * With JS a click only swaps the row with its neighbour and
+	 * renumbers (same as drag-and-drop); the new order is saved by
+	 * the next save (floating AJAX save or classic submit). Without
+	 * JS the buttons stay plain submits and the server-side move at
+	 * sections.php:401 handles them. Disabled buttons do nothing
+	 * (clicks on them do not fire, but guard anyway). If a button
+	 * somehow has no neighbour to swap with, the click is left
+	 * alone so the plain submit still works as a fallback. ---- */
+	panels.forEach(function (panel) {
+		var list = panel.querySelector('[data-erfanpro-sm-list]');
+		if (!list) {
+			return;
+		}
+		list.addEventListener('click', function (ev) {
+			var btn = ev.target.closest ? ev.target.closest('.erfanpro-sm-move') : null;
+			if (!btn || btn.disabled) {
+				return;
+			}
+			var row = btn.closest('.erfanpro-sm-row');
+			if (!row) {
+				return;
+			}
+			var moves = row.querySelectorAll('.erfanpro-sm-move');
+			var up = moves[0] === btn;
+			if (up) {
+				var prev = row.previousElementSibling;
+				if (!prev) {
+					return;
+				}
+				ev.preventDefault();
+				list.insertBefore(row, prev);
+			} else {
+				var next = row.nextElementSibling;
+				if (!next) {
+					return;
+				}
+				ev.preventDefault();
+				list.insertBefore(row, next.nextSibling);
+			}
 			renumber(list);
 		});
 	});

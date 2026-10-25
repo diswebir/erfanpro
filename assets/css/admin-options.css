@@ -318,6 +318,72 @@
 	max-width: 100%;
 }
 
+/* Modern, readable text controls across the settings page: comfortable
+ * padding, rounded corners, quiet gray borders and a green focus ring
+ * (Vazirmatn is inherited from .erfanpro-opt-wrap; the focus ring
+ * matches the manager search box). Only text-like controls are
+ * touched: checkboxes/radios keep core styling, the manager search
+ * box and the font dropzone keep their own rules. */
+.erfanpro-opt-wrap input[type="text"],
+.erfanpro-opt-wrap input[type="url"],
+.erfanpro-opt-wrap input[type="email"],
+.erfanpro-opt-wrap input[type="tel"],
+.erfanpro-opt-wrap input[type="number"],
+.erfanpro-opt-wrap textarea,
+.erfanpro-opt-wrap select {
+	padding: 8px 12px;
+	font-size: 13px;
+	line-height: 1.7;
+	color: #0f172a;
+	background: #fff;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-opt-wrap input[type="text"]:hover,
+.erfanpro-opt-wrap input[type="url"]:hover,
+.erfanpro-opt-wrap input[type="email"]:hover,
+.erfanpro-opt-wrap input[type="tel"]:hover,
+.erfanpro-opt-wrap input[type="number"]:hover,
+.erfanpro-opt-wrap textarea:hover,
+.erfanpro-opt-wrap select:hover {
+	border-color: #94a3b8;
+}
+
+.erfanpro-opt-wrap input[type="text"]:focus,
+.erfanpro-opt-wrap input[type="url"]:focus,
+.erfanpro-opt-wrap input[type="email"]:focus,
+.erfanpro-opt-wrap input[type="tel"]:focus,
+.erfanpro-opt-wrap input[type="number"]:focus,
+.erfanpro-opt-wrap textarea:focus,
+.erfanpro-opt-wrap select:focus {
+	border-color: #059669;
+	outline: 2px solid rgba(5, 150, 105, 0.25);
+	outline-offset: 0;
+	background: #fff;
+}
+
+.erfanpro-opt-wrap textarea {
+	min-height: 90px;
+	resize: vertical;
+}
+
+.erfanpro-opt-wrap select {
+	max-width: 100%;
+}
+
+/* Tidy label/description spacing inside the cards. */
+.erfanpro-opt-section .form-table th label {
+	font-weight: 600;
+	color: #334155;
+}
+
+.erfanpro-opt-wrap .description {
+	margin-top: 6px;
+	color: #64748b;
+}
+
 /* ---- fonts tab: overview, font cards, live preview ---- */
 .erfanpro-fonts {
 	display: flex;
@@ -820,6 +886,7 @@
 	color: #005028;
 	background: #fff;
 	border-color: #cbd5e1;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .erfanpro-sm-reset svg {
@@ -830,6 +897,11 @@
 	color: #005028;
 	background: #ecfdf5;
 	border-color: #059669;
+}
+
+.erfanpro-sm-reset:active {
+	background: #d1fae5;
+	border-color: #005028;
 }
 
 .erfanpro-sm-reset:focus-visible {
@@ -995,7 +1067,7 @@
 .erfanpro-sm-moves {
 	flex: 0 0 auto;
 	display: inline-flex;
-	gap: 4px;
+	gap: 6px;
 }
 
 .erfanpro-sm-move {
@@ -1009,6 +1081,8 @@
 	background: #fff;
 	border: 1px solid #cbd5e1;
 	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .erfanpro-sm-move svg {
@@ -1018,6 +1092,13 @@
 .erfanpro-sm-move:hover:not(:disabled) {
 	background: #ecfdf5;
 	border-color: #059669;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.erfanpro-sm-move:active:not(:disabled) {
+	background: #d1fae5;
+	border-color: #005028;
+	box-shadow: none;
 }
 
 .erfanpro-sm-move:focus-visible {
@@ -1033,6 +1114,7 @@
 	border-style: dashed;
 	cursor: not-allowed;
 	opacity: 1;
+	box-shadow: none;
 }
 
 @media (max-width: 640px) {
