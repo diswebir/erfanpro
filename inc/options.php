@@ -2037,9 +2037,10 @@ function erfanpro_options_groups() {
 			'sections' => array( 'erfanpro_contact_info', 'erfanpro_catalog' ),
 		),
 		'header-footer' => array(
-			'title'    => __( 'سربرگ و پاصفحه', 'erfanpro' ),
-			'desc'     => __( 'متن‌های سربرگ و پاصفحه، نمادهای اعتماد و شبکه‌های اجتماعی.', 'erfanpro' ),
-			'sections' => array( 'erfanpro_header_texts', 'erfanpro_footer_texts', 'erfanpro_trust', 'erfanpro_socials' ),
+			'title'         => __( 'سربرگ و پاصفحه', 'erfanpro' ),
+			'desc'          => __( 'متن‌های سربرگ و پاصفحه، نمادهای اعتماد و شبکه‌های اجتماعی.', 'erfanpro' ),
+			'sections'      => array( 'erfanpro_header_texts', 'erfanpro_footer_texts', 'erfanpro_trust', 'erfanpro_socials' ),
+			'inner_sidebar' => true,
 		),
 		'home'          => array(
 			'title'    => __( 'خانه', 'erfanpro' ),
