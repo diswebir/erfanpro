@@ -2238,16 +2238,16 @@ function erfanpro_options_guide_card() {
 
 /**
  * Render the options page as a tabbed dashboard: header card, vertical
- * icon rail, one tab panel per group, floating save button. The guide
- * card lives inside the fonts tab («فونت و راهنما»); see
+ * icon rail, one tab panel per group, a single floating save button.
+ * The guide card lives inside the fonts tab («فونت و راهنما»); see
  * erfanpro_options_render_panel(). Classic (no-JS) saves show their
  * result through settings_errors() at the top of the page.
  *
  * All tabs stay in ONE form and one DOM: tab switching never loses
  * unsaved input in other tabs, and without JS the rail links are
  * plain anchors and the form submits to options.php exactly like
- * before (the floating button is a submit button; admin-tabs.js only
- * intercepts its click to save the active tab via AJAX).
+ * before (the single floating button is a submit button; admin-tabs.js
+ * only intercepts its click to save the active tab via AJAX).
  */
 function erfanpro_options_render() {
 	if ( ! current_user_can( 'edit_theme_options' ) ) {
@@ -2286,7 +2286,6 @@ function erfanpro_options_render() {
 			</div>
 			<button type="submit" id="erfanpro-floating-save" class="erfanpro-floating-save"><?php esc_html_e( 'ذخیرهٔ تب فعال', 'erfanpro' ); ?></button>
 			<div class="erfanpro-save-notice" id="erfanpro-save-notice" role="alert" aria-live="polite" hidden></div>
-			<?php submit_button(); ?>
 		</form>
 	</div>
 	<?php
