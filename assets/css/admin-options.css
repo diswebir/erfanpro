@@ -733,7 +733,11 @@
 	color: #0f172a;
 }
 
-.erfanpro-sm-search {
+/* WP core's `input[type=search]` (0,1,1) beats a single class (0,1,0)
+ * for border/radius, and core's `input[type=search]:focus` (0,2,1)
+ * paints a blue border + blue 1.5px ring — so the search box is scoped
+ * under the manager (0,2,0 / 0,3,0) and owns its green focus ring. */
+.erfanpro-sm-manager .erfanpro-sm-search {
 	width: 100%;
 	padding: 7px 12px;
 	font-size: 13px;
@@ -741,12 +745,14 @@
 	background: #f8fafc;
 	border: 1px solid #e2e8f0;
 	border-radius: 8px;
+	box-shadow: none;
 }
 
-.erfanpro-sm-search:focus {
+.erfanpro-sm-manager .erfanpro-sm-search:focus {
 	border-color: #059669;
 	outline: 2px solid rgba(5, 150, 105, 0.25);
 	outline-offset: 0;
+	box-shadow: 0 0 0 1px #059669;
 	background: #fff;
 }
 
@@ -796,15 +802,22 @@
 	text-decoration: none;
 	border-radius: 8px;
 	border-inline-start: 3px solid transparent;
+	transition: background 0.15s ease, color 0.15s ease;
 }
 
 .erfanpro-sm-nav-link:hover {
 	background: #f8fafc;
 }
 
-.erfanpro-sm-nav-link:focus-visible {
+/* WP core's `a:focus` (0,1,1) paints a blue box-shadow ring; this
+ * rule (0,2,0) wins for both outline and box-shadow. It covers
+ * :focus as well as :focus-visible, so a mouse-click focus never
+ * shows core blue either. */
+.erfanpro-sm-nav-link:focus-visible,
+.erfanpro-sm-nav-link:focus {
 	outline: 2px solid #059669;
 	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
 }
 
 .erfanpro-sm-nav-link.is-active {
@@ -859,6 +872,7 @@
 .erfanpro-sm-panel-head {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: 10px;
 	padding: 10px 12px;
 	background: #f8fafc;
@@ -878,16 +892,35 @@
 	white-space: nowrap;
 }
 
+/* The reset/move buttons deliberately carry NO WordPress `button`
+ * class: core's `.wp-core-ui .button` (0,2,0) sets color and
+ * border-color from --wp-admin-theme-color (#3858e9 blue), so it beat
+ * the theme's single-class rules (0,1,0) in every state — blue border
+ * and blue icon at rest, darker blue (#183ad6) on hover/active, a blue
+ * 1.5px focus ring, and an !important disabled rule no scoping could
+ * beat. With the class gone, no core button rule matches at all and
+ * the theme owns the full box model + every state below. */
 .erfanpro-sm-reset {
 	flex: 0 0 auto;
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
 	margin-inline-start: auto;
+	min-height: 34px;
+	padding: 0 12px;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
 	color: #005028;
 	background: #fff;
-	border-color: #cbd5e1;
-	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .erfanpro-sm-reset svg {
@@ -905,9 +938,24 @@
 	border-color: #005028;
 }
 
+.erfanpro-sm-reset:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
+}
+
 .erfanpro-sm-reset:focus-visible {
 	outline: 2px solid #059669;
 	outline-offset: 2px;
+}
+
+.erfanpro-sm-reset:disabled {
+	color: #cbd5e1;
+	background: #f1f5f9;
+	border-color: #e2e8f0;
+	border-style: dashed;
+	cursor: not-allowed;
+	opacity: 1;
+	box-shadow: none;
 }
 
 /* ---- rows ---- */
@@ -933,6 +981,7 @@
 
 .erfanpro-sm-row:hover {
 	background: #f8fafc;
+	border-color: #e2e8f0;
 }
 
 .erfanpro-sm-row.is-dragging {
@@ -951,6 +1000,10 @@
 	color: #94a3b8;
 	cursor: grab;
 	touch-action: none;
+}
+
+.erfanpro-sm-handle:hover {
+	color: #64748b;
 }
 
 .erfanpro-sm-handle:active {
@@ -1078,6 +1131,11 @@
 	min-width: 34px;
 	height: 34px;
 	padding: 0;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 13px;
+	line-height: 1;
 	color: #005028;
 	background: #fff;
 	border: 1px solid #cbd5e1;
@@ -1100,6 +1158,11 @@
 	background: #d1fae5;
 	border-color: #005028;
 	box-shadow: none;
+}
+
+.erfanpro-sm-move:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
 }
 
 .erfanpro-sm-move:focus-visible {
