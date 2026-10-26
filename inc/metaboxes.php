@@ -85,8 +85,8 @@ function erfanpro_field_media_single( $name, $label, $attachment_id, $desc = '' 
 		<label><?php echo esc_html( $label ); ?></label>
 		<div class="erfanpro-media-row">
 			<input type="hidden" data-erfanpro-media-id name="erfanpro_meta[<?php echo esc_attr( $name ); ?>]" value="<?php echo esc_attr( $attachment_id ? (string) $attachment_id : '' ); ?>" />
-			<button type="button" class="button" data-erfanpro-media-select data-title="<?php echo esc_attr( $label ); ?>"><?php esc_html_e( 'انتخاب فایل', 'erfanpro' ); ?></button>
-			<button type="button" class="button-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
+			<button type="button" class="erfanpro-btn" data-erfanpro-media-select data-title="<?php echo esc_attr( $label ); ?>"><?php esc_html_e( 'انتخاب فایل', 'erfanpro' ); ?></button>
+			<button type="button" class="erfanpro-btn-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف', 'erfanpro' ); ?></button>
 		</div>
 		<div data-erfanpro-media-preview style="<?php echo $preview ? '' : 'display:none'; ?>"><?php echo $preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 		<?php if ( $desc ) : ?><span class="description"><?php echo esc_html( $desc ); ?></span><?php endif; ?>
@@ -115,8 +115,8 @@ function erfanpro_field_media_multi( $name, $label, $ids, $desc = '' ) {
 		<label><?php echo esc_html( $label ); ?></label>
 		<div class="erfanpro-media-row">
 			<input type="hidden" data-erfanpro-media-id name="erfanpro_meta[<?php echo esc_attr( $name ); ?>]" value="<?php echo esc_attr( implode( ',', $ids ) ); ?>" />
-			<button type="button" class="button" data-erfanpro-media-select data-title="<?php echo esc_attr( $label ); ?>"><?php esc_html_e( 'انتخاب تصاویر', 'erfanpro' ); ?></button>
-			<button type="button" class="button-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف همه', 'erfanpro' ); ?></button>
+			<button type="button" class="erfanpro-btn" data-erfanpro-media-select data-title="<?php echo esc_attr( $label ); ?>"><?php esc_html_e( 'انتخاب تصاویر', 'erfanpro' ); ?></button>
+			<button type="button" class="erfanpro-btn-link" data-erfanpro-media-remove><?php esc_html_e( 'حذف همه', 'erfanpro' ); ?></button>
 		</div>
 		<div data-erfanpro-media-preview style="<?php echo $preview ? '' : 'display:none'; ?>"><?php echo $preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 		<?php if ( $desc ) : ?><span class="description"><?php echo esc_html( $desc ); ?></span><?php endif; ?>
@@ -155,7 +155,7 @@ function erfanpro_field_repeater( $key, $label, $items, $subfields, $add_label =
 			}
 			echo '</div>';
 		}
-		echo '<button type="button" class="button erfanpro-remove" data-erfanpro-remove aria-label="' . esc_attr__( 'حذف ردیف', 'erfanpro' ) . '">✕</button>';
+		echo '<button type="button" class="erfanpro-btn-remove erfanpro-remove" data-erfanpro-remove aria-label="' . esc_attr__( 'حذف ردیف', 'erfanpro' ) . '">✕</button>';
 		echo '</div>';
 	};
 	?>
@@ -169,7 +169,7 @@ function erfanpro_field_repeater( $key, $label, $items, $subfields, $add_label =
 			?>
 		</div>
 		<script type="text/html" data-erfanpro-template><?php $render_row( '__i__', array() ); ?></script>
-		<button type="button" class="button" data-erfanpro-add><?php echo esc_html( $add_label ); ?></button>
+		<button type="button" class="erfanpro-btn" data-erfanpro-add><?php echo esc_html( $add_label ); ?></button>
 	</div>
 	<?php
 }

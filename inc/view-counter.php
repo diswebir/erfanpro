@@ -111,7 +111,7 @@ function erfanpro_views_box( $post ) {
 				<span class="erfanpro-view-num"><?php echo esc_html( number_format_i18n( absint( get_post_meta( $id, 'number-view', true ) ) ) ); ?></span>
 			</p>
 		<?php endif; ?>
-		<button type="button" class="button" id="erfanpro-reset-views" data-post-id="<?php echo esc_attr( (string) $id ); ?>">
+		<button type="button" class="erfanpro-btn" id="erfanpro-reset-views" data-post-id="<?php echo esc_attr( (string) $id ); ?>">
 			<?php esc_html_e( 'ریست شمارنده', 'erfanpro' ); ?>
 		</button>
 		<span id="erfanpro-reset-views-result" aria-live="polite"></span>

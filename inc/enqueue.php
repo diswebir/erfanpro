@@ -292,11 +292,15 @@ function erfanpro_admin_assets( $hook ) {
 		return;
 	}
 	wp_enqueue_media();
+	// Version is the file mtime, not ERFANPRO_VERSION: admin-metabox.css
+	// changed across builds while the constant stayed '0.1.0', so browsers
+	// kept serving stale cached files under the same ?ver= URL — the same
+	// stale-cache root cause fixed for admin-options.css in 3a72a20.
 	wp_enqueue_style(
 		'erfanpro-admin',
 		ERFANPRO_URI . '/assets/css/admin-metabox.css',
 		array(),
-		ERFANPRO_VERSION
+		filemtime( ERFANPRO_DIR . '/assets/css/admin-metabox.css' )
 	);
 	if ( $is_settings_screen ) {
 		// Versions are file mtimes, not the theme constant: the admin

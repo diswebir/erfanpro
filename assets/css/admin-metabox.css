@@ -24,6 +24,153 @@
 .erfanpro-views-box p { margin: 0 0 8px; }
 .erfanpro-views-box .erfanpro-view-num { font-size: 20px; font-weight: 700; }
 #erfanpro-reset-views-result { margin-inline-start: 8px; }
+
+/* Theme buttons (df6467a pattern, extended to metaboxes): core's
+ * `.wp-core-ui .button` paints WP blue (#3858e9) and its disabled
+ * state uses `!important`, so metabox buttons carry NO core class —
+ * the theme owns the full box model + every state. JS hooks are the
+ * data-erfanpro-* attributes / element IDs, never the class, so
+ * dropping the class changes no behavior. Same palette as the
+ * settings tabs: gray border, dark-green text, pale-green hover,
+ * green focus ring, muted-red remove actions. Defined here (not
+ * admin-options.css) because post screens load only this file
+ * (enqueue.php:296); the settings page loads both, with identical
+ * values, so there is no conflict. */
+.erfanpro-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 34px;
+	padding: 0 14px;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	color: #005028;
+	background: #fff;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-btn:hover {
+	background: #ecfdf5;
+	border-color: #059669;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.erfanpro-btn:active {
+	background: #d1fae5;
+	border-color: #005028;
+	box-shadow: none;
+}
+
+.erfanpro-btn:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
+}
+
+.erfanpro-btn:focus-visible {
+	outline: 2px solid #059669;
+	outline-offset: 2px;
+}
+
+.erfanpro-btn:disabled {
+	color: #cbd5e1;
+	background: #f1f5f9;
+	border-color: #e2e8f0;
+	border-style: dashed;
+	cursor: not-allowed;
+	opacity: 1;
+	box-shadow: none;
+}
+
+.erfanpro-btn-remove {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 34px;
+	height: 34px;
+	padding: 0;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 15px;
+	line-height: 1;
+	color: #64748b;
+	background: #fff;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-btn-remove:hover {
+	background: #fef2f2;
+	border-color: #fca5a5;
+	color: #b91c1c;
+}
+
+.erfanpro-btn-remove:active {
+	background: #fee2e2;
+	border-color: #f87171;
+	box-shadow: none;
+}
+
+.erfanpro-btn-remove:focus {
+	border-color: #059669;
+	box-shadow: 0 0 0 1px #059669;
+}
+
+.erfanpro-btn-remove:focus-visible {
+	outline: 2px solid #059669;
+	outline-offset: 2px;
+}
+
+.erfanpro-btn-remove:disabled {
+	color: #cbd5e1;
+	background: #f1f5f9;
+	border-color: #e2e8f0;
+	border-style: dashed;
+	cursor: not-allowed;
+	opacity: 1;
+	box-shadow: none;
+}
+
+.erfanpro-btn-link {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 6px;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: #64748b;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.7;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erfanpro-btn-link:hover {
+	background: #fef2f2;
+	color: #991b1b;
+	text-decoration: underline;
+}
+
+.erfanpro-btn-link:focus {
+	outline: 2px solid #059669;
+	outline-offset: 1px;
+	box-shadow: 0 0 0 1px #059669;
+}
 @media (max-width: 782px) {
 	.erfanpro-metabox-grid { grid-template-columns: 1fr; }
 	.erfanpro-repeater-row { flex-direction: column; }
