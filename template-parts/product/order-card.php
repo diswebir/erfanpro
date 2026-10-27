@@ -17,6 +17,11 @@ $erfanpro_badges = erfanpro_section_texts( 'product_badges' );
 
 /* The assembler sets $erfanpro_product (WC_Product). */
 $product    = isset( $args['erfanpro_product'] ) && $args['erfanpro_product'] instanceof WC_Product ? $args['erfanpro_product'] : null;
+if ( ! $product && function_exists( 'wc_get_product' ) ) {
+	/* Defense in depth: if the assembler did not pass the product,
+	 * load it from the queried object instead of rendering inquiry. */
+	$product = wc_get_product( get_queried_object_id() );
+}
 $product_id = $product ? $product->get_id() : get_queried_object_id();
 
 $purchasable = false;

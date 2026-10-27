@@ -56,7 +56,10 @@ if ( ! $erfanpro_product ) {
 					get_template_part( 'template-parts/product/related', null, $args );
 				},
 			),
-		)
+		),
+		/* Default $args for the callbacks (showcase/related): hero and
+		 * tabs carry their own explicit 'args' and are unaffected. */
+		array( 'erfanpro_product' => $erfanpro_product )
 	);
 	?>
 </main>
