@@ -1,0 +1,2126 @@
+{
+  "generatedAt": "2026-10-27T07:46:12.884Z",
+  "baseUrl": "https://new.erfansanat.com",
+  "chrome": "/usr/bin/google-chrome",
+  "widths": [
+    360,
+    390,
+    768,
+    1920
+  ],
+  "views": [
+    "home",
+    "shop",
+    "product",
+    "projects",
+    "blog",
+    "about",
+    "contact",
+    "feedback",
+    "search"
+  ],
+  "runs": [
+    {
+      "view": "home",
+      "url": "https://new.erfansanat.com/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 11338,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 11338 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [
+        "console: Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[1",
+            "right": 456,
+            "overflow": 96
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -top-24 left-1/2 h-56 w-[32rem] -translate-x-1/2 rounded-full bg-emeral",
+            "right": 436,
+            "overflow": 76
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-16 -top-16 h-56 w-56 rounded-full bg-emerald-200/70 blur-[80px]",
+            "right": 403,
+            "overflow": 43
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          },
+          {
+            "tag": "div",
+            "cls": "absolute inset-0 -z-10",
+            "right": 371,
+            "overflow": 11
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "shop",
+      "url": "https://new.erfansanat.com/shop/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 5872,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5872 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "shopFilters": {
+          "pass": true,
+          "detail": "search=true, sort=true, pills=12, gridItems=6; after pill tap gridItems=1, overflowX=false"
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 -top-24 h-80 w-80 rounded-full bg-emerald-200/50 blur-[110px]",
+            "right": 456,
+            "overflow": 96
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": {
+          "searchVisible": true,
+          "sortVisible": true,
+          "pillsVisible": 12,
+          "gridItems": 6
+        }
+      }
+    },
+    {
+      "view": "product",
+      "url": "https://new.erfansanat.com/product/المان-نوری-حجمی-شهری/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 5728,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5728 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "orderCard": {
+          "pass": false,
+          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": 60,
+        "headerTelVisible": false,
+        "product": {
+          "variant": "inquiry",
+          "formExists": false,
+          "addToCartVisible": false,
+          "addToCartText": "",
+          "priceText": "",
+          "inquiryVisible": true
+        },
+        "shop": null
+      }
+    },
+    {
+      "view": "projects",
+      "url": "https://new.erfansanat.com/projects/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 5358,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5358 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-28 bottom-0 h-72 w-72 rounded-full bg-teal-100/60 blur-[110px]",
+            "right": 472,
+            "overflow": 112
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "blog",
+      "url": "https://new.erfansanat.com/blog/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 4755,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4755 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 488,
+            "overflow": 128
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "about",
+      "url": "https://new.erfansanat.com/درباره-ما/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 6344,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 6344 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 484
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 488,
+            "overflow": 128
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "contact",
+      "url": "https://new.erfansanat.com/تماس-با-ما/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 7097,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 7097 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 484
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 488,
+            "overflow": 128
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "feedback",
+      "url": "https://new.erfansanat.com/feedback/",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 4850,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4850 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 484
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 488,
+            "overflow": 128
+          },
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "search",
+      "url": "https://new.erfansanat.com/?s=%D9%86%D9%88%D8%B1",
+      "width": 360,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 4775,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4775 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 360 <= innerWidth 360"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "searchResults": {
+          "pass": true,
+          "detail": "h1=\"نتایج جستجو برای «نور»\", body contains term: true"
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
+            "right": 384,
+            "overflow": 24
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "home",
+      "url": "https://new.erfansanat.com/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 10362,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 10362 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[1",
+            "right": 486,
+            "overflow": 96
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -top-24 left-1/2 h-56 w-[32rem] -translate-x-1/2 rounded-full bg-emeral",
+            "right": 451,
+            "overflow": 61
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-16 -top-16 h-56 w-56 rounded-full bg-emerald-200/70 blur-[80px]",
+            "right": 433,
+            "overflow": 43
+          },
+          {
+            "tag": "div",
+            "cls": "absolute inset-0 -z-10",
+            "right": 403,
+            "overflow": 13
+          },
+          {
+            "tag": "img",
+            "cls": "h-full w-full object-cover object-center",
+            "right": 403,
+            "overflow": 13
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "shop",
+      "url": "https://new.erfansanat.com/shop/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 5626,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5626 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "shopFilters": {
+          "pass": true,
+          "detail": "search=true, sort=true, pills=12, gridItems=6; after pill tap gridItems=1, overflowX=false"
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 -top-24 h-80 w-80 rounded-full bg-emerald-200/50 blur-[110px]",
+            "right": 486,
+            "overflow": 96
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": {
+          "searchVisible": true,
+          "sortVisible": true,
+          "pillsVisible": 12,
+          "gridItems": 6
+        }
+      }
+    },
+    {
+      "view": "product",
+      "url": "https://new.erfansanat.com/product/المان-نوری-حجمی-شهری/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 5761,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5761 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "orderCard": {
+          "pass": false,
+          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": 60,
+        "headerTelVisible": false,
+        "product": {
+          "variant": "inquiry",
+          "formExists": false,
+          "addToCartVisible": false,
+          "addToCartText": "",
+          "priceText": "",
+          "inquiryVisible": true
+        },
+        "shop": null
+      }
+    },
+    {
+      "view": "projects",
+      "url": "https://new.erfansanat.com/projects/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 5363,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5363 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-28 bottom-0 h-72 w-72 rounded-full bg-teal-100/60 blur-[110px]",
+            "right": 502,
+            "overflow": 112
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "blog",
+      "url": "https://new.erfansanat.com/blog/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 4881,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4881 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 518,
+            "overflow": 128
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "about",
+      "url": "https://new.erfansanat.com/درباره-ما/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 6258,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 6258 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 454
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 518,
+            "overflow": 128
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "contact",
+      "url": "https://new.erfansanat.com/تماس-با-ما/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 6729,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 6729 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 454
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 518,
+            "overflow": 128
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "feedback",
+      "url": "https://new.erfansanat.com/feedback/",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 4654,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4654 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 454
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 518,
+            "overflow": 128
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "search",
+      "url": "https://new.erfansanat.com/?s=%D9%86%D9%88%D8%B1",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "loadMs": 4915,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4915 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 390 <= innerWidth 390"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "searchResults": {
+          "pass": true,
+          "detail": "h1=\"نتایج جستجو برای «نور»\", body contains term: true"
+        }
+      },
+      "warnings": [
+        "header phone pill hidden below sm (640px) by design — phone reachable via the mobile-menu call button"
+      ],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": [],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": false,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "home",
+      "url": "https://new.erfansanat.com/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 9370,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 9370 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[1",
+            "right": 864,
+            "overflow": 96
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-16 -top-16 h-56 w-56 rounded-full bg-emerald-200/70 blur-[80px]",
+            "right": 811,
+            "overflow": 43
+          },
+          {
+            "tag": "div",
+            "cls": "absolute inset-0 -z-10",
+            "right": 777,
+            "overflow": 9
+          },
+          {
+            "tag": "img",
+            "cls": "h-full w-full object-cover object-center",
+            "right": 777,
+            "overflow": 9
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "shop",
+      "url": "https://new.erfansanat.com/shop/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 5841,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5841 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "shopFilters": {
+          "pass": true,
+          "detail": "search=true, sort=true, pills=12, gridItems=6; after pill tap gridItems=1, overflowX=false"
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 -top-24 h-80 w-80 rounded-full bg-emerald-200/50 blur-[110px]",
+            "right": 864,
+            "overflow": 96
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": {
+          "searchVisible": true,
+          "sortVisible": true,
+          "pillsVisible": 12,
+          "gridItems": 6
+        }
+      }
+    },
+    {
+      "view": "product",
+      "url": "https://new.erfansanat.com/product/المان-نوری-حجمی-شهری/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 5675,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5675 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "orderCard": {
+          "pass": false,
+          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": 60,
+        "headerTelVisible": true,
+        "product": {
+          "variant": "inquiry",
+          "formExists": false,
+          "addToCartVisible": false,
+          "addToCartText": "",
+          "priceText": "",
+          "inquiryVisible": true
+        },
+        "shop": null
+      }
+    },
+    {
+      "view": "projects",
+      "url": "https://new.erfansanat.com/projects/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 5315,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5315 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-28 bottom-0 h-72 w-72 rounded-full bg-teal-100/60 blur-[110px]",
+            "right": 880,
+            "overflow": 112
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "blog",
+      "url": "https://new.erfansanat.com/blog/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 4679,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4679 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 896,
+            "overflow": 128
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "about",
+      "url": "https://new.erfansanat.com/درباره-ما/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 6158,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 6158 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 896,
+            "overflow": 128
+          },
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 76
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "contact",
+      "url": "https://new.erfansanat.com/تماس-با-ما/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 6249,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 6249 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 896,
+            "overflow": 128
+          },
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 76
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "feedback",
+      "url": "https://new.erfansanat.com/feedback/",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 4499,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4499 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 896,
+            "overflow": 128
+          },
+          {
+            "tag": "span",
+            "cls": "absolute -bottom-10 left-0 select-none whitespace-nowrap text-[10rem] font-black",
+            "right": 844,
+            "overflow": 76
+          }
+        ],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "search",
+      "url": "https://new.erfansanat.com/?s=%D9%86%D9%88%D8%B1",
+      "width": 768,
+      "height": 1024,
+      "httpStatus": 200,
+      "loadMs": 4461,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4461 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 768 <= innerWidth 768"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "items=7 (desktop nav links=7), opened=true, closed=true"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
+        },
+        "searchResults": {
+          "pass": true,
+          "detail": "h1=\"نتایج جستجو برای «نور»\", body contains term: true"
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "offenders": [],
+        "menuItems": 7,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "home",
+      "url": "https://new.erfansanat.com/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 8541,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 8541 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[1",
+            "right": 2016,
+            "overflow": 96
+          },
+          {
+            "tag": "div",
+            "cls": "absolute inset-0 -z-10",
+            "right": 1945,
+            "overflow": 25
+          },
+          {
+            "tag": "img",
+            "cls": "h-full w-full object-cover object-center",
+            "right": 1945,
+            "overflow": 25
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "shop",
+      "url": "https://new.erfansanat.com/shop/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 5687,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5687 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        },
+        "shopFilters": {
+          "pass": true,
+          "detail": "search=true, sort=true, pills=12, gridItems=6; after pill tap gridItems=1, overflowX=false"
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 -top-24 h-80 w-80 rounded-full bg-emerald-200/50 blur-[110px]",
+            "right": 2016,
+            "overflow": 96
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": {
+          "searchVisible": true,
+          "sortVisible": true,
+          "pillsVisible": 12,
+          "gridItems": 6
+        }
+      }
+    },
+    {
+      "view": "product",
+      "url": "https://new.erfansanat.com/product/المان-نوری-حجمی-شهری/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 5644,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 5644 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        },
+        "orderCard": {
+          "pass": false,
+          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": 60,
+        "headerTelVisible": true,
+        "product": {
+          "variant": "inquiry",
+          "formExists": false,
+          "addToCartVisible": false,
+          "addToCartText": "",
+          "priceText": "",
+          "inquiryVisible": true
+        },
+        "shop": null
+      }
+    },
+    {
+      "view": "projects",
+      "url": "https://new.erfansanat.com/projects/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 4729,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4729 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-28 bottom-0 h-72 w-72 rounded-full bg-teal-100/60 blur-[110px]",
+            "right": 2032,
+            "overflow": 112
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "blog",
+      "url": "https://new.erfansanat.com/blog/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 4670,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4670 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 2048,
+            "overflow": 128
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "about",
+      "url": "https://new.erfansanat.com/درباره-ما/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 6545,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 6545 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 2048,
+            "overflow": 128
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "contact",
+      "url": "https://new.erfansanat.com/تماس-با-ما/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 9789,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 9789 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 2048,
+            "overflow": 128
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "feedback",
+      "url": "https://new.erfansanat.com/feedback/",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 4194,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 4194 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [
+          {
+            "tag": "div",
+            "cls": "absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-400/[0.12] blur-[1",
+            "right": 2048,
+            "overflow": 128
+          }
+        ],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    },
+    {
+      "view": "search",
+      "url": "https://new.erfansanat.com/?s=%D9%86%D9%88%D8%B1",
+      "width": 1920,
+      "height": 1080,
+      "httpStatus": 200,
+      "loadMs": 8050,
+      "checks": {
+        "http": {
+          "pass": true,
+          "detail": "HTTP 200 in 8050 ms"
+        },
+        "viewportMeta": {
+          "pass": true,
+          "detail": "meta viewport: \"width=device-width, initial-scale=1\""
+        },
+        "noHorizontalScroll": {
+          "pass": true,
+          "detail": "scrollWidth 1920 <= innerWidth 1920"
+        },
+        "mobileMenu": {
+          "pass": true,
+          "detail": "desktop width — hamburger hidden by design (xl breakpoint)"
+        },
+        "phoneReachable": {
+          "pass": true,
+          "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
+        },
+        "searchResults": {
+          "pass": true,
+          "detail": "h1=\"نتایج جستجو برای «نور»\", body contains term: true"
+        }
+      },
+      "warnings": [],
+      "jsErrors": [],
+      "data": {
+        "viewportMeta": "width=device-width, initial-scale=1",
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "offenders": [],
+        "menuItems": null,
+        "desktopNavLinks": 7,
+        "productId": null,
+        "headerTelVisible": true,
+        "product": null,
+        "shop": null
+      }
+    }
+  ],
+  "summary": {
+    "total": 36,
+    "passed": 32,
+    "failed": 4,
+    "warnings": 18
+  }
+}
