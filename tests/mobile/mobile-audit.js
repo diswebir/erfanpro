@@ -191,7 +191,12 @@ async function checkView( page, view, vp ) {
 		if ( document.body.classList.contains( 'single-product' ) || document.querySelector( 'form.cart' ) ) {
 			const form = document.querySelector( 'form.cart' );
 			const addBtn = document.querySelector( '.single_add_to_cart_button' );
-			const price = document.querySelector( '.summary .price, .product .price' );
+			/* The theme's custom order card has no stock `.summary` /
+			 * `.product` wrapper, so the stock selectors never match:
+			 * its price is the standard `woocommerce-Price-amount`
+			 * span inside the card (the only one on the page when the
+			 * product is priced). Keep the stock selectors first. */
+			const price = document.querySelector( '.summary .price, .product .price, .woocommerce-Price-amount' );
 			/* D3 automatic hybrid: priced → purchasable card (form.cart),
 			 * unpriced → inquiry card ("تماس بگیرید" + phone/WhatsApp).
 			 * The variant is recorded so the verdict can be judged

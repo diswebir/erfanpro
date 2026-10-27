@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T07:46:12.884Z",
+  "generatedAt": "2026-10-27T08:17:37.287Z",
   "baseUrl": "https://new.erfansanat.com",
   "chrome": "/usr/bin/google-chrome",
   "widths": [
@@ -26,11 +26,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 11338,
+      "loadMs": 9690,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 11338 ms"
+          "detail": "HTTP 200 in 9690 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -80,15 +80,15 @@
           },
           {
             "tag": "div",
-            "cls": "absolute top-[32%] -left-32 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur",
-            "right": 384,
-            "overflow": 24
+            "cls": "absolute inset-0 -z-10",
+            "right": 385,
+            "overflow": 25
           },
           {
-            "tag": "div",
-            "cls": "absolute inset-0 -z-10",
-            "right": 371,
-            "overflow": 11
+            "tag": "img",
+            "cls": "h-full w-full object-cover object-center",
+            "right": 385,
+            "overflow": 25
           }
         ],
         "menuItems": 7,
@@ -105,11 +105,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 5872,
+      "loadMs": 5365,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5872 ms"
+          "detail": "HTTP 200 in 5365 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -173,11 +173,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 5728,
+      "loadMs": 9428,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5728 ms"
+          "detail": "HTTP 200 in 9428 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -196,8 +196,8 @@
           "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
         },
         "orderCard": {
-          "pass": false,
-          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+          "pass": true,
+          "detail": "variant=purchasable, form=true, add-to-cart visible=true (\"افزودن به سبد خرید\"), price=\"تومان85,000,000.00\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
         }
       },
       "warnings": [
@@ -221,12 +221,12 @@
         "productId": 60,
         "headerTelVisible": false,
         "product": {
-          "variant": "inquiry",
-          "formExists": false,
-          "addToCartVisible": false,
-          "addToCartText": "",
-          "priceText": "",
-          "inquiryVisible": true
+          "variant": "purchasable",
+          "formExists": true,
+          "addToCartVisible": true,
+          "addToCartText": "افزودن به سبد خرید",
+          "priceText": "تومان85,000,000.00",
+          "inquiryVisible": false
         },
         "shop": null
       }
@@ -237,11 +237,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 5358,
+      "loadMs": 4850,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5358 ms"
+          "detail": "HTTP 200 in 4850 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -296,11 +296,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 4755,
+      "loadMs": 4673,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4755 ms"
+          "detail": "HTTP 200 in 4673 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -355,11 +355,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 6344,
+      "loadMs": 6105,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 6344 ms"
+          "detail": "HTTP 200 in 6105 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -420,11 +420,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 7097,
+      "loadMs": 7019,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 7097 ms"
+          "detail": "HTTP 200 in 7019 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -485,11 +485,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 4850,
+      "loadMs": 4439,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4850 ms"
+          "detail": "HTTP 200 in 4439 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -550,11 +550,11 @@
       "width": 360,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 4775,
+      "loadMs": 4575,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4775 ms"
+          "detail": "HTTP 200 in 4575 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -607,11 +607,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 10362,
+      "loadMs": 10966,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 10362 ms"
+          "detail": "HTTP 200 in 10966 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -660,14 +660,14 @@
           {
             "tag": "div",
             "cls": "absolute inset-0 -z-10",
-            "right": 403,
-            "overflow": 13
+            "right": 395,
+            "overflow": 5
           },
           {
             "tag": "img",
             "cls": "h-full w-full object-cover object-center",
-            "right": 403,
-            "overflow": 13
+            "right": 395,
+            "overflow": 5
           }
         ],
         "menuItems": 7,
@@ -684,11 +684,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 5626,
+      "loadMs": 6777,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5626 ms"
+          "detail": "HTTP 200 in 6777 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -746,11 +746,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 5761,
+      "loadMs": 5792,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5761 ms"
+          "detail": "HTTP 200 in 5792 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -769,8 +769,8 @@
           "detail": "header tel href=\"tel:03191091011\" visible=false; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
         },
         "orderCard": {
-          "pass": false,
-          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+          "pass": true,
+          "detail": "variant=purchasable, form=true, add-to-cart visible=true (\"افزودن به سبد خرید\"), price=\"تومان85,000,000.00\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
         }
       },
       "warnings": [
@@ -787,12 +787,12 @@
         "productId": 60,
         "headerTelVisible": false,
         "product": {
-          "variant": "inquiry",
-          "formExists": false,
-          "addToCartVisible": false,
-          "addToCartText": "",
-          "priceText": "",
-          "inquiryVisible": true
+          "variant": "purchasable",
+          "formExists": true,
+          "addToCartVisible": true,
+          "addToCartText": "افزودن به سبد خرید",
+          "priceText": "تومان85,000,000.00",
+          "inquiryVisible": false
         },
         "shop": null
       }
@@ -803,11 +803,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 5363,
+      "loadMs": 4715,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5363 ms"
+          "detail": "HTTP 200 in 4715 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -856,11 +856,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 4881,
+      "loadMs": 4550,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4881 ms"
+          "detail": "HTTP 200 in 4550 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -909,11 +909,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 6258,
+      "loadMs": 6347,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 6258 ms"
+          "detail": "HTTP 200 in 6347 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -968,11 +968,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 6729,
+      "loadMs": 6387,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 6729 ms"
+          "detail": "HTTP 200 in 6387 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1027,11 +1027,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 4654,
+      "loadMs": 4492,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4654 ms"
+          "detail": "HTTP 200 in 4492 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1086,11 +1086,11 @@
       "width": 390,
       "height": 844,
       "httpStatus": 200,
-      "loadMs": 4915,
+      "loadMs": 4535,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4915 ms"
+          "detail": "HTTP 200 in 4535 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1136,11 +1136,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 9370,
+      "loadMs": 10686,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 9370 ms"
+          "detail": "HTTP 200 in 10686 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1181,14 +1181,14 @@
           {
             "tag": "div",
             "cls": "absolute inset-0 -z-10",
-            "right": 777,
-            "overflow": 9
+            "right": 794,
+            "overflow": 26
           },
           {
             "tag": "img",
             "cls": "h-full w-full object-cover object-center",
-            "right": 777,
-            "overflow": 9
+            "right": 794,
+            "overflow": 26
           }
         ],
         "menuItems": 7,
@@ -1205,11 +1205,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 5841,
+      "loadMs": 5942,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5841 ms"
+          "detail": "HTTP 200 in 5942 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1265,11 +1265,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 5675,
+      "loadMs": 5584,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5675 ms"
+          "detail": "HTTP 200 in 5584 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1288,8 +1288,8 @@
           "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"tel:03191091011\" text=\"مشاوره رایگان: ۰۳۱ - ۹۱۰۹۱۰۱۱\""
         },
         "orderCard": {
-          "pass": false,
-          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+          "pass": true,
+          "detail": "variant=purchasable, form=true, add-to-cart visible=true (\"افزودن به سبد خرید\"), price=\"تومان85,000,000.00\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
         }
       },
       "warnings": [],
@@ -1304,12 +1304,12 @@
         "productId": 60,
         "headerTelVisible": true,
         "product": {
-          "variant": "inquiry",
-          "formExists": false,
-          "addToCartVisible": false,
-          "addToCartText": "",
-          "priceText": "",
-          "inquiryVisible": true
+          "variant": "purchasable",
+          "formExists": true,
+          "addToCartVisible": true,
+          "addToCartText": "افزودن به سبد خرید",
+          "priceText": "تومان85,000,000.00",
+          "inquiryVisible": false
         },
         "shop": null
       }
@@ -1320,11 +1320,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 5315,
+      "loadMs": 4845,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5315 ms"
+          "detail": "HTTP 200 in 4845 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1371,11 +1371,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 4679,
+      "loadMs": 4417,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4679 ms"
+          "detail": "HTTP 200 in 4417 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1422,11 +1422,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 6158,
+      "loadMs": 5553,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 6158 ms"
+          "detail": "HTTP 200 in 5553 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1479,11 +1479,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 6249,
+      "loadMs": 6171,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 6249 ms"
+          "detail": "HTTP 200 in 6171 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1536,11 +1536,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 4499,
+      "loadMs": 4717,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4499 ms"
+          "detail": "HTTP 200 in 4717 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1593,11 +1593,11 @@
       "width": 768,
       "height": 1024,
       "httpStatus": 200,
-      "loadMs": 4461,
+      "loadMs": 4358,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4461 ms"
+          "detail": "HTTP 200 in 4358 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1641,11 +1641,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 8541,
+      "loadMs": 8090,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 8541 ms"
+          "detail": "HTTP 200 in 8090 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1673,21 +1673,21 @@
         "offenders": [
           {
             "tag": "div",
-            "cls": "absolute -right-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[1",
-            "right": 2016,
-            "overflow": 96
-          },
-          {
-            "tag": "div",
             "cls": "absolute inset-0 -z-10",
-            "right": 1945,
-            "overflow": 25
+            "right": 2049,
+            "overflow": 129
           },
           {
             "tag": "img",
             "cls": "h-full w-full object-cover object-center",
-            "right": 1945,
-            "overflow": 25
+            "right": 2049,
+            "overflow": 129
+          },
+          {
+            "tag": "div",
+            "cls": "absolute -right-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-teal-100/60 blur-[1",
+            "right": 2016,
+            "overflow": 96
           }
         ],
         "menuItems": null,
@@ -1704,11 +1704,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 5687,
+      "loadMs": 4641,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5687 ms"
+          "detail": "HTTP 200 in 4641 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1764,11 +1764,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 5644,
+      "loadMs": 5229,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 5644 ms"
+          "detail": "HTTP 200 in 5229 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1787,8 +1787,8 @@
           "detail": "header tel href=\"tel:03191091011\" visible=true; menu call href=\"—\" text=\"\""
         },
         "orderCard": {
-          "pass": false,
-          "detail": "variant=inquiry, form=false, add-to-cart visible=false (\"\"), price=\"\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
+          "pass": true,
+          "detail": "variant=purchasable, form=true, add-to-cart visible=true (\"افزودن به سبد خرید\"), price=\"تومان85,000,000.00\"; Store API: \"المان نوری حجمی شهری\" price=85,000,000 تومان, type=simple — priced product must show the purchasable card"
         }
       },
       "warnings": [],
@@ -1803,12 +1803,12 @@
         "productId": 60,
         "headerTelVisible": true,
         "product": {
-          "variant": "inquiry",
-          "formExists": false,
-          "addToCartVisible": false,
-          "addToCartText": "",
-          "priceText": "",
-          "inquiryVisible": true
+          "variant": "purchasable",
+          "formExists": true,
+          "addToCartVisible": true,
+          "addToCartText": "افزودن به سبد خرید",
+          "priceText": "تومان85,000,000.00",
+          "inquiryVisible": false
         },
         "shop": null
       }
@@ -1819,11 +1819,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 4729,
+      "loadMs": 4333,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4729 ms"
+          "detail": "HTTP 200 in 4333 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1870,11 +1870,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 4670,
+      "loadMs": 3987,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4670 ms"
+          "detail": "HTTP 200 in 3987 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1921,11 +1921,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 6545,
+      "loadMs": 5069,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 6545 ms"
+          "detail": "HTTP 200 in 5069 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -1972,11 +1972,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 9789,
+      "loadMs": 5325,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 9789 ms"
+          "detail": "HTTP 200 in 5325 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -2023,11 +2023,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 4194,
+      "loadMs": 3762,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 4194 ms"
+          "detail": "HTTP 200 in 3762 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -2074,11 +2074,11 @@
       "width": 1920,
       "height": 1080,
       "httpStatus": 200,
-      "loadMs": 8050,
+      "loadMs": 3987,
       "checks": {
         "http": {
           "pass": true,
-          "detail": "HTTP 200 in 8050 ms"
+          "detail": "HTTP 200 in 3987 ms"
         },
         "viewportMeta": {
           "pass": true,
@@ -2119,8 +2119,8 @@
   ],
   "summary": {
     "total": 36,
-    "passed": 32,
-    "failed": 4,
+    "passed": 36,
+    "failed": 0,
     "warnings": 18
   }
 }
