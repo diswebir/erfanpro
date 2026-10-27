@@ -68,7 +68,11 @@ $trust_svgs = array(
 			<?php if ( $purchasable && $product ) : ?>
 				<?php
 				/* WooCommerce add-to-cart (quantity + button, or the
-				 * variation form) in the reference card style. */
+				 * variation form) in the reference card style.
+				 * It reads the GLOBAL $product, which the stock loop
+				 * normally sets — this assembler bypasses the loop,
+				 * so publish the local product globally first. */
+				$GLOBALS['product'] = $product;
 				woocommerce_template_single_add_to_cart();
 				?>
 			<?php else : ?>
